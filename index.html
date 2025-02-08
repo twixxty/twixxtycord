@@ -17,8 +17,8 @@
 
 @media (max-width: 600px) {
     #pfp {
-        width: 50px !important;
-        height: 50px !important;
+        width: 70px !important;
+        height: 70px !important;
     }
 }
 
@@ -131,7 +131,7 @@
         const data = await response.json();
         if (data.global_name && data.username) {
             document.getElementById("pageTitle").textContent = data.global_name;
-            document.getElementById("displayHeader").innerHTML = `${data.global_name} <span style='font-size: 0.4em; color: var(--tapioca);'>(@${data.username})</span>`;
+            document.getElementById("displayHeader").innerHTML = `${data.global_name} <span style='font-size: 0.6em; color: var(--tapioca);'>(@${data.username})</span>`;
         }
     }
     fetchUserData();
