@@ -9,6 +9,19 @@
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://twixxt.vercel.app">
  <style>
+#pfp {
+    width: 100px;
+    height: 100px;
+    border-radius: 30%;
+}
+
+@media (max-width: 600px) {
+    #pfp {
+        width: 70px;
+        height: 70px;
+    }
+}
+
       @font-face {
           font-family: "Web Tandy2K";
           font-style: normal;
@@ -88,7 +101,7 @@
     <header>
       <div style="display: flex; align-items: center; gap: 10px;">
         <h1 id="displayHeader" style="flex-grow: 1;"></h1>
-        <img id="pfp" src="" alt="Profile Picture" style="width: 100px; height: 100px; border-radius: 30%;">
+<img id="pfp" src="" alt="Profile Picture">
       </div>
       <p id="randomText">lemme cook...</p>
     </header>
