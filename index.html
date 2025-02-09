@@ -144,11 +144,26 @@
     opacity: 1;
     transition: opacity 1s ease-in, filter 4s ease-in-out;
 }
+::selection {
+    background: var(--accent); /* Match selection with accent color */
+    color: var(--dark); /* Adjust text color for contrast */
+    text-shadow: 0 0 5px rgba(0, 0, 0, 0.3); /* Soft shadow for depth */
+    backdrop-filter: blur(5px); /* Apply blur effect */
+}
 
+/* For Firefox (doesn't support backdrop-filter) */
+::-moz-selection {
+    background: var(--accent);
+    color: var(--dark);
+}
 /* When hiding */
 #overlayText.hidden {
     opacity: 0;
     filter: blur(1000px);
+}
+/* Make mobile tap effect match the accent color */
+a, button, * {
+    -webkit-tap-highlight-color: var(--accent);
 }
 
 
