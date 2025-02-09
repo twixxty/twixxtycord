@@ -316,7 +316,6 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("overlayText").textContent = loadingTexts[Math.floor(Math.random() * loadingTexts.length)];
 
     setTimeout(() => {
-        document.body.style.filter = "blur(0)"; 
         document.getElementById("overlayText").classList.add("hidden");
         setTimeout(() => {
             document.getElementById("overlayText").style.display = "none"; 
