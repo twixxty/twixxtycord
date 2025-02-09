@@ -64,7 +64,7 @@
             font-weight: 400;
             src: url(fonts/web_tandy2k.woff) format("woff");
         }
-        body {
+        main {
           filter: blur(700px);
           transition: filter 4s ease-in-out;
       }
@@ -128,11 +128,38 @@
             text-decoration: underline dashed 1px;
             text-underline-offset: 2px;
         }
-        
+        #overlayText {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 32px;
+    font-weight: bold;
+    color: var(--light);
+    padding: 20px;
+    border-radius: 10px;
+    pointer-events: none; /* Prevent interaction */
+    text-align: center;
+    backdrop-filter: blur(5px);
+    opacity: 1;
+    transition: opacity 4s ease-in-out, filter 1s ease-in-out;
+}
+
+/* When hiding */
+#overlayText.hidden {
+    opacity: 0;
+    filter: blur(100px);
+}
+
+
+
     </style>
   </head>
   
   <body>
+    <div id="overlayText">Loading...</div>
+
+    
   <main>
     <article>
       <header>
@@ -223,10 +250,11 @@
       }
       setRandomAboutText();
       document.addEventListener("DOMContentLoaded", () => {
-          setTimeout(() => {
-              document.body.style.filter = "blur(0)";
-          }, 0); // Adjust the delay if needed
-      });
+    setTimeout(() => {
+        document.querySelector("main").style.filter = "blur(0)";
+    }, 0); // Adjust the delay if needed
+});
+
       const randomMessages = [
             "a human from india",
             "habibi welcome to india",
@@ -256,6 +284,46 @@ function getRandomItem(arr) {
 // Update time every second
 updateIndiaTime();
 setInterval(updateIndiaTime, 1000);
+document.addEventListener("DOMContentLoaded", () => {
+    const loadingTexts = [
+        "loading",
+        "hi",
+        "welcome",
+        "initialising",
+        "wat",
+        "fetching",
+        "cooking",
+        "preparing",
+        "hold on",
+        "be patient",
+        "thinking",
+        "im hammad",
+        "sussy baka",
+        "chairs r lowkey sat on",
+        "playing",
+        "waiting",
+        "dapping",
+        "thinking",
+        "bazinga!",
+        "khelega free fire",
+        "hammad site",
+        "2 second loading",
+        "powered by 1900 lemons",
+        "hello dude"
+    ];
+
+    // Pick a random loading text
+    document.getElementById("overlayText").textContent = loadingTexts[Math.floor(Math.random() * loadingTexts.length)];
+
+    setTimeout(() => {
+        document.body.style.filter = "blur(0)"; 
+        document.getElementById("overlayText").classList.add("hidden");
+        setTimeout(() => {
+            document.getElementById("overlayText").style.display = "none"; 
+        }, 4000); // Wait for the fade-out animation to complete
+    }, 2000); // Adjust delay if needed
+});
+
   </script>
   
   </body></html>
