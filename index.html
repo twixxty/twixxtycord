@@ -345,6 +345,7 @@ function updateTimeFunc() {
     const options = { timeZone: "Asia/Kolkata", hour: "2-digit", hour12: false };
     const hour = parseInt(new Intl.DateTimeFormat("en-IN", options).format(now));
 
+
     let message;
     if (hour >= 6 && hour < 10) {
         message = "probably awake";
@@ -356,8 +357,10 @@ function updateTimeFunc() {
         message = "having lunch and resting";
     } else if (hour >= 16 && hour < 19) {
         message = "napping";
-    } else if (hour >= 19 && hour < 22) {
+    } else if (hour >= 19 && hour < 21) {
         message = "busy with home work";
+    } else if (hour >= 21 && hour < 22) {
+        message = "having dinner";
     } else if (hour >= 22 && hour < 24) {
         message = "available";
     } else if (hour >= 0 && hour < 6) {
