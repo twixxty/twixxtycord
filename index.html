@@ -354,10 +354,8 @@ function updateTimeFunc() {
         message = "having dinner";
     } else if (hour >= 22 && hour < 24) {
         message = "available";
-    } else if (hour >= 00 && hour < 06) {
+    }  else {
         message = "sleeping";
-    } else {
-        message = "";
     }
 
     document.getElementById("timefunc").innerText = message;
