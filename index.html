@@ -338,7 +338,7 @@ function updateTimeFunc() {
 
 
     let message;
-    if (hour >= 6 && hour < 10) {
+    if (hour >= 06 && hour < 10) {
         message = "probably awake";
     } else if (hour >= 10 && hour < 12) {
         message = "defenitely awake";
@@ -354,7 +354,7 @@ function updateTimeFunc() {
         message = "having dinner";
     } else if (hour >= 22 && hour < 24) {
         message = "available";
-    } else if (hour >= 24 && hour < 6) {
+    } else if (hour >= 00 && hour < 06) {
         message = "sleeping";
     } else {
         message = "";
