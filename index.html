@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en" style="--accent: var(--strawberry);"><head>
+<html lang="en" style="--accent: var(--strawberry);"><head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title id="pageTitle">Loading...</title>
@@ -9,39 +9,37 @@
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://twixxt.vercel.app">
    <style>
-    /* WebKit Browsers (Chrome, Edge, Safari) */
 ::-webkit-scrollbar {
-    width: 1px; /* Makes the scrollbar only 1px wide */
-    height: 1px; /* Horizontal scrollbar (if needed) */
+    width: 1px;
+    height: 1px; 
 }
 
 ::-webkit-scrollbar-thumb {
-    background: rgba(0, 0, 0, 0); /* Faintly visible */
-    border-radius: 10px; /* Smooth rounded edges */
+    background: rgba(0, 0, 0, 0);
+    border-radius: 10px; 
 }
 
 ::-webkit-scrollbar-track {
-    background: transparent; /* Fully transparent track */
+    background: transparent; 
 }
 
-/* Firefox */
-* {
-    scrollbar-width: thin; /* Thinner than default */
-    scrollbar-color: rgba(0, 0, 0, 0) transparent; /* 1px-like effect */
+ {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(0, 0, 0, 0) transparent;
 }
 
     #displayHeader {
     flex-grow: 1;
     margin-bottom: 0px;
-    white-space: nowrap; /* Prevents wrapping */
+    white-space: nowrap; 
     overflow: auto;
 }
 
 
     #randomText {
-    margin-top: 10px !important; /* Prevents unwanted top spacing */
-    margin-bottom: 30px; /* Keeps consistent bottom margin */
-    position: relative; /* Ensures it stays in place */
+    margin-top: 10px !important; 
+    margin-bottom: 30px;
+    position: relative; 
 }
 
   #pfp {
@@ -138,30 +136,26 @@
     color: var(--light);
     padding: 20px;
     border-radius: 10px;
-    pointer-events: none; /* Prevent interaction */
+    pointer-events: none; 
     text-align: center;
     backdrop-filter: blur(5px);
     opacity: 1;
     transition: opacity 1s ease-in, filter 4s ease-in-out;
 }
 ::selection {
-    background: var(--accent); /* Match selection with accent color */
-    color: var(--dark); /* Adjust text color for contrast */
-    text-shadow: 0 0 5px rgba(0, 0, 0, 0.3); /* Soft shadow for depth */
-    backdrop-filter: blur(5px); /* Apply blur effect */
+    background: var(--accent); 
+    color: var(--dark); 
+    text-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(5px); 
 }
-
-/* For Firefox (doesn't support backdrop-filter) */
 ::-moz-selection {
     background: var(--accent);
     color: var(--dark);
 }
-/* When hiding */
 #overlayText.hidden {
     opacity: 0;
     filter: blur(1000px);
 }
-/* Make mobile tap effect match the accent color */
 a, button, * {
     -webkit-tap-highlight-color: var(--accent);
 }
@@ -270,7 +264,7 @@ a, button, * {
       document.addEventListener("DOMContentLoaded", () => {
     setTimeout(() => {
         document.querySelector("main").style.filter = "blur(0)";
-    }, 0); // Adjust the delay if needed
+    }, 0); 
 });
 
       const randomMessages = [
@@ -287,7 +281,6 @@ a, button, * {
             "contact me lol",
             "also found here"
         ];
-        // Pick a random message
         document.getElementById("randomMessage").innerText = randomMessages[Math.floor(Math.random() * randomMessages.length)];
         document.getElementById("randomMessage").innerText = randomMessages[Math.floor(Math.random() * randomMessages.length)];
         document.getElementById("connections").innerText = getRandomItem(randomConnections);
@@ -299,7 +292,6 @@ function updateIndiaTime() {
 function getRandomItem(arr) {
             return arr[Math.floor(Math.random() * arr.length)];
         }
-// Update time every second
 updateIndiaTime();
 setInterval(updateIndiaTime, 1000);
 document.addEventListener("DOMContentLoaded", () => {
@@ -330,15 +322,14 @@ document.addEventListener("DOMContentLoaded", () => {
         "hello dude"
     ];
 
-    // Pick a random loading text
     document.getElementById("overlayText").textContent = loadingTexts[Math.floor(Math.random() * loadingTexts.length)];
 
     setTimeout(() => {
         document.getElementById("overlayText").classList.add("hidden");
         setTimeout(() => {
             document.getElementById("overlayText").style.display = "none"; 
-        }, 4000); // Wait for the fade-out animation to complete
-    }, 3000); // Adjust delay if needed
+        }, 4000);
+    }, 3000);
 });
 function updateTimeFunc() {
     const now = new Date();
@@ -366,13 +357,12 @@ function updateTimeFunc() {
     } else if (hour >= 0 && hour < 6) {
         message = "sleeping";
     } else {
-        message = "Good night! Sweet dreams 🌙";
+        message = "";
     }
 
     document.getElementById("timefunc").innerText = message;
 }
 
-// Update the time function message every second
 updateTimeFunc();
 setInterval(updateTimeFunc, 1000);
 
