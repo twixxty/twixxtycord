@@ -9,6 +9,62 @@
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://twixxt.vercel.app">
    <style>
+      #coolStuff {
+        position: relative;
+        display: flex;
+        justify-content: left;
+        margin-top: 20px;
+    }
+    .clickable-image {
+        width: 100px;
+        height: 100px;
+        cursor: pointer;
+    }
+    .fullscreen-video {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: none;
+    }
+    .overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        pointer-events: none;
+        filter: blur(1000px);
+opacity: 0;
+    }
+    .animate-overlay {
+        animation: fadeInZoom 2s ease-in-out;
+    }
+    @keyframes fadeInZoom {
+        0% {
+            filter: blur(1000px);
+            filter: brightness(10);
+            opacity: 1;
+            transform: scale(1.2);
+        }
+        10% { 
+            filter: blur(0px);
+            filter: brightness(1);
+            opacity: 1;
+            transform: scale(1);
+        }
+        50% {
+           }
+        90% {}
+        100% {
+            display: none;
+            transform: scale(1);
+        }
+    }
+
 ::-webkit-scrollbar {
     width: 1px;
     height: 1px; 
@@ -86,20 +142,24 @@
         }
   
         body {
+            text-rendering: pixelated;
             max-width: 750px;
             margin: 50px auto;
             padding: 50px;
         }
   
         h1 {
+            text-rendering: pixelated;
             font-size: 48px;
         }
   
         h2 {
+            text-rendering: pixelated;
             font-size: 32px;
         }
   
         h3, h4, h5, h6, body {
+            text-rendering: pixelated;
             font-size: 16px;
         }
   
@@ -143,6 +203,7 @@
     opacity: 1;
     transition: opacity 1s ease-in, filter 4s ease-in-out;
 }
+
 ::selection {
     background: var(--accent); 
     color: var(--dark); 
@@ -286,9 +347,47 @@ transform: scale(1);
      <p id="timefunc" style="margin-top: 0px;"></p>
      <h2>friends</h2>
      <div id="friendsContainer" class="friends-grid"></div>
-
+     <h2>cool people</h2>
+     <div id="morefriendsContainer" class="friends-grid"></div>
+     <h2>cool stuff</h2>
+     <div id="coolStuff">
+        <img id="randomImage" src="sounds/camera.jpg" alt="Click me!" class="clickable-image">
+        <img id="videoTrigger" src="images/NB_Red.webp" class="clickable-image">
+        <video id="coolVideo" class="clickable-video" width="100" height="100">
+            <source src="videos/glargle.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+    </div>
   </main>
+  <img id="imageOverlay" class="overlay" src="" alt="Random Image" style="display: none;">
+  <video id="randomVideo" class="fullscreen-video"></video>
+
   <script>
+        const images = [
+            "images/1.jpg",
+            "images/2.jpg",
+            "images/3.jpg",
+            "images/4.jpg",
+            "images/5.jpg"
+        ];
+        document.addEventListener("DOMContentLoaded", () => {
+    const coolVideo = document.getElementById("coolVideo");
+
+    coolVideo.addEventListener("click", () => {
+        if (coolVideo.paused) {
+            coolVideo.play();
+        } 
+    });
+
+    coolVideo.addEventListener("pause", () => {
+        coolVideo.style.display = "none"; // Hide the video when paused
+    });
+
+    coolVideo.addEventListener("play", () => {
+        coolVideo.style.display = "block"; // Show the video when playing
+    });
+});
+
       async function fetchAccentColor() {
           const response = await fetch('https://discord-lookup-api-one-coral.vercel.app/v1/user/798177330010521630');
           const data = await response.json();
@@ -467,7 +566,7 @@ const friendsList = [
         { id: "1256930587684634674", username: "Friend 2", sfx: "sounds/ladybug.mp3" },
         { id: "1089305664108634162", username: "Friend 3", sfx: "sounds/mijo.mp3" },
         { id: "916205370416975893", username: "Friend 4", sfx: "sounds/sirius.mp3" },
-        { id: "1081451019260678245", username: "Friend 5", sfx: "sounds/vro.mp3" }
+        { id: "735955748579836025", username: "Friend 5", sfx: "sounds/penny.mp3" }
     ];
 
     async function fetchFriends() {
@@ -513,6 +612,58 @@ if (friend.previousElementSibling?.previousElementSibling?.previousElementSiblin
     }
 
     fetchFriends();
+    
+    const moreFriendsList = [
+        { id: "929308666606272563", username: "Friend A", sfx: "sounds/abhi.mp3" },
+        { id: "1108071513493614592", username: "Friend B", sfx: "sounds/george.mp3" },
+        { id: "1081451019260678245", username: "Friend C", sfx: "sounds/vro.mp3" },
+        { id: "922389987889143849", username: "Friend D", sfx: "sounds/sounak.mp3" },
+        { id: "852730635063656462", username: "Friend E", sfx: "sounds/lemon.mp3" }
+    ];
+
+    async function fetchMoreFriends() {
+        const container = document.getElementById("morefriendsContainer");
+        container.innerHTML = "";
+        
+        for (let i = 0; i < moreFriendsList.length; i++) {
+            const friend = moreFriendsList[i];
+            const response = await fetch(`https://discord-lookup-api-one-coral.vercel.app/v1/user/${friend.id}`);
+            const data = await response.json();
+            
+            const friendDiv = document.createElement("div");
+            friendDiv.classList.add("friend");
+            friendDiv.dataset.username = data.global_name || data.username || friend.username;
+            
+            const img = document.createElement("img");
+            img.src = data.avatar ? data.avatar.link : "default_avatar.png";
+            img.classList.add("friend-pfp");
+            
+            img.addEventListener("click", () => {
+                const audio = new Audio(friend.sfx);
+                audio.play();
+            });
+            
+            friendDiv.appendChild(img);
+            container.appendChild(friendDiv);
+        }
+
+        document.querySelectorAll(".friend").forEach((friend, i, arr) => {
+            friend.addEventListener("mouseover", () => {
+                arr.forEach(f => f.classList.remove("active", "previous", "previous-2","previous-3", "next", "next-2","next-3"));
+                friend.classList.add("active");
+                if (friend.previousElementSibling) friend.previousElementSibling.classList.add("previous");
+if (friend.previousElementSibling?.previousElementSibling) friend.previousElementSibling.previousElementSibling.classList.add("previous-2");
+if (friend.previousElementSibling?.previousElementSibling?.previousElementSibling) friend.previousElementSibling.previousElementSibling.previousElementSibling.classList.add("previous-3");
+if (friend.previousElementSibling?.previousElementSibling?.previousElementSibling?.previousElementSibling) friend.previousElementSibling.previousElementSibling.previousElementSibling.previousElementSibling.classList.add("previous-4");
+                if (friend.nextElementSibling) friend.nextElementSibling.classList.add("next");
+                if (friend.nextElementSibling?.nextElementSibling) friend.nextElementSibling.nextElementSibling.classList.add("next-2");
+                if (friend.nextElementSibling?.nextElementSibling?.nextElementSibling) friend.nextElementSibling.nextElementSibling.nextElementSibling.classList.add("next-3");
+                if (friend.nextElementSibling?.nextElementSibling?.nextElementSibling?.nextElementSibling) friend.nextElementSibling.nextElementSibling.nextElementSibling.nextElementSibling.classList.add("next-4");
+            });
+        });
+    }
+
+    fetchMoreFriends();
     document.getElementById("pfp").addEventListener("click", () => {
     const sounds = [
         "/sfx/1.mp3",
@@ -555,7 +706,157 @@ async function fetchWithRetry(url, retries = 3, delay = 2000) {
         }
     }
 }
+document.addEventListener("DOMContentLoaded", () => {
+        const images = [
+            "images/1.jpg",
+            "images/2.jpg",
+            "images/3.jpg",
+            "images/4.jpg",
+            "images/5.jpg"
+        ];
+        
+        const videos = [
+    "videos/video1.mp4",
+    "videos/1 (1).mp4",
+    "videos/1 (2).mp4",
+    "videos/1 (3).mp4",
+    "videos/1 (4).mp4",
+    "videos/1 (5).mp4",
+    "videos/1 (6).mp4",
+    "videos/1 (7).mp4",
+    "videos/1 (8).mp4",
+    "videos/1 (9).mp4",
+    "videos/1 (10).mp4",
+    "videos/1 (11).mp4",
+    "videos/1 (12).mp4",
+    "videos/1 (13).mp4",
+    "videos/1 (14).mp4",
+    "videos/1 (15).mp4",
+    "videos/1 (17).mp4",
+    "videos/1 (18).mp4",
+    "videos/1 (19).mp4",
+    "videos/1 (20).mp4",
+    "videos/1 (21).mp4",
+    "videos/1 (22).mp4",
+    "videos/1 (23).mp4",
+    "videos/1 (24).mp4",
+    "videos/1 (25).mp4",
+    "videos/1 (26).mp4",
+    "videos/1 (27).mp4",
+    "videos/1 (28).mp4",
+    "videos/1 (29).mp4",
+    "videos/1 (30).mp4",
+    "videos/1 (31).mp4",
+    "videos/1 (32).mp4",
+    "videos/1 (33).mp4",
+    "videos/1 (34).mp4",
+    "videos/1 (35).mp4",
+    "videos/1 (36).mp4",
+    "videos/1 (37).mp4",
+    "videos/1 (38).mp4",
+    "videos/1 (39).mp4",
+    "videos/1 (40).mp4",
+    "videos/1 (41).mp4",
+    "videos/1 (42).mp4",
+    "videos/1 (43).mp4",
+    "videos/1 (44).mp4",
+    "videos/1 (45).mp4",
+    "videos/1 (46).mp4",
+    "videos/1 (47).mp4",
+    "videos/1 (48).mp4",
+    "videos/1 (49).mp4",
+    "videos/1 (50).mp4",
+    "videos/1 (51).mp4",
+    "videos/1 (52).mp4",
+    "videos/1 (53).mp4",
+    "videos/1 (54).mp4",
+    "videos/1 (55).mp4",
+    "videos/1 (56).mp4",
+    "videos/1 (57).mp4",
+    "videos/1 (58).mp4",
+    "videos/1 (59).mp4",
+    "videos/1 (60).mp4",
+    "videos/1 (61).mp4",
+    "videos/1 (62).mp4",
+    "videos/1 (63).mp4",
+    "videos/1 (64).mp4",
+    "videos/1 (65).mp4",
+    "videos/1 (66).mp4",
+    "videos/1 (67).mp4",
+    "videos/1 (68).mp4",
+    "videos/1 (69).mp4",
+    "videos/1 (70).mp4",
+    "videos/1 (71).mp4",
+    "videos/1 (72).mp4",
+    "videos/1 (73).mp4",
+    "videos/1 (74).mp4",
+    "videos/1 (75).mp4",
+    "videos/1 (76).mp4",
+    "videos/1 (77).mp4",
+    "videos/1 (78).mp4",
+    "videos/1 (79).mp4",
+    "videos/1 (80).mp4",
+    "videos/1 (81).mp4",
+    "videos/1 (82).mp4",
+    "videos/1 (83).mp4",
+    "videos/1 (84).mp4",
+    "videos/1 (85).mp4",
+    "videos/1 (86).mp4",
+    "videos/1 (87).mp4",
+    "videos/1 (88).mp4",
+    "videos/1 (89).mp4",
+    "videos/1 (90).mp4",
+    "videos/1 (91).mp4",
+    "videos/1 (92).mp4"
+];
+    videoTrigger.addEventListener("click", () => {
+        const randomVideo = videos[Math.floor(Math.random() * videos.length)];
+        videoElement.src = randomVideo;
+        videoElement.style.display = "block";
+        videoElement.play();
+        videoTrigger.style.display = "none";
+    });
+});
+        const sound = "sounds/click.mp3";
+        const imageElement = document.getElementById("randomImage");
+        const overlay = document.getElementById("imageOverlay");
+        const videoTrigger = document.getElementById("videoTrigger");
+        const videoElement = document.getElementById("randomVideo");
 
+
+       
+   
+imageElement.addEventListener("click", () => {
+    const randomImage = images[Math.floor(Math.random() * images.length)];
+    overlay.src = randomImage;
+overlay.style.display = "block";
+    
+    const audio = new Audio(sound);
+    audio.play();
+    imageElement.style.display = "none";
+    overlay.classList.add("animate-overlay");
+    setTimeout(() => {
+        overlay.classList.remove("animate-overlay");
+            overlay.style.display = "none"; // Hide overlay after animation
+            imageElement.style.display = "block"; // **Reappear the image**
+    }, 1500);
+});
+        
+       
+        videoTrigger.addEventListener("click", () => {
+            const randomVideo = videos[Math.floor(Math.random() * videos.length)];
+            videoElement.src = randomVideo;
+            videoElement.style.display = "block";
+            videoElement.play();
+        });
+
+        videoElement.addEventListener("pause", () => {
+            videoElement.style.display = "none";
+            videoTrigger.style.display = "block";
+        });
+
+
+       
 
   </script>
   
