@@ -363,6 +363,13 @@ transform: scale(1);
   <video id="randomVideo" class="fullscreen-video"></video>
 
   <script>
+    document.addEventListener("DOMContentLoaded", function(event) {
+    // wait until window is loaded - all images, styles-sheets, fonts, links, and other media assets
+    // you could also use addEventListener() instead
+    window.onload = function() {
+  console.log("I'm done");
+}
+})
         const images = [
             "images/1.jpg",
             "images/2.jpg",
