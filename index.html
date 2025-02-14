@@ -83,7 +83,10 @@ opacity: 0;
     scrollbar-width: thin;
     scrollbar-color: rgba(0, 0, 0, 0) transparent;
 }
+footer {
+    text-rendering: pixelated;
 
+}
     #displayHeader {
     flex-grow: 1;
     margin-bottom: 0px;
@@ -104,7 +107,9 @@ opacity: 0;
       height: 150px !important;
       border-radius: 30%;
   }
-
+footer {
+    font-size: 13px;
+}
   @media (max-width: 600px) {
 
       #pfp {
@@ -350,25 +355,61 @@ transform: scale(1);
      <h2>cool people</h2>
      <div id="morefriendsContainer" class="friends-grid"></div>
      <h2>cool stuff</h2>
-     <div id="coolStuff">
+     <div id="coolStuff" style="display: flex; flex-wrap: wrap;">
         <img id="randomImage" src="sounds/camera.jpg" alt="Click me!" class="clickable-image">
         <img id="videoTrigger" src="images/NB_Red.webp" class="clickable-image">
         <video id="coolVideo" class="clickable-video" width="100" height="100">
             <source src="videos/glargle.mp4" type="video/mp4">
             Your browser does not support the video tag.
         </video>
+        <img id="startChase" src="images/chase.jpg" class="clickable-image" alt="Start Chase" >
+        <img id="fullscreenTrigger" src="images/oia-uia.png" class="clickable-image" alt="Play Fullscreen Video">
+
     </div>
+    <footer><br>
+        <p><strong>Warning:</strong> This website contains <strong>loud noises</strong>, <strong>flashing images</strong> and <strong>lots of jumpscares</strong>. Viewer discretion is advised.</p>
+        <p><em>Some information on this site may be exaggerated or entirely false for entertainment purposes.</em></p>
+        <p><em>Hammad, the creator of this site is not responsible for any harm of life or property.</em></p>
+        <p><em>If you feel that Hammad is in your closet or in your walls, <strong>do not hesitate to call 911.</strong></em></p>
+    </footer>
   </main>
   <img id="imageOverlay" class="overlay" src="" alt="Random Image" style="display: none;">
   <video id="randomVideo" class="fullscreen-video"></video>
-
+  <video id="fullscreenVideo" class="fullscreen-video"></video>
+  <img id="chaseImage" src="images/chase.jpg" class="clickable-image" alt="Catch Me" style="position: absolute; top: 50%; left: 50%; transition: transform 0.1s linear; display: none;">
+  <p id="timer" style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); color: white; font-size: 24px; font-weight: bold;"></p>
+  <audio id="scarySound" src="videos/jumpscare.mp3"></audio>
+  <div id="jumpscare" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: black; display: none; justify-content: center; align-items: center;">
+    <img id="scaryImage" src="images/chase.jpg" style="opacity: 0; transition: opacity 0.5s ease-in-out;">
+</div>
   <script>
+    document.addEventListener("DOMContentLoaded", function(event) {
+    // wait until window is loaded - all images, styles-sheets, fonts, links, and other media assets
+    // you could also use addEventListener() instead
+    window.onload = function() {
+  console.log("I'm done");
+}
+})
         const images = [
             "images/1.jpg",
             "images/2.jpg",
             "images/3.jpg",
             "images/4.jpg",
-            "images/5.jpg"
+            "images/5.jpg",
+            "images/6.jpg",
+            "images/7.jpg",
+            "images/8.jpg",
+            "images/9.jpg",
+            "images/10.jpg",
+            "images/11.jpg",
+            "images/12.jpg",
+            "images/13.jpg",
+            "images/14.jpg",
+            "images/15.jpg",
+            "images/16.jpg",
+            "images/17.jpg",
+            "images/18.jpg"
+
         ];
         document.addEventListener("DOMContentLoaded", () => {
     const coolVideo = document.getElementById("coolVideo");
@@ -744,7 +785,6 @@ document.addEventListener("DOMContentLoaded", () => {
     "videos/1 (26).mp4",
     "videos/1 (27).mp4",
     "videos/1 (28).mp4",
-    "videos/1 (29).mp4",
     "videos/1 (30).mp4",
     "videos/1 (31).mp4",
     "videos/1 (32).mp4",
@@ -759,14 +799,12 @@ document.addEventListener("DOMContentLoaded", () => {
     "videos/1 (41).mp4",
     "videos/1 (42).mp4",
     "videos/1 (43).mp4",
-    "videos/1 (44).mp4",
     "videos/1 (45).mp4",
     "videos/1 (46).mp4",
     "videos/1 (47).mp4",
     "videos/1 (48).mp4",
     "videos/1 (49).mp4",
     "videos/1 (50).mp4",
-    "videos/1 (51).mp4",
     "videos/1 (52).mp4",
     "videos/1 (53).mp4",
     "videos/1 (54).mp4",
@@ -775,10 +813,8 @@ document.addEventListener("DOMContentLoaded", () => {
     "videos/1 (57).mp4",
     "videos/1 (58).mp4",
     "videos/1 (59).mp4",
-    "videos/1 (60).mp4",
     "videos/1 (61).mp4",
     "videos/1 (62).mp4",
-    "videos/1 (63).mp4",
     "videos/1 (64).mp4",
     "videos/1 (65).mp4",
     "videos/1 (66).mp4",
@@ -816,6 +852,7 @@ document.addEventListener("DOMContentLoaded", () => {
         videoElement.play();
         videoTrigger.style.display = "none";
     });
+    
 });
         const sound = "sounds/click.mp3";
         const imageElement = document.getElementById("randomImage");
@@ -853,10 +890,98 @@ overlay.style.display = "block";
         videoElement.addEventListener("pause", () => {
             videoElement.style.display = "none";
             videoTrigger.style.display = "block";
+            
+        });
+    
+        document.addEventListener("DOMContentLoaded", () => {
+        const fullscreenTrigger = document.getElementById("fullscreenTrigger");
+        const fullscreenVideo = document.getElementById("fullscreenVideo");
+
+        const videos = [
+"videos/oia.mp4"
+        ];
+
+        fullscreenTrigger.addEventListener("click", () => {
+            const randomVideo = videos[Math.floor(Math.random() * videos.length)];
+            fullscreenVideo.src = randomVideo;
+            fullscreenVideo.style.display = "block";
+            fullscreenVideo.play();
         });
 
+        fullscreenVideo.addEventListener("click", () => {
+            fullscreenVideo.pause();
+            fullscreenVideo.style.display = "none";
+        });
+    });
+    document.addEventListener("DOMContentLoaded", () => {
+        const startChase = document.getElementById("startChase");
+        const chaseImage = document.getElementById("chaseImage");
+        const timerElement = document.getElementById("timer");
+        const jumpscare = document.getElementById("jumpscare");
+        const scaryImage = document.getElementById("scaryImage");
+        const scarySound = document.getElementById("scarySound");
+        const mainElement = document.querySelector("main");
 
-       
+        let chasing = false;
+        let speed = 1;
+        let seconds = 0;
+        let interval;
+        let mouseMoving = false;
+
+        startChase.addEventListener("click", () => {
+            startChase.style.display = "none";
+            mainElement.style.filter = "blur(10px),brightness(0.5)";
+            mainElement.style.filter = "";
+            setTimeout(() => {
+                chaseImage.style.top = Math.random() * window.innerHeight + "px";
+                chaseImage.style.left = Math.random() * window.innerWidth + "px";
+                chaseImage.style.display = "block";
+                chasing = true;
+                interval = setInterval(() => {
+                    if (mouseMoving) {
+                        seconds++;
+                        timerElement.innerText = seconds + "s";
+                        speed += 0.5;
+                    }
+                }, 1000);
+            }, 500);
+        });
+
+        document.addEventListener("mousemove", (event) => {
+            mouseMoving = true;
+            setTimeout(() => mouseMoving = false, 500);
+            if (chasing) {
+                const rect = chaseImage.getBoundingClientRect();
+                const dx = event.clientX - (rect.left + rect.width / 2);
+                const dy = event.clientY - (rect.top + rect.height / 2);
+                const distance = Math.sqrt(dx * dx + dy * dy);
+
+                if (distance < 20) {
+                    clearInterval(interval);
+                    jumpscare.style.display = "flex";
+                    scaryImage.style.opacity = "1";
+                    scarySound.play();
+                    setTimeout(() => {
+                        scaryImage.style.opacity = "0";
+                        setTimeout(() => {
+                            jumpscare.style.display = "none";
+                            chasing = false;
+                            seconds = 0;
+                            speed = 1;
+                            timerElement.innerText = "";
+                            startChase.style.display = "block";
+                            chaseImage.style.display = "none";
+                            mainElement.style.filter = "none";
+
+                        }, 500);
+                    }, 500);
+                }
+
+                chaseImage.style.left = parseFloat(chaseImage.style.left) + (dx / distance * speed) + "px";
+                chaseImage.style.top = parseFloat(chaseImage.style.top) + (dy / distance * speed) + "px";
+            }
+        });
+    });
 
   </script>
   
