@@ -932,6 +932,7 @@ overlay.style.display = "block";
             startChase.style.display = "none";
             mainElement.style.filter = "blur(10px),brightness(0.5)";
             mainElement.style.filter = "";
+            mainElement.style.pointerEvents = "none";
             setTimeout(() => {
                 chaseImage.style.top = Math.random() * window.innerHeight + "px";
                 chaseImage.style.left = Math.random() * window.innerWidth + "px";
@@ -972,6 +973,7 @@ overlay.style.display = "block";
                             startChase.style.display = "block";
                             chaseImage.style.display = "none";
                             mainElement.style.filter = "none";
+                            location.reload(); 
 
                         }, 500);
                     }, 500);
