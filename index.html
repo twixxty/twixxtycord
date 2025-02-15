@@ -940,7 +940,13 @@ overlay.style.display = "block";
             fullscreenVideo.pause();
             fullscreenVideo.style.display = "none";
         });
+        fullscreenVideo.addEventListener("pause", () => {
+        fullscreenVideo.style.display = "none"; // Hide the video when paused
     });
+    });
+
+
+ 
     document.addEventListener("DOMContentLoaded", function () {
         const caseohVisible = document.getElementById("caseohVisible");
         const caseohHidden = document.getElementById("caseohHidden");
