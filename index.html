@@ -401,7 +401,7 @@ transform: scale(1);
   <video id="randomVideo" class="fullscreen-video"></video>
   <video id="fullscreenVideo" class="fullscreen-video"></video>
   <img id="chaseImage" src="images/chase.jpg" class="clickable-image" alt="Catch Me" style="position: absolute; top: 50%; left: 50%; transition: transform 0.1s linear; display: none;">
-  <p id="timer" style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); color: white; font-size: 24px; font-weight: bold;"></p>
+  <p id="timer" style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); color: white; font-size: 24px; font-weight: bold; border-color: transparent;"></p>
   <audio id="scarySound" src="videos/jumpscare.mp3"></audio>
   <div id="jumpscare" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: black; display: none; justify-content: center; align-items: center;">
     <img id="scaryImage" src="images/chase.jpg" style="opacity: 0; transition: opacity 0.5s ease-in-out;">
@@ -1092,7 +1092,7 @@ overlay.style.display = "block";
             document.body.style.filter = "blur(0.8px)";
             retrosus.play();
 
-            document.querySelectorAll("button, img, p, h1, h2, h3, a, video").forEach(el => {
+            document.querySelectorAll("button, img,  h1, h2, h3, a, video").forEach(el => {
                 el.style.border = "3px solid red";
                 el.style.background = "#ff69b4";
                 el.style.color = "white";
