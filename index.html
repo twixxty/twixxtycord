@@ -167,7 +167,25 @@ footer {
             text-rendering: pixelated;
             font-size: 16px;
         }
-  
+        .animated-underline {
+  text-decoration: underline wavy 2px;
+  text-decoration-color: blue;
+  text-underline-offset: 4px;
+  animation: wave-animation 1.5s infinite linear;
+}
+
+@keyframes wave-animation {
+  0% {
+    text-underline-offset: 2px;
+  }
+  50% {
+    text-underline-offset: 6px;
+  }
+  100% {
+    text-underline-offset: 2px;
+  }
+}
+
         h1, h2 {
             text-decoration: underline wavy 2px;
             text-underline-offset: 6px;
@@ -354,7 +372,8 @@ transform: scale(1);
      <div id="friendsContainer" class="friends-grid"></div>
      <h2>cool people</h2>
      <div id="morefriendsContainer" class="friends-grid"></div>
-     <h2>cool stuff</h2>
+     <h2><a href="#" id="retroMode" style="text-decoration: none;   padding: 5px;  font-family: 'Comic Sans MS', cursive; color: #FF6BA7;">cool</a>
+        stuff</h2>
      <div id="coolStuff" style="display: flex; flex-wrap: wrap;">
         <img id="randomImage" src="sounds/camera.jpg" alt="Click me!" class="clickable-image">
         <img id="videoTrigger" src="images/NB_Red.webp" class="clickable-image">
@@ -364,6 +383,7 @@ transform: scale(1);
         </video>
         <img id="startChase" src="images/chase.jpg" class="clickable-image" alt="Start Chase" >
         <img id="fullscreenTrigger" src="images/oia-uia.png" class="clickable-image" alt="Play Fullscreen Video">
+        <img id="caseohVisible" src="images/caseoh.jpg" alt="Click me!" class="clickable-image">
 
     </div>
     <footer><br>
@@ -371,7 +391,11 @@ transform: scale(1);
         <p><em>Some information on this site may be exaggerated or entirely false for entertainment purposes.</em></p>
         <p><em>Hammad, the creator of this site is not responsible for any harm of life or property.</em></p>
         <p><em>If you feel that Hammad is in your closet or in your walls, <strong>do not hesitate to call 911.</strong></em></p>
+
     </footer>
+    <img id="caseohHidden" src="images/caseoh.jpg" style="position: absolute !important; top: 50% !important; left: 50% !important; width: 100px !important; height: 100px !important; z-index: 1000 !important; display: none !important; pointer-events: none !important;">
+    <div id="retroLines" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 2999; display: none; background: repeating-linear-gradient(0deg, black 0px, black 1px, transparent 1px, transparent 2px); pointer-events: none;"></div>
+
   </main>
   <img id="imageOverlay" class="overlay" src="" alt="Random Image" style="display: none;">
   <video id="randomVideo" class="fullscreen-video"></video>
@@ -381,6 +405,8 @@ transform: scale(1);
   <audio id="scarySound" src="videos/jumpscare.mp3"></audio>
   <div id="jumpscare" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: black; display: none; justify-content: center; align-items: center;">
     <img id="scaryImage" src="images/chase.jpg" style="opacity: 0; transition: opacity 0.5s ease-in-out;">
+    <audio id="shrinkSound" src="sounds/stomp.mp3"></audio>
+
 </div>
   <script>
     document.addEventListener("DOMContentLoaded", function(event) {
@@ -603,10 +629,11 @@ setInterval(updateTimeFunc, 1000);
 
 
 const friendsList = [
-        { id: "860917681879253002", username: "Friend 1", sfx: "sounds/dhiren.mp3" },
-        { id: "1256930587684634674", username: "Friend 2", sfx: "sounds/ladybug.mp3" },
-        { id: "1089305664108634162", username: "Friend 3", sfx: "sounds/mijo.mp3" },
-        { id: "916205370416975893", username: "Friend 4", sfx: "sounds/sirius.mp3" },
+{ id: "916205370416975893", username: "Friend 1", sfx: "sounds/sirius.mp3" },
+
+        { id: "860917681879253002", username: "Friend 2", sfx: "sounds/dhiren.mp3" },
+        { id: "1256930587684634674", username: "Friend 3", sfx: "sounds/ladybug.mp3" },
+        { id: "1089305664108634162", username: "Friend 4", sfx: "sounds/mijo.mp3" },
         { id: "735955748579836025", username: "Friend 5", sfx: "sounds/penny.mp3" }
     ];
 
@@ -913,7 +940,73 @@ overlay.style.display = "block";
             fullscreenVideo.style.display = "none";
         });
     });
-    document.addEventListener("DOMContentLoaded", () => {
+    document.addEventListener("DOMContentLoaded", function () {
+        const caseohVisible = document.getElementById("caseohVisible");
+        const caseohHidden = document.getElementById("caseohHidden");
+        const shrinkSound = document.getElementById("shrinkSound");
+        let dx = 3, dy = 3;
+        let x = window.innerWidth / 2, y = window.innerHeight / 2;
+        let width = 100, height = 100;
+        const images = ["images/caseoh.jpg","images/caseoh1.webp", "images/caseoh2.webp", "images/caseoh3.webp","images/caseoh4.webp","images/caseoh5.webp","images/caseoh6.jpg",];
+        let imageIndex = 0;
+        let maxSize = Math.min(window.innerWidth, window.innerHeight) * 0;
+
+         caseohVisible.addEventListener("click", function () {
+            caseohVisible.style.display = "none";
+            caseohHidden.style.display = "block";
+            caseohHidden.style.left = `${x}px`;
+            caseohHidden.style.top = `${y}px`;
+            animateCaseoh();
+        });
+
+        function animateCaseoh() {
+            const interval = setInterval(() => {
+                x += dx;
+                y += dy;
+                caseohHidden.style.left = `${x}px`;
+                caseohHidden.style.top = `${y}px`;
+               
+                
+                if (x + caseohHidden.clientWidth >= window.innerWidth || x <= 0) {
+                    dx = -dx;
+                    changeImage();
+                    playSound();
+                    increaseSize();
+
+                }
+                if (y + caseohHidden.clientHeight >= window.innerHeight || y <= 0) {
+                    dy = -dy;
+                    changeImage();
+                    playSound();
+                    increaseSize();
+
+                }
+                
+                document.elementsFromPoint(x, y).forEach(el => {
+                    if (el !== caseohHidden && el.tagName !== "MAIN" && el.tagName !== "HTML" && el !== caseohHidden) {
+                       el.style.height = "3px";
+                    }
+                });
+            }, 20);
+        }
+        
+        function changeImage() {
+            imageIndex = (imageIndex + 1) % images.length;
+            caseohHidden.src = images[imageIndex];
+        }
+    });
+       
+    function playSound() {
+            const sound = new Audio("sounds/stomp.mp3");
+            sound.play();
+        }
+        function increaseSize() {
+            let newWidth = caseohHidden.clientWidth + 0;
+            let newHeight = caseohHidden.clientHeight + 0;
+            caseohHidden.style.width = `${newWidth}px`;
+            caseohHidden.style.height = `${newHeight}px`;
+        }
+        document.addEventListener("DOMContentLoaded", () => {
         const startChase = document.getElementById("startChase");
         const chaseImage = document.getElementById("chaseImage");
         const timerElement = document.getElementById("timer");
@@ -984,7 +1077,30 @@ overlay.style.display = "block";
             }
         });
     });
+    const retroMode = document.getElementById("retroMode");
+    const retroImage = document.getElementById("retroImage");
+    const retroLines = document.getElementById("retroLines");
 
+    retroMode.addEventListener("click", function () {
+            document.body.style.background = "#0000FF";
+            document.body.style.color = "#FFFF00";
+            document.body.style.fontFamily = "Comic Sans MS, cursive";
+            document.body.style.textShadow = "2px 2px 2px black";
+            document.body.style.filter = "blur(0.8px)";
+
+            document.querySelectorAll("button, img, p, h1, h2, h3, a, video").forEach(el => {
+                el.style.border = "3px solid red";
+                el.style.background = "#ff69b4";
+                el.style.color = "white";
+                el.style.fontFamily = "Comic Sans MS, cursive";
+                document.documentElement.style.background = "#ff69b4";
+
+            });
+            retroImage.style.display = "block";
+            retroLines.style.display = "block";
+
+
+        });
   </script>
   
   </body></html>
