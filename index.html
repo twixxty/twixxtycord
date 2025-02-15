@@ -946,7 +946,7 @@ overlay.style.display = "block";
     });
     });
 
-
+   
  
     document.addEventListener("DOMContentLoaded", function () {
         const caseohVisible = document.getElementById("caseohVisible");
@@ -958,6 +958,12 @@ overlay.style.display = "block";
         const images = ["images/caseoh.jpg","images/caseoh1.webp", "images/caseoh2.webp", "images/caseoh3.webp","images/caseoh4.webp","images/caseoh5.webp","images/caseoh6.jpg",];
         let imageIndex = 0;
         let maxSize = Math.min(window.innerWidth, window.innerHeight) * 0;
+        function updateBounds() {
+            return { width: window.innerWidth, height: window.innerHeight };
+        }
+
+        let bounds = updateBounds();
+        window.addEventListener("resize", () => { bounds = updateBounds(); });
 
          caseohVisible.addEventListener("click", function () {
             caseohVisible.style.display = "none";
@@ -968,39 +974,44 @@ overlay.style.display = "block";
         });
 
         function animateCaseoh() {
-            const interval = setInterval(() => {
+            setInterval(() => {
                 x += dx;
                 y += dy;
-                caseohHidden.style.left = `${x}px`;
-                caseohHidden.style.top = `${y}px`;
-               
                 
-                if (x + caseohHidden.clientWidth >= window.innerWidth || x <= 0) {
+                if (x + caseohHidden.clientWidth >= bounds.width || x <= 0) {
                     dx = -dx;
                     changeImage();
-                    playSound();
                     increaseSize();
-
+                    playSound();
+                    x = Math.max(0, Math.min(x, bounds.width - caseohHidden.clientWidth));
                 }
-                if (y + caseohHidden.clientHeight >= window.innerHeight || y <= 0) {
+                if (y + caseohHidden.clientHeight >= bounds.height || y <= 0) {
                     dy = -dy;
                     changeImage();
                     playSound();
                     increaseSize();
-
+                    y = Math.max(0, Math.min(y, bounds.height - caseohHidden.clientHeight));
                 }
                 
-                document.elementsFromPoint(x, y).forEach(el => {
-                    if (el !== caseohHidden && el.tagName !== "MAIN" && el.tagName !== "HTML" && el !== caseohHidden) {
-                       el.style.height = "3px";
-                    }
-                });
+                caseohHidden.style.left = `${x}px`;
+                caseohHidden.style.top = `${y}px`;
+                caseohFollower.style.left = `${x + 20}px`;
+                caseohFollower.style.top = `${y + 20}px`;
             }, 20);
         }
-        
+
         function changeImage() {
             imageIndex = (imageIndex + 1) % images.length;
             caseohHidden.src = images[imageIndex];
+        }
+        
+        function increaseSize() {
+            let newWidth = caseohHidden.clientWidth + 10;
+            let newHeight = caseohHidden.clientHeight + 10;
+            if (newWidth <= maxSize && newHeight <= maxSize) {
+                caseohHidden.style.width = `${newWidth}px`;
+                caseohHidden.style.height = `${newHeight}px`;
+            }
         }
     });
        
