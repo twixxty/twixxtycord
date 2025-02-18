@@ -1326,6 +1326,7 @@ refresh.classList.add('custom-fonti');
     }, 2000);  // Timeout for 2 seconds
 });
 function toggleTheme() {
+    setTimeout(function() {
 
             const elements = document.querySelectorAll('*'); // Select all elements
             const isDark = document.body.classList.toggle('light-mode');
@@ -1342,8 +1343,9 @@ function toggleTheme() {
                     document.body.classList.toggle('light-mode');                    el.style.background = "#ffffff";
 
                 }
-            });
-        }
+            });  }, 1500);  // Timeout for 2 seconds
+        }  
+
         setTimeout(() => {
   toggleImage.classList.add('fade-in');
 }, 4000);  
@@ -1358,12 +1360,10 @@ toggleImage.addEventListener('click', function() {
   fullScreenImage.classList.add('full-screen-image');
   
   if (document.body.classList.contains('dark-mode')) {
-    document.querySelector('main').style.filter = "brightness(0)";
     fullScreenImage.style.backgroundImage = 'url(images/think.webp)';
     new Audio('sounds/light.mp3').play();
 
   } else {
-    document.querySelector('main').style.filter = "brightness(0)";
     fullScreenImage.style.backgroundImage = 'url(images/think.webp)';
     new Audio('sounds/light.mp3').play();
 
@@ -1371,12 +1371,11 @@ toggleImage.addEventListener('click', function() {
   document.body.appendChild(fullScreenImage);
 
   setTimeout(() => {
-    document.querySelector('main').style.transition = "none"; // Disable any transition
-    document.querySelector('main').style.filter = "brightness(1)";
 
-}, 10); // Fade-out delay
+}, 100); // Fade-out delay
 
   setTimeout(() => {
+    document.querySelector('main').style.transition = "none"; // Disable any transition
 
     fullScreenImage.style.opacity = 0;
     setTimeout(() => fullScreenImage.remove(), 1000);
