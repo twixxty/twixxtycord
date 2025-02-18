@@ -513,7 +513,7 @@ iframe {
 
     </footer>
     <img id="caseohHidden" src="images/caseoh.jpg" style="position: absolute !important; top: 50% !important; left: 50% !important; width: 100px !important; height: 100px !important; z-index: 1000 !important; display: none !important; pointer-events: none !important;">
-    <div id="retroLines" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 2999; display: none; background: repeating-linear-gradient(0deg, black 0px, black 1px, transparent 1px, transparent 2px); pointer-events: none;"></div>
+    <div id="retroLines" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 2999; display: none; background: #000000; pointer-events: none;"></div>
 
   </main>
   <img id="imageOverlay" class="overlay" src="" alt="Random Image" style="display: none;">
@@ -1358,18 +1358,29 @@ toggleImage.addEventListener('click', function() {
   fullScreenImage.classList.add('full-screen-image');
   
   if (document.body.classList.contains('dark-mode')) {
+    document.querySelector('main').style.filter = "brightness(0)";
     fullScreenImage.style.backgroundImage = 'url(images/think.webp)';
     new Audio('sounds/light.mp3').play();
-  } else {
-    fullScreenImage.style.backgroundImage = 'url(images/think.webp)';
-    new Audio('sounds/light.mp3').play();
-  }
 
+  } else {
+    document.querySelector('main').style.filter = "brightness(0)";
+    fullScreenImage.style.backgroundImage = 'url(images/think.webp)';
+    new Audio('sounds/light.mp3').play();
+
+  }
   document.body.appendChild(fullScreenImage);
 
   setTimeout(() => {
+    document.querySelector('main').style.transition = "none"; // Disable any transition
+    document.querySelector('main').style.filter = "brightness(1)";
+
+}, 10); // Fade-out delay
+
+  setTimeout(() => {
+
     fullScreenImage.style.opacity = 0;
-    setTimeout(() => fullScreenImage.remove(), 1000); // Remove after fade-out
+    setTimeout(() => fullScreenImage.remove(), 1000);
+
   }, 1500); // Fade-out delay
 });
 const video = document.getElementById('sigma');
