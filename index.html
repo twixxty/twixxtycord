@@ -1358,8 +1358,8 @@ toggleImage.addEventListener('click', function() {
   fullScreenImage.classList.add('full-screen-image');
   
   if (document.body.classList.contains('dark-mode')) {
-    
-
+    fullScreenImage.style.backgroundImage = 'url(images/think.webp)';
+    new Audio('sounds/light.mp3').play();
   } else {
     fullScreenImage.style.backgroundImage = 'url(images/think.webp)';
     new Audio('sounds/light.mp3').play();
