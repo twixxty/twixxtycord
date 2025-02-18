@@ -9,6 +9,18 @@
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://twixxt.vercel.app">
    <style>
+   .full-screen-image {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  opacity: 1;
+  z-index: 9999; /* Ensure it's on top of everything else */
+}
+
       #coolStuff {
         position: relative;
         display: flex;
@@ -382,6 +394,66 @@ transform: scale(1);
     .friend.active::after {
         opacity: 1;
     }
+    .floating-icon {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 50px;
+  height: 50px;
+  cursor: pointer;
+  transition: transform 0.3s, filter 0.3s, opacity 0.3s;
+  opacity: 0;  /* Start hidden */
+  filter: blur(10px);
+}
+
+.floating-icon.fade-in {
+  opacity: 1;  /* Make the image visible */
+  filter: blur(0px);
+}
+
+#sigma {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Ensures the video covers the screen while maintaining aspect ratio */
+  z-index: 9999; /* Makes sure the video is on top of other elements */
+  display: none; /* Initially hidden */
+}
+
+input[type="text"] {
+  bottom: 20px;
+  left: 20px;
+  padding: 10px;
+background-color: #111;
+border: 3px solid #555;
+color: var(--accent);
+}
+#overlay-iframe {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5); /* Semi-transparent background for overlay */
+  z-index: 1000; /* Ensure the iframe is above other content */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+iframe {
+  position: absolute;
+  top: 10%;
+  left: 50%;
+  transform: translateX(-50%) scale(0); /* Initially scale 0 (invisible) */
+  transition: transform 0.5s ease; /* Smooth transition for scale change */
+  width: 80%;
+  height: 80%;
+  border: none;
+  transition: scale 1s ease-in-out;
+}
         </style>
   </head>
   
@@ -413,7 +485,7 @@ transform: scale(1);
      <div id="friendsContainer" class="friends-grid"></div>
      <h2>cool people</h2>
      <div id="morefriendsContainer" class="friends-grid"></div>
-     <h2><a href="#" id="retroMode" style="padding: 5px;  font-family: 'Comic Sans MS', cursive; color: #FF6BA7; filter: blur(0.6px);
+     <h2><a href="#" id="retroMode" style="padding: 5px;  font-family: 'comic', cursive; color: #FF6BA7; filter: blur(0.6px);
 ">cool</a><a id="gtaMode" href="#" style="display: none; font-family: 'san';  color: #9bb2d6; ">cool</a><a id="classicMode" href="#" style="display: none; color: #9bb2d6; ">cool</a><a id="refresh" href="#" style="display: none; color: var(--accent); font-family: Web Tandy2K;">cool</a>
 
         stuff</h2>
@@ -429,11 +501,15 @@ transform: scale(1);
         <img id="caseohVisible" src="images/caseoh.jpg" alt="Click me!" class="clickable-image">
 
     </div>
+
     <footer><br>
         <p><strong>Warning:</strong> This website contains <strong>loud noises</strong>, <strong>flashing images</strong> and <strong>lots of jumpscares</strong>. Viewer discretion is advised.</p>
         <p><em>Some information on this site may be exaggerated or entirely false for entertainment purposes.</em></p>
         <p><em>Hammad, the creator of this site is not responsible for any harm of life or property.</em></p>
         <p><em>If you feel that Hammad is in your closet or in your walls, <strong>do not hesitate to call 911.</strong></em></p>
+        <p>Wish to agree to our <a href="#" id="show-iframe">Terms and Conditions</a>?</p>
+        <input type="text" id="keyword-input" placeholder="type.">
+
 
     </footer>
     <img id="caseohHidden" src="images/caseoh.jpg" style="position: absolute !important; top: 50% !important; left: 50% !important; width: 100px !important; height: 100px !important; z-index: 1000 !important; display: none !important; pointer-events: none !important;">
@@ -452,7 +528,16 @@ transform: scale(1);
     <audio id="retrosus" src="sounds/retro.mp3"></audio>
 
 </div>
+<div class="flex justify-center items-center h-screen">
+
+</div>
+<img id="dark-mode-toggle" src="images/moon.jpg" alt="Toggle Dark Mode" class="floating-icon" onclick="toggleTheme()">
+<video id="sigma" style="display: none; width: 100%; height: 100%;">
+    <source src="videos/sigma.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
   <script>
+    const toggleImage = document.getElementById('dark-mode-toggle');
     document.addEventListener("DOMContentLoaded", function(event) {
     // wait until window is loaded - all images, styles-sheets, fonts, links, and other media assets
     // you could also use addEventListener() instead
@@ -567,10 +652,11 @@ transform: scale(1);
           ];
           document.getElementById("aboutText").textContent = aboutTexts[Math.floor(Math.random() * aboutTexts.length)];
       }
-      setRandomAboutText();
+            setRandomAboutText();
       document.addEventListener("DOMContentLoaded", () => {
     setTimeout(() => {
-        document.querySelector("main").style.filter = "blur(0)";
+        toggleImage.style.filter = 'blur(0px)';
+                document.querySelector("main").style.filter = "blur(0)";
         document.querySelector("main").style.scale = "1";
     }, 0); 
 });
@@ -1046,21 +1132,23 @@ overlay.style.display = "block";
         function changeImage() {
             imageIndex = (imageIndex + 1) % images.length;
             caseohHidden.src = images[imageIndex];
+            function applyBlur(timeout = 1000) {  // Default timeout: 1 second
+
+    
+}
         }
         
         function increaseSize() {
-            let newWidth = caseohHidden.clientWidth + 10;
-            let newHeight = caseohHidden.clientHeight + 10;
-            if (newWidth <= maxSize && newHeight <= maxSize) {
-                caseohHidden.style.width = `${newWidth}px`;
-                caseohHidden.style.height = `${newHeight}px`;
-            }
+          
         }
     });
-       
+    let currentBlur = 0;
     function playSound() {
             const sound = new Audio("sounds/stomp.mp3");
             sound.play();
+            
+            currentBlur += 2;
+            document.querySelector("main").style.filter = `blur(${currentBlur}px)`;
         }
     
         function increaseSize() {
@@ -1237,8 +1325,112 @@ refresh.classList.add('custom-fonti');
         location.reload();  // Reload the page after the timeout
     }, 2000);  // Timeout for 2 seconds
 });
+function toggleTheme() {
 
- 
+            const elements = document.querySelectorAll('*'); // Select all elements
+            const isDark = document.body.classList.toggle('light-mode');
+
+            elements.forEach(el => {
+                if (isDark) {
+                    document.body.classList.toggle('dark-mode');                    el.style.background = "#ffffff";
+                    el.style.color = "#212529";
+                    document.querySelector("main").style.filter = "blur(2px)";
+                    toggleImage.src = 'images/sun.webp'; // Moon icon for dark mode                    el.style.color = "#212529";
+
+                } else {
+                    location.reload();  // Reload the page after the timeout
+                    document.body.classList.toggle('light-mode');                    el.style.background = "#ffffff";
+
+                }
+            });
+        }
+        setTimeout(() => {
+  toggleImage.classList.add('fade-in');
+}, 4000);  
+
+  
+toggleImage.addEventListener('click', function() {
+  
+  document.body.classList.toggle('dark-mode');
+  
+  // Create full-screen image element
+  const fullScreenImage = document.createElement('div');
+  fullScreenImage.classList.add('full-screen-image');
+  
+  if (document.body.classList.contains('dark-mode')) {
+    
+
+  } else {
+    fullScreenImage.style.backgroundImage = 'url(images/think.webp)';
+    new Audio('sounds/light.mp3').play();
+  }
+
+  document.body.appendChild(fullScreenImage);
+
+  setTimeout(() => {
+    fullScreenImage.style.opacity = 0;
+    setTimeout(() => fullScreenImage.remove(), 1000); // Remove after fade-out
+  }, 1500); // Fade-out delay
+});
+const video = document.getElementById('sigma');
+const keywordInput = document.getElementById('keyword-input');
+const playKeywords = ['yes', 'sure', 'ye', 'yep', 'of course', 'ofc', 'ya','agree'];
+
+// Listen for changes in the input box
+keywordInput.addEventListener('input', function() {
+  const inputValue = keywordInput.value.toLowerCase();
+
+  // Check if the typed input matches any of the predefined keywords
+  if (playKeywords.includes(inputValue) && video.paused) {
+    video.style.display = 'block'; // Show the video as an overlay
+    video.play(); // Play the video
+  }
+});
+
+
+// Listen for a click on the video to pause or play
+video.addEventListener('click', function() {
+  if (video.paused) {
+    video.play(); // Play the video if it was paused
+  } else {
+    video.pause(); // Pause the video if it's currently playing
+  }
+});
+
+// Listen for the pause event to hide the video when it's paused
+video.addEventListener('pause', function() {
+  video.style.display = 'none'; // Hide the video when paused
+  keywordInput.value = ''; // Clear the input box
+});
+const link = document.getElementById('show-iframe');
+const mainContent = document.querySelector('main');
+
+link.addEventListener('click', function(event) {
+  event.preventDefault(); // Prevent the default anchor behavior
+  
+  // Apply the blur effect to the <main> element
+  mainContent.style.filter = 'blur(700px)';
+  
+  // Create the iframe and overlay container
+  const overlay = document.createElement('div');
+  overlay.id = 'overlay-iframe';
+
+  const iframe = document.createElement('iframe');
+  iframe.src = 'tos.html'; // This is where you can specify the URL (e.g., tos.html)
+  iframe.title = 'Terms of Service';
+  overlay.appendChild(iframe);
+  document.body.appendChild(overlay);
+  setTimeout(() => {
+    iframe.style.transform = 'translateX(-50%) scale(1)'; // Animate to full size
+  }, 1000); // Small timeout to allow for the iframe to be added to DOM before scaling
+
+  // Optionally, click anywhere on the overlay to remove it
+  overlay.addEventListener('click', function() {
+    document.body.removeChild(overlay);
+    mainContent.style.filter = 'none'; // Remove the blur effect
+  });
+});
+
   </script>
   
   </body></html>
