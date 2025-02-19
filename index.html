@@ -9,6 +9,9 @@
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://twixxt.vercel.app">
    <style>
+    input[type="text"] {
+        font-family: Web Tandy2K;
+    }
    .full-screen-image {
   position: fixed;
   top: 0;
@@ -216,7 +219,7 @@ footer {
             font-size: 32px;
         }
   
-        h3, h4, h5, h6, body {
+        h3, h4, h5, h6, body, {
             text-rendering: pixelated;
             font-size: 16px;
         }
@@ -1385,18 +1388,24 @@ toggleImage.addEventListener('click', function() {
 const video = document.getElementById('sigma');
 const keywordInput = document.getElementById('keyword-input');
 const playKeywords = ['yes', 'sure', 'ye', 'yep', 'of course', 'ofc', 'ya','agree'];
+keywordInput.addEventListener('keydown', function(event) {
+  if (event.key === 'Enter') {  // Check if Enter is pressed
+    event.preventDefault(); // Prevent default form submission (if applicable)
+    
+    const inputValue = keywordInput.value.toLowerCase().trim();
 
-// Listen for changes in the input box
-keywordInput.addEventListener('input', function() {
-  const inputValue = keywordInput.value.toLowerCase();
-
-  // Check if the typed input matches any of the predefined keywords
-  if (playKeywords.includes(inputValue) && video.paused) {
-    video.style.display = 'block'; // Show the video as an overlay
-    video.play(); // Play the video
+    // Check if the input matches any of the predefined keywords
+    if (playKeywords.includes(inputValue) && video.paused) {
+      video.style.display = 'block'; // Show the video as an overlay
+      video.play(); // Play the video
+    }
+    keywordInput.disabled = true;
+      keywordInput.placeholder = 'tanks vro :3';
+      keywordInput.value = ''; // Clear input
+      return; // Stop further execution
+    keywordInput.value = ''; // Clear input box after pressing Enter
   }
 });
-
 
 // Listen for a click on the video to pause or play
 video.addEventListener('click', function() {
@@ -1410,7 +1419,6 @@ video.addEventListener('click', function() {
 // Listen for the pause event to hide the video when it's paused
 video.addEventListener('pause', function() {
   video.style.display = 'none'; // Hide the video when paused
-  keywordInput.value = ''; // Clear the input box
 });
 const link = document.getElementById('show-iframe');
 const mainContent = document.querySelector('main');
