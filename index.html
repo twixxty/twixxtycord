@@ -1424,23 +1424,27 @@ toggleImage.addEventListener('click', function() {
 });
 const video = document.getElementById('sigma');
 const keywordInput = document.getElementById('keyword-input');
-const playKeywords = ['yes', 'sure', 'ye', 'yep', 'of course', 'ofc', 'ya','agree'];
+
+const playKeywords = ['yes', 'sure', 'ye', 'yep', 'of course', 'ofc', 'ya', 'agree'];
+
 keywordInput.addEventListener('keydown', function(event) {
-  if (event.key === 'Enter') {  // Check if Enter is pressed
-    event.preventDefault(); // Prevent default form submission (if applicable)
+  if (event.key === 'Enter') {  
+    event.preventDefault(); // Prevent form submission
     
     const inputValue = keywordInput.value.toLowerCase().trim();
 
     // Check if the input matches any of the predefined keywords
     if (playKeywords.includes(inputValue) && video.paused) {
-      video.style.display = 'block'; // Show the video as an overlay
+      video.style.display = 'block'; // Show the video
       video.play(); // Play the video
-    }
-    keywordInput.disabled = true;
+
+      // Only disable input & change placeholder if video plays
+      keywordInput.disabled = true;
       keywordInput.placeholder = 'tanks vro :3';
       keywordInput.value = ''; // Clear input
-      return; // Stop further execution
-    keywordInput.value = ''; // Clear input box after pressing Enter
+    } else {
+      keywordInput.value = ''; // Clear input if no match, but keep enabled
+    }
   }
 });
 
