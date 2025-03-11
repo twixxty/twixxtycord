@@ -9,6 +9,80 @@
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://twixxt.vercel.app">
    <style>
+      .floating-image {
+            position: fixed;
+            width: 100px;
+            height: 100px;
+            background: url('/images/gun.png') no-repeat center;
+            background-size: contain;
+            pointer-events: none;
+            transform: translate(-50%, -10%);
+            z-index: 9998;
+            transition: transform 0.3s ease-out;
+            display: none;
+        }
+
+      .no-pointer {
+            cursor: none;
+        }
+
+        .overlay-gun {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            cursor: none;
+            z-index: 10;
+        }
+.overlay-gun :hover{
+    cursor: none;
+}
+@keyframes perishEffect {
+            from {
+                opacity: 1;
+            }
+            to {
+                opacity: 0;
+            }
+        }
+        .custom-cursor {
+            filter: invert(1); /* Invert cursor colors */
+
+            position: fixed;
+            width: 32px;
+            height: 32px;
+            background: url('images/crosshair.png') no-repeat center;
+            background-size: contain;
+            pointer-events: none;
+            transform: translate(-50%, -50%);
+            z-index: 9999; /* Ensures cursor stays above all other elements */
+            display: none;
+        }
+        .custom-cursor.animate {
+            animation: cursorClickEffect 0.2s ease-out forwards;
+        }
+
+        @keyframes cursorClickEffect {
+            from {
+                transform: translate(-50%, -50%) scale(0.5);
+            }
+            to {
+                transform: translate(-50%, -50%) scale(1);
+
+            }
+        }
+
+    #gunimg {
+        width: 100px;
+        height: 100px;
+        cursor: pointer;
+        }
+
+        .no-pointer {
+            cursor: url('/images/crosshair.png'), auto; /* Replace with your image */
+        }
     input[type="text"] {
         font-family: Web Tandy2K;
     }
@@ -538,7 +612,7 @@ a:hover {
         <img id="startChase" src="images/chase.jpg" class="clickable-image" alt="Start Chase" >
         <img id="fullscreenTrigger" src="images/oia-uia.png" class="clickable-image" alt="Play Fullscreen Video">
         <img id="caseohVisible" src="images/caseoh.jpg" alt="Click me!" class="clickable-image">
-
+        <img id="gunimg"   src="https://media.istockphoto.com/id/535481859/photo/handgun.jpg?s=612x612&w=0&k=20&c=44RTUSAOJaeBdr3EQcgTL3p5QiEuNPxBy46niaEd5is=" alt="Clickable Image">
     </div>
 
     <footer><br>
@@ -570,6 +644,10 @@ a:hover {
 <div class="flex justify-center items-center h-screen">
 
 </div>
+<div class="overlay" id="overlay"></div>
+<div class="custom-cursor" id="customCursor"></div>
+<div class="floating-image" id="floatingImage"></div>
+
 <img id="dark-mode-toggle" src="images/moon.png" alt="Toggle Dark Mode" class="floating-icon" onclick="toggleTheme()">
 <video id="sigma" style="display: none; width: 100%; height: 100%;">
     <source src="videos/sigma.mp4" type="video/mp4">
@@ -1489,7 +1567,127 @@ link.addEventListener('click', function(event) {
     mainContent.style.filter = 'none'; // Remove the blur effect
   });
 });
+let cursorX = 0, cursorY = 0;
+            let targetX = 0, targetY = 0;
+            let lastX = 0;
 
+            document.addEventListener("mousemove", (e) => {
+                targetX = e.clientX;
+                targetY = e.clientY;
+
+                const velocity = targetX - lastX; // Calculate velocity by tracking movement speed
+                const rotation = velocity * 2;
+                customCursor.style.transform = `translate(-50%, -50%) rotate(${rotation}deg)`;
+                floatingImage.style.transform = `translate(-50%, -10%) rotate(${rotation}deg)`;                lastX = targetX;
+            });
+window.addEventListener("DOMContentLoaded", () => {
+
+const gunImage = document.getElementById("gunimg");
+        const customCursor = document.getElementById("customCursor");
+        const overlay = document.getElementById("overlay");
+        const floatingImage = document.getElementById("floatingImage");
+
+        let pointerMode = false;
+        let pointerModeActive = false; // Pointer mode starts inactive
+
+        gunImage.addEventListener("click", () => {
+            togglePointerMode();
+            const bgMusic = new Audio('sfx/doom-eternal.mp3');
+            bgMusic.loop = false; // Ensure background music loops
+            bgMusic.play();
+            pointerMode = !pointerMode;
+            pointerModeActive = true;
+
+            document.body.classList.toggle("no-pointer");
+            customCursor.style.display = pointerMode ? "block" : "none";
+            document.body.style.cursor = state ? "none" : "default";                });
+
+        document.addEventListener("mousemove", (e) => {
+            if (pointerMode) {
+                customCursor.style.left = `${e.pageX}px`;
+                customCursor.style.top = `${e.pageY}px`;
+            }
+        });
+
+        overlay-gun.addEventListener("mouseenter", () => {
+            if (pointerMode) customCursor.style.display = "block";
+            document.body.style.cursor = state ? "none" : "default";        });
+
+        overlay-gun.addEventListener("mouseleave", () => {
+            customCursor.style.display = "none";
+            document.body.style.cursor = state ? "none" : "default";        });
+    })
+    window.addEventListener("DOMContentLoaded", () => {
+            const customCursor = document.getElementById("customCursor");
+
+            document.addEventListener("mousemove", (e) => {
+                customCursor.style.left = `${e.clientX}px`;
+                customCursor.style.top = `${e.clientY}px`;
+            });
+        });
+// Make sure these variables are defined globally or accessible in this scope
+let pointerMode = false; // Default value
+let customCursor = document.getElementById('customCursor'); // Make sure this exists
+let floatingImage = document.getElementById('floatingImage'); // Make sure this exists
+
+// First define the function
+function togglePointerMode() {
+    pointerMode = !pointerMode;
+    console.log("Pointer mode:", pointerMode);
+    
+    // Update UI to show current mode
+    if (pointerMode) {
+        // Show custom cursor or other visual indicator
+        customCursor.style.display = "block";
+    } else {
+        customCursor.style.display = "none";
+    }
+}
+
+// Then add the event listeners
+document.addEventListener("click", (e) => {
+    console.log("Click detected, pointerMode:", pointerMode);
+    
+    if (pointerMode) {  // Only shoot when pointerMode is active
+        new Audio('sfx/pistol-shot.mp3').play();
+        customCursor.classList.remove("animate");
+        void customCursor.offsetWidth;
+        customCursor.classList.add("animate");
+        floatingImage.style.display = "block";
+        const clickedElement = e.target;
+        if (
+            clickedElement !== customCursor &&
+            clickedElement !== floatingImage &&
+            clickedElement !== document.body &&
+            clickedElement.tagName !== "HTML" &&
+            clickedElement.tagName !== "ARTICLE"
+        ) {
+            clickedElement.classList.add("perish");
+            new Audio('sfx/toms-screams.mp3').play();
+            clickedElement.style.display = 'none';
+            console.log(`Clicked element: ${clickedElement.tagName}`);
+        }
+    }
+});
+
+document.addEventListener("keydown", (e) => {
+    if (e.key === "p" || e.key === "P") { // Use 'p' key to toggle pointer mode
+        togglePointerMode();
+    }
+});   
+            function animateElements() {
+                cursorX += (targetX - cursorX) * 0.1;
+                cursorY += (targetY - cursorY) * 0.1;
+                customCursor.style.left = `${targetX}px`;
+                customCursor.style.top = `${targetY}px`;
+                floatingImage.style.left = `${cursorX}px`;
+                floatingImage.style.top = `${cursorY}px`;
+                requestAnimationFrame(animateElements);
+            }
+
+            animateElements();
+
+         
   </script>
   
   </body></html>
