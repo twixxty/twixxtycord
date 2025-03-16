@@ -1,113 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link rel="stylesheet" href="styles.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Terms & Conditions</title>
-    <style>
-         @font-face {
-            font-family: "Web Tandy2K";
-            font-style: normal;
-            font-weight: 400;
-            src: url(fonts/web_tandy2k.woff) format("woff");
-        }
-        @font-face {
-            font-family: "comic";
-            font-style: normal;
-            font-weight: 400;
-            src: url(fonts/ComicSansMS3.ttf) format("woff");
-        } 
-        @font-face {
-            font-family: "san";
-            font-style: normal;
-            font-weight: 400;
-            src: url(fonts/ahronbd.ttf) format("woff");
-        }
-        @font-face {
-            font-family: "sant";
-            font-style: normal;
-            font-weight: 400;
-            src: url(fonts/BECKETT_.TTF) format("woff");
-        } 
-        @font-face {
-            font-family: "vintage";
-            font-style: normal;
-            font-weight: 400;
-            src: url(fonts/brighton.otf) format("woff");
-        } 
-        @font-face {
-            font-family: "vintext";
 
-            src: url(fonts/vintext.otf) format("woff");
-        } 
-        .custom-fonti {
-            font-family: "Web Tandy2K" !important;
-            color: var(--accent) !important;
-        }
-        main {
-        scale: 1;
-          filter: blur(700px);
-          transition: filter, 4s ease-in-out;
-      }
-        :root {
-            --peach: #efc4df;
-            --strawberry: #e5a0a0;
-            --cantaloupe: #f9b28c;
-            --banana: #f0cf9f;
-            --watermelon: #b0d2b0;
-            --mint: #95fecc;
-            --water: #80bbdb;
-            --ube: #a99dbd;
-            --tapioca: #c1c1c1;
-            --dark: #111;
-            --light: #eee;
-            --accent: var(--mint);
-            font-family: "Web Tandy2K";
-            background-color: var(--dark);
-            color: var(--light);
-        }
-  
-        body {
-            text-rendering: pixelated;
-            max-width: 750px;
-            margin: 50px auto;
-            padding: 50px;
-        }
-  
-        h1 {
-            text-decoration: underline wavy;
-            text-rendering: pixelated;
-            font-size: 48px;
-        }
-  
-        h2 {
-            text-rendering: pixelated;
-            font-size: 32px;
-        }
-  
-        h3, h4, h5, h6, body {
-            text-rendering: pixelated;
-            font-size: 16px;
-        }
-        ::-webkit-scrollbar {
-    width: 1px;
-    height: 1px; 
-}
-
-::-webkit-scrollbar-thumb {
-    background: rgba(0, 0, 0, 0);
-    border-radius: 10px; 
-}
-
-::-webkit-scrollbar-track {
-    background: transparent; 
-}
-
- {
-    scrollbar-width: thin;
-    scrollbar-color: rgba(0, 0, 0, 0) transparent;
-}
-    </style>
 </head>
 <body>
     <h1>TERMS & CONDITIONS</h1>
@@ -129,4 +27,15 @@
 
     </div>
 </body>
+<script>
+    
+    async function fetchAccentColor() {
+          const response = await fetch('https://discord-lookup-api-one-coral.vercel.app/v1/user/798177330010521630');
+          const data = await response.json();
+          if (data.accent_color) {
+              document.documentElement.style.setProperty("--accent", `#${data.accent_color.toString(16)}`);
+          }
+      }
+      fetchAccentColor();
+</script>
 </html>

@@ -887,12 +887,10 @@ const link = document.getElementById('show-iframe');
 const mainContent = document.querySelector('main');
 
 link.addEventListener('click', function(event) {
-  event.preventDefault(); // Prevent the default anchor behavior
+  event.preventDefault();
   
-  // Apply the blur effect to the <main> element
-  mainContent.style.filter = 'blur(700px)';
+  mainContent.style.filter = 'blur(70px)';
   
-  // Create the iframe and overlay container
   const overlay = document.createElement('div');
   overlay.id = 'overlay-iframe';
 
@@ -902,13 +900,12 @@ link.addEventListener('click', function(event) {
   overlay.appendChild(iframe);
   document.body.appendChild(overlay);
   setTimeout(() => {
-    iframe.style.transform = 'translateX(-50%) scale(1)'; // Animate to full size
-  }, 1000); // Small timeout to allow for the iframe to be added to DOM before scaling
+    iframe.style.transform = 'translateX(-50%)'; // Animate to full size
+  }, 1000);
 
-  // Optionally, click anywhere on the overlay to remove it
   overlay.addEventListener('click', function() {
     document.body.removeChild(overlay);
-    mainContent.style.filter = 'none'; // Remove the blur effect
+    mainContent.style.filter = 'none';
   });
 });
 let cursorX = 0, cursorY = 0;
