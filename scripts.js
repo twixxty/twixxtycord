@@ -46,7 +46,7 @@
 });
 
       async function fetchAccentColor() {
-          const response = await fetch('https://discord-lookup-api-one-coral.vercel.app/v1/user/798177330010521630');
+          const response = await fetch('https://discord-lookup-api-new-liard.vercel.app/v1/user/798177330010521630');
           const data = await response.json();
           if (data.accent_color) {
               document.documentElement.style.setProperty("--accent", `#${data.accent_color.toString(16)}`);
@@ -55,7 +55,7 @@
       fetchAccentColor();
   
       async function fetchUserData() {
-          const response = await fetch('https://discord-lookup-api-one-coral.vercel.app/v1/user/798177330010521630');
+          const response = await fetch('https://discord-lookup-api-new-liard.vercel.app/v1/user/798177330010521630');
           const data = await response.json();
           if (data.global_name && data.username) {
               document.getElementById("pageTitle").textContent = data.global_name;
@@ -65,7 +65,7 @@
       fetchUserData();
   
       async function fetchProfilePicture() {
-          const response = await fetch('https://discord-lookup-api-one-coral.vercel.app/v1/user/798177330010521630');
+          const response = await fetch('https://discord-lookup-api-new-liard.vercel.app/v1/user/798177330010521630');
           const data = await response.json();
           if (data.avatar && data.avatar.link) {
               document.getElementById("pfp").src = data.avatar.link;
