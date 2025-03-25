@@ -795,7 +795,9 @@ function toggleTheme() {
             const isDark = document.body.classList.toggle('light-mode');
             elements.forEach(el => {
                 if (isDark) {
-                    document.body.classList.toggle('dark-mode');                    el.style.background = "#ffffff";
+                    document.body.classList.toggle('dark-mode');                   document.body.style.backgroundColor = "#FFFFFF"; // Change to any color
+                    document.documentElement.style.backgroundColor = "#FFFFFF"; // Change to any color
+
                     el.style.color = "#212529";
                     document.querySelector("main").style.filter = "blur(2px)";
                     toggleImage.src = 'images/sunny.png'; // Moon icon for dark mode                    el.style.color = "#212529";
@@ -980,16 +982,46 @@ function togglePointerMode() {
     if (pointerMode) {
         // Show custom cursor or other visual indicator
         customCursor.style.display = "block";
+       
+          
     } else {
         customCursor.style.display = "none";
     }
 }
+const links = document.querySelectorAll("a");
+let storedHrefs = new Map();
 
+
+function disableLinks() {
+    links.forEach(link => {
+        storedHrefs.set(link, link.getAttribute("href")); // Save original href
+        link.removeAttribute("href"); // Remove href to disable
+    });
+}
+
+function enableLinks() {
+    links.forEach(link => {
+        if (storedHrefs.has(link)) {
+            link.setAttribute("href", storedHrefs.get(link)); // Restore href
+        }
+    });
+}
+
+// Call disableLinks() when pointerMode is active
+if (pointerMode) {
+}
+
+// Call enableLinks() when pointerMode is deactivated
+if (!pointerMode) {
+    enableLinks();
+}
 // Then add the event listeners
 document.addEventListener("click", (e) => {
     console.log("Click detected, pointerMode:", pointerMode);
     
     if (pointerMode) {  // Only shoot when pointerMode is active
+        disableLinks();
+
         new Audio('sfx/pistol-shot.mp3').play();
         customCursor.classList.remove("animate");
         void customCursor.offsetWidth;
