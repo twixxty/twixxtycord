@@ -315,14 +315,17 @@ footer {
         }
   
         h1 {
-
+font-family: "Web Tandy2K";
             text-rendering: pixelated;
             font-size: 48px;
+            font-weight: 900;
         }
   
         h2 {
+            font-family: "Web Tandy2K";
             text-rendering: pixelated;
             font-size: 32px;
+            font-weight: 500;
         }
   
         h3, h4, h5, h6, body, {
@@ -349,7 +352,7 @@ footer {
 }
 
         h1, h2 {
-            font-family: vcr;
+            
             text-decoration: underline wavy 2px;
             text-underline-offset: 6px;
             color: var(--accent);
