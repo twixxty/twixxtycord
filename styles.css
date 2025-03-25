@@ -318,14 +318,14 @@ footer {
 font-family: "Web Tandy2K";
             text-rendering: pixelated;
             font-size: 48px;
-            font-weight: 900;
+            font-weight: 1900;
         }
   
         h2 {
             font-family: "Web Tandy2K";
             text-rendering: pixelated;
             font-size: 32px;
-            font-weight: 500;
+            
         }
   
         h3, h4, h5, h6, body, {
