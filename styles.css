@@ -627,3 +627,4 @@ a:hover {
   color: #000000; /* New text color on hover */
   text-decoration: underline wavy;
 }
+<link rel=”stylesheet” href=”https://unpkg.com/lenis@1.1.13/dist/lenis.css"

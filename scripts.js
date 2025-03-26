@@ -1,4 +1,6 @@
-    const toggleImage = document.getElementById('dark-mode-toggle');
+
+
+ const toggleImage = document.getElementById('dark-mode-toggle');
     document.addEventListener("DOMContentLoaded", function(event) {
     // wait until window is loaded - all images, styles-sheets, fonts, links, and other media assets
     // you could also use addEventListener() instead
@@ -1121,4 +1123,3 @@ document.addEventListener("keydown", (e) => {
 
 countdown();
 
-  
