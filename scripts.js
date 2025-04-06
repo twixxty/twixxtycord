@@ -713,6 +713,7 @@ overlay.style.display = "block";
             retroMode.style.display = 'none';
             gtaMode.classList.add('custom-font');
             classicMode.classList.add('custom-fonty');
+            toggleImage.style.display = 'none';
 
             document.querySelectorAll("button, img, a, h1, h2, h3, video").forEach(el => {
                 el.style.border = "3px solid red";
@@ -848,6 +849,7 @@ toggleImage.addEventListener('click', function() {
 
   }, 1500); // Fade-out delay
 });
+
 const video = document.getElementById('sigma');
 const keywordInput = document.getElementById('keyword-input');
 
