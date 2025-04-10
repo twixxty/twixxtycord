@@ -677,8 +677,7 @@ a:hover {
     bottom: -4px;
     right: -4px;
     font-size: 34px;
-    backdrop-filter: blur(10px);
-    background-color: #00000074;
+    background-color: #111;
     border-radius: 100px;
     pointer-events: none; 
 
