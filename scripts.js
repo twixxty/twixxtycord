@@ -64,7 +64,7 @@ async function updateDiscordStatus() {
       else if (d.discord_status === "dnd") emojiStatus = "⛔";
   
       const onMobile = d.active_on_discord_mobile;
-      statusEmoji.textContent = onMobile ? `📱` : emojiStatus;
+      statusEmoji.textContent = onMobile ? `🟢` : emojiStatus;
   
     } catch (err) {
       console.error("Status fetch failed:", err);
