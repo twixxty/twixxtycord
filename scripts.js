@@ -1,4 +1,81 @@
-
+async function updateDiscordStatus() {
+    const statusElement = document.getElementById("randomText");
+    const statusEmoji = document.getElementById("statusEmoji");
+    const pfp = document.getElementById("pfp");
+  
+    try {
+      const res = await fetch("https://api.lanyard.rest/v1/users/798177330010521630");
+      const data = await res.json();
+      if (!data.success) throw new Error("API failed");
+  
+      const d = data.data;
+  
+    // If user is offline, set random text
+    if (d.discord_status === "offline") {
+        setRandomText();
+        statusEmoji.textContent = "";
+        return;
+      }
+      // Set profile picture
+    
+      // Determine if gaming
+      const gameActivity = d.activities.find(a => a.type === 0 && a.name !== "Custom Status");
+  
+      // Show gaming status if present
+      if (gameActivity) {
+        const gameName = gameActivity.name || "a game";
+        statusElement.innerHTML = `🎮 playing <b>${gameName}</b>`;
+      } else {
+        // Otherwise, show custom status
+        const customStatus = d.activities.find(a => a.type === 4);
+        const emoji = customStatus?.emoji?.name || "";
+        const text = customStatus?.state || "";
+        statusElement.textContent = `${emoji ? emoji + " " : ""}${text}`;
+      }
+        // If no game or custom status, fallback to presence text
+        if (!gameActivity) {
+            const customStatus = d.activities.find(a => a.type === 4);
+            const hasCustom = customStatus?.emoji?.name || customStatus?.state;
+    
+            if (!hasCustom && ["online", "idle", "dnd"].includes(d.discord_status)) {
+              let emoji = "";
+              let text = "";
+    
+              if (d.discord_status === "online") {
+                emoji = "(•ᴗ•)";
+                text = "online";
+              } else if (d.discord_status === "idle") {
+                emoji = "‎꜀( ꜆-ࡇ-)꜆ ᶻ 𝗓 𐰁";
+                text = "idle";
+              } else if (d.discord_status === "dnd") {
+                emoji = "( ` ᴖ ´ )";
+                text = "do not disturb";
+              }
+    
+              statusElement.textContent = `${emoji} ${text}`;
+            }
+          }
+    
+      // Status emoji with mobile indicator
+      let emojiStatus = "";
+      if (gameActivity) emojiStatus = "⛔";
+      else if (d.discord_status === "online") emojiStatus = "🟢";
+      else if (d.discord_status === "idle") emojiStatus = "🌙";
+      else if (d.discord_status === "dnd") emojiStatus = "⛔";
+  
+      const onMobile = d.active_on_discord_mobile;
+      statusEmoji.textContent = onMobile ? `📱` : emojiStatus;
+  
+    } catch (err) {
+      console.error("Status fetch failed:", err);
+      statusElement.textContent = "lemme cook...";
+      statusEmoji.textContent = "";
+    }
+  }
+  
+  updateDiscordStatus();
+  setInterval(updateDiscordStatus, 30000);
+  
 
  const toggleImage = document.getElementById('dark-mode-toggle');
     document.addEventListener("DOMContentLoaded", function(event) {
@@ -1124,4 +1201,3 @@ document.addEventListener("keydown", (e) => {
 }
 
 countdown();
-
