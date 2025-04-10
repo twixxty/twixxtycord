@@ -269,6 +269,7 @@ footer {
           width: 80px !important;
           height: 80px !important;
       }
+
   }
   
         @font-face {
@@ -662,3 +663,37 @@ a:hover {
   text-decoration: underline wavy;
 }
 <link rel=”stylesheet” href=”https://unpkg.com/lenis@1.1.13/dist/lenis.css"
+#statusEmoji {
+    position: absolute;
+    bottom: -4px;
+    right: -4px;
+    font-size: 34px;
+    backdrop-filter: blur(10px);
+    background-color: #00000074;
+    border-radius: 100px;
+  }
+  #statusEmoji {
+    position: absolute;
+    bottom: -4px;
+    right: -4px;
+    font-size: 34px;
+    backdrop-filter: blur(10px);
+    background-color: #00000074;
+    border-radius: 100px;
+    pointer-events: none; 
+
+  }
+  
+  @media (max-width: 600px) {
+    #pfpp #pfp {
+      width: 80px !important;
+      height: 80px !important;
+    }
+  
+    #pfpp #statusEmoji {
+      font-size: 20px !important;
+      bottom: -2px !important;
+      right: -2px !important;
+    }
+  }
+  
