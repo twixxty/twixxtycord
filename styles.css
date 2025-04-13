@@ -252,6 +252,7 @@ scale: 1.2;
     }
 }
 #pfp {
+    border: #111 5px solid;
     cursor: pointer;
       width: 150px !important;
       height: 150px !important;
@@ -466,6 +467,10 @@ transform: scale(1);
         margin-left: 0;
     }
     .friend-pfp {
+
+        border: 2px solid #111;
+        background-color: rgba(255, 255, 255, 0); /* semi-transparent */
+        backdrop-filter: blur(10px);
         border-radius: 50%;
         width: 50px;
         height: 50px;
@@ -474,6 +479,7 @@ transform: scale(1);
     .friend:hover .friend-pfp {
         animation: fadeIn 0.7s forwards;
         transition: transform 0.2s ease-in-out, border-radius 0.2s ease-in-out, filter 0.5s ease-in-out, padding 0.2s ease-in-out;
+        backdrop-filter: blur(10px);
 
         padding: 5px;
         border-radius: 20px;
@@ -599,7 +605,7 @@ input[type="text"] {
   bottom: 20px;
   left: 20px;
   padding: 10px;
-background-color: #111;
+background-color: #11111100;
 border: 3px solid #555;
 color: var(--accent);
 transition: padding 0.3s, border 0.3s;
@@ -608,7 +614,7 @@ input[type="text"]:hover {
   bottom: 20px;
   left: 20px;
   padding: 13px;
-background-color: #111;
+background-color: #11111100;
 border: 3.3px solid var(--accent);
 color: var(--accent);
 }
@@ -696,4 +702,17 @@ a:hover {
       right: -2px !important;
     }
   }
-  
+  #gradient {
+    filter: blur(100px);
+    position: fixed;
+    top: 10%;
+    left: 50%;
+    transform: translateX(-50%) scale(1);
+    width: 100%;
+    height: 100%;
+    border: none;
+    transition: all 1s ease-in-out;
+z-index: -1;
+opacity: 0.5;
+pointer-events: none;
+  }

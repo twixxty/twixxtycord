@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="./style.css">
+
+</head>
+<body>
+
+	
+	
+	
+	
+	<div class="frame-bg">
+		<img class="bg-color album-artwork" id="pfp" src=""/>
+		<img class="bg-black album-artwork" id="pfpp" src=""/>
+	</div>	
+
+
+  
+</body>
+<script>
+	  
+      async function fetchProfilePicture() {
+          const response = await fetch('https://discord-lookup-api-new-liard.vercel.app/v1/user/798177330010521630');
+          const data = await response.json();
+          if (data.avatar && data.avatar.link) {
+              document.getElementById("pfp").src = data.avatar.link;
+              document.getElementById("pfpp").src = data.avatar.link;
+
+			}
+        }
+      fetchProfilePicture();
+</script>
+</html>

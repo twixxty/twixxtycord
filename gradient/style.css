@@ -1,0 +1,72 @@
+html {
+
+}
+@keyframes fadeIframe {
+  50% {
+      scale: 0.5;
+      opacity: 0;
+      filter: blur(100px);
+  }
+  100 {
+scale: 1;
+      opacity: 0.5;
+      filter: blur(0px);
+
+  }
+}
+.frame-bg {
+  animation-delay: 5s;
+
+  animation: fadeIframe 2s forwards;
+
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: 0;
+  z-index: 0;
+  overflow: hidden;
+  border-radius: 2em;
+}
+.frame-bg .bg-color,
+.frame-bg .bg-black {
+  filter: brightness(0.5);
+  width: 200%;
+  position: absolute;
+  border-radius: 100em;
+  -webkit-animation: rotate 35s linear infinite;
+          animation: rotate 35s linear infinite;
+}
+.frame-bg .bg-color {
+  right: 0;
+  top: 0;
+  z-index: 10;
+}
+.frame-bg .bg-black {
+  left: 0;
+  bottom: 0;
+  filter: blur(40px);
+  z-inxed: 1;
+  animation-direction: reverse;
+  -webkit-animation-delay: 10s;
+          animation-delay: 10s;
+}
+
+@-webkit-keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
