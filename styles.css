@@ -453,9 +453,7 @@ a, button, * {
         position: relative;
     }
     .friend {
-backdrop-filter: blur(10px);
-        boder-radius: 9px;
-        position: relative;
+position: relative;
         cursor: pointer;
         transition: z-index 0.2s, filter 0.2s;
         margin-left: -15px;
