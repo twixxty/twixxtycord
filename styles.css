@@ -445,7 +445,8 @@ a, button, * {
     -webkit-tap-highlight-color:transparent;
 }
 .friends-grid {
-
+        backdrop-filter: blur(10px);
+        boder-radius: 40px;
         display: flex;
         gap: 0;
         justify-content: left;
