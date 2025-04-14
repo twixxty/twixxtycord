@@ -31,7 +31,7 @@ scale: 1;
 }
 .frame-bg .bg-color,
 .frame-bg .bg-black {
-  filter: brightness(0.5);
+  filter: brightness(0.7);
   width: 200%;
   position: absolute;
   border-radius: 100em;
