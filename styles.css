@@ -445,8 +445,7 @@ a, button, * {
     -webkit-tap-highlight-color:transparent;
 }
 .friends-grid {
-        backdrop-filter: blur(10px);
-        boder-radius: 40px;
+        
         display: flex;
         gap: 0;
         justify-content: left;
@@ -454,7 +453,8 @@ a, button, * {
         position: relative;
     }
     .friend {
-
+backdrop-filter: blur(10px);
+        boder-radius: 9px;
         position: relative;
         cursor: pointer;
         transition: z-index 0.2s, filter 0.2s;
