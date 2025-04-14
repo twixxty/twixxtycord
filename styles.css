@@ -467,9 +467,8 @@ transform: scale(1);
         margin-left: 0;
     }
     .friend-pfp {
--webkit-backdrop-filter: blur(10px);
         border: 2px solid #111;
-        background-color: rgba(255, 255, 255, 0); /* semi-transparent */
+        background-color: rgba(0, 0, 0, 25); /* semi-transparent */
         backdrop-filter: blur(10px);
         border-radius: 50%;
         width: 50px;
