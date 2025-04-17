@@ -7,7 +7,7 @@ html {
       opacity: 0;
       filter: blur(100px);
   }
-  100 {
+  100% {
 scale: 1;
       opacity: 1;
       filter: blur(0px);
@@ -15,9 +15,14 @@ scale: 1;
   }
 }
 .frame-bg {
+  animation-name: fadeIframe;
+  animation-duration: 2s;
+  animation-fill-mode: forwards;
   animation-delay: 5s;
+}
 
-  animation: fadeIframe 2s forwards;
+.frame-bg {
+
 
   position: absolute;
   top: 0;
