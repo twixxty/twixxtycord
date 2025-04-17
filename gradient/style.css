@@ -22,7 +22,9 @@ scale: 1;
 }
 
 .frame-bg {
-
+      scale: 0.5;
+      opacity: 0;
+      filter: blur(100px);
 
   position: absolute;
   top: 0;
