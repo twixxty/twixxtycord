@@ -18,7 +18,7 @@ scale: 1;
   animation-name: fadeIframe;
   animation-duration: 2s;
   animation-fill-mode: forwards;
-  animation-delay: 5s;
+  animation-delay: 2s;
 }
 
 .frame-bg {
