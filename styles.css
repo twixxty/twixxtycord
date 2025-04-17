@@ -223,12 +223,14 @@ footer {
     text-rendering: pixelated;
 
 }
-    #displayHeader {
+#displayHeader {
     flex-grow: 1;
     margin-bottom: 0px;
     white-space: nowrap; 
     overflow: auto;
+    padding-right: 5px;
 }
+
 
 
     #randomText {
