@@ -77,3 +77,10 @@ scale: 1;
     transform: rotate(360deg);
   }
 }
+  @media (max-width: 600px) {
+
+    .frame-bg {
+    transform: rotate(90deg);
+    }
+
+  }
