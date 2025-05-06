@@ -468,6 +468,8 @@ transform: scale(1);
         margin-left: 0;
     }
     .friend-pfp {
+                backdrop-filter: blur(10px);
+
         border: 2px solid #111;
         background-color: #11111140; /* sensparent */
         backdrop-filter: blur(10px);
@@ -487,6 +489,7 @@ transform: scale(1);
     }
     .friend.active {
         transition: transform 0.2s ease-in-out, border-radius 0.2s ease-in-out, filter 0.5s ease-in-out, padding 0.2s ease-in-out;
+        backdrop-filter: blur(10px);
 
         z-index: 5 !important;
         filter: brightness(1);
