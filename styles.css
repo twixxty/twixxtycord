@@ -696,9 +696,13 @@ a:hover {
       width: 80px !important;
       height: 80px !important;
     }
+    #gradientContainer {
+      display: block;
+      position: absolute;
+    }
     #gradient {
     filter: blur(100px);
-    position: fixed;
+    position: absolute;
     top: 10%;
     left: 50%;
     transform: translateX(-50%) scale(1);
