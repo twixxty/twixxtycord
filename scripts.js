@@ -304,7 +304,7 @@ const friendsList = [
 
         { id: "860917681879253002", username: "Friend 2", sfx: "sounds/dhiren.mp3" },
         { id: "1256930587684634674", username: "Friend 3", sfx: "sounds/ladybug.mp3" },
-        { id: "1089305664108634162", username: "Friend 4", sfx: "sounds/mijo.mp3" },
+        { id: "1108071513493614592", username: "Friend 4", sfx: "sounds/mijo.mp3" },
         { id: "735955748579836025", username: "Friend 5", sfx: "sounds/penny.mp3" }
     ];
 
@@ -354,7 +354,7 @@ if (friend.previousElementSibling?.previousElementSibling?.previousElementSiblin
     
     const moreFriendsList = [
         { id: "929308666606272563", username: "Friend A", sfx: "sounds/abhi.mp3" },
-        { id: "1108071513493614592", username: "Friend B", sfx: "sounds/george.mp3" },
+        { id: "1089305664108634162", username: "Friend B", sfx: "sounds/george.mp3" },
         { id: "1081451019260678245", username: "Friend C", sfx: "sounds/vro.mp3" },
         { id: "922389987889143849", username: "Friend D", sfx: "sounds/sounak.mp3" },
         { id: "852730635063656462", username: "Friend E", sfx: "sounds/lemon.mp3" }
