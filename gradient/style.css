@@ -42,8 +42,8 @@ scale: 1;
   width: 200%;
   position: absolute;
   border-radius: 100em;
-  -webkit-animation: rotate 35s linear infinite;
-          animation: rotate 35s linear infinite;
+  -webkit-animation: rotate 5s linear infinite;
+          animation: rotate 15s linear infinite;
 }
 .frame-bg .bg-color {
   right: 0;
@@ -77,10 +77,4 @@ scale: 1;
     transform: rotate(360deg);
   }
 }
-  @media (max-width: 600px) {
 
-    .frame-bg {
-    transform: rotate(90deg);
-    }
-
-  }
