@@ -875,6 +875,14 @@ a:hover {
     --pfp-overlap-banner-percentage: 0.70; /* 30% on banner */
 
 }
+    :root {
+    --banner-height: 200px; /* Adjust as needed */
+    --pfp-size: 100px;
+    --pfp-border-width: 7px;
+    --pfp-total-size: calc(var(--pfp-size) + (2 * var(--pfp-border-width))); /* 150px + 10px = 160px */
+    --pfp-overlap-banner-percentage: 0.90; /* 30% on banner */
+    --pfp-left-offset: 30px; /* How far from the left edge the PFP should be */
+    }
     #pfpp #statusEmoji {
       font-size: 20px !important;
       bottom: -2px !important;
