@@ -876,7 +876,7 @@ a:hover {
 
 }
     :root {
-    --banner-height: 200px; /* Adjust as needed */
+    --banner-height: 150px; /* Adjust as needed */
     --pfp-size: 100px;
     --pfp-border-width: 7px;
     --pfp-total-size: calc(var(--pfp-size) + (2 * var(--pfp-border-width))); /* 150px + 10px = 160px */
