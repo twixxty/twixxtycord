@@ -1,7 +1,25 @@
 @font-face {
+    font-family: 'editorial';
+    src: url('/fonts/PPEditorialNew-Regular-BF644b214ff145f.otf') format('woff2'),
+    font-weight: normal;
+    font-style: normal;
+  }
+@font-face {
+    font-family: 'editorialbold';
+    src: url('/fonts/PPEditorialNew-Ultrabold-BF644b21500840c.otf') format('woff2'),
+    font-weight: normal;
+    font-style: normal;
+  }
+@font-face {
     font-family: 'Gome';
     src: url('/fonts/GomePixel-ARJd7.otf') format('woff2'),
          url('/fonts/GomePixel-DYJX1.otf') format('woff');
+    font-weight: normal;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: 'zefani';
+    src: url('/fonts/Zefani.otf') format('woff2'),
     font-weight: normal;
     font-style: normal;
   }
@@ -21,6 +39,24 @@
         transform: translateY(0); /* Ends in normal position */
     }
 }
+@-webkit-keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
 @keyframes fadeIntext {
 from{
     opacity: 0;
@@ -149,6 +185,7 @@ scale: 1;
         cursor: pointer;
     }
     .fullscreen-video {
+        z-index: 9999;
         position: fixed;
         top: 0;
         left: 0;
@@ -167,9 +204,9 @@ scale: 1;
         pointer-events: none;
         filter: blur(1000px);
 opacity: 0;
+font-family: "zefani";
     }
     .animate-overlay {
-        
         animation: fadeInZoom 2s ease-in-out;
     }
     @keyframes fadeInZoom {
@@ -268,10 +305,6 @@ footer {
 }
   @media (max-width: 600px) {
 
-      #pfp {
-          width: 80px !important;
-          height: 80px !important;
-      }
 
   }
   
@@ -345,14 +378,14 @@ footer {
         }
   
         h1 {
-font-family: "Web Tandy2K";
+font-family: "editorialbold";
             text-rendering: pixelated;
             font-size: 48px;
             font-weight: 1900;
         }
   
         h2 {
-            font-family: "Web Tandy2K";
+font-family: "editorial";
             text-rendering: pixelated;
             font-size: 32px;
             
@@ -407,8 +440,10 @@ font-family: "Web Tandy2K";
             text-decoration: underline dashed 1px;
             text-underline-offset: 2px;
         }
+
         #overlayText {
             animation: fadeIntext 1s ease-in-out;
+            font-family: editorial;
 
     position: fixed;
     top: 50%;
@@ -578,11 +613,14 @@ transform: scale(1);
   width: 50px;
   height: 50px;
   cursor: pointer;
-  transition: transform 0.3s, filter 0.3s, opacity 0.3s, scale 0.3s;
+  transition: transform 0.3s, filter 0.3s, opacity 0.3s, all 0.3s;
   opacity: 0;  /* Start hidden */
   filter: blur(10px);
+  background-color: #111;
+  border-radius: 100px;
 }
 .floating-icon:hover {
+    padding: 3px;
     scale: 1.2;
     transform: rotate(30deg);
 }
@@ -671,6 +709,8 @@ a:hover {
 }
 <link rel=”stylesheet” href=”https://unpkg.com/lenis@1.1.13/dist/lenis.css"
 #statusEmoji {
+    -webkit-animation: rotate 5s linear infinite;
+          animation: rotate 15s linear infinite;
     position: absolute;
     bottom: -4px;
     right: -4px;
@@ -688,15 +728,20 @@ a:hover {
     background-color: #111;
     border-radius: 100px;
     pointer-events: none; 
+        -webkit-animation: rotate 5s linear infinite;
+          animation: rotate 15s linear infinite;
 
   }
   
   @media (max-width: 600px) {
     #pfpp #pfp {
-      width: 80px !important;
-      height: 80px !important;
+      width: 120px !important;
+      height: 120px !important;
     }
+:root {
+    --pfp-overlap-banner-percentage: 0.60; /* 30% on banner */
 
+}
     #pfpp #statusEmoji {
       font-size: 20px !important;
       bottom: -2px !important;
@@ -729,4 +774,135 @@ a:hover {
 #top {
     height: 100%;
     width: 100%;
+}
+/* --- CSS Variables for easier management --- */
+:root {
+    --banner-height: 200px; /* Adjust as needed */
+    --pfp-size: 150px;
+    --pfp-border-width: 7px;
+    --pfp-total-size: calc(var(--pfp-size) + (2 * var(--pfp-border-width))); /* 150px + 10px = 160px */
+    --pfp-overlap-banner-percentage: 0.90; /* 30% on banner */
+    --pfp-left-offset: 30px; /* How far from the left edge the PFP should be */
+}
+
+/* --- Main Header Container --- */
+.profile-header {
+    position: relative; 
+}
+
+/* --- Banner --- */
+.banner-container {
+    position: relative; 
+    width: 100%;
+    height: var(--banner-height);
+    overflow: hidden;
+    border-radius: 20px;
+}
+
+#gradient {
+    filter: blur(9vw);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+    transition: all 1s ease-in-out;
+    z-index: 1; 
+    pointer-events: none;
+}
+
+.profile-picture-wrapper { /* Replaces #pfpp for styling */
+    position: absolute;
+    /* 
+      Calculate top position:
+      PFP top edge should be (PFP total size * 30%) *above* the bottom of the banner.
+      So, from the top of the banner: banner_height - (pfp_total_size * 30%)
+    */
+    top: calc(var(--banner-height) - (var(--pfp-total-size) * var(--pfp-overlap-banner-percentage)));
+    left: var(--pfp-left-offset);
+    z-index: 2; /* Above gradient */
+    /* display: inline-block; is fine if you don't set width/height here */
+}
+
+#pfp {
+    display: block; /* Good practice for images to remove bottom space */
+    border: var(--pfp-border-width) solid #111;
+    cursor: pointer;
+    width: var(--pfp-size) !important; /* Use variable */
+    height: var(--pfp-size) !important; /* Use variable */
+    border-radius: 30%;
+    transition: transform 0.5s ease-in-out;
+}
+
+#pfp:hover {
+    /* animation: fadeInPFP 1s forwards; */ /* You can re-add your animation */
+    transform: scale(1.05); /* Simpler hover effect */
+}
+
+
+
+/* --- Text Info Below PFP --- */
+.profile-info {
+    /*
+      Calculate margin-top to clear the PFP:
+      The PFP's top is at: banner_height - (pfp_total_size * 0.3)
+      The PFP's height is: pfp_total_size
+      So the bottom of the PFP is at: (banner_height - (pfp_total_size * 0.3)) + pfp_total_size
+      This needs to be the margin-top for profile-info, plus some spacing.
+    */
+    margin-top: calc(
+        (var(--banner-height) - (var(--pfp-total-size) * var(--pfp-overlap-banner-percentage))) + 
+        var(--pfp-total-size) + 
+    );
+
+}
+
+#displayHeader {
+    /* flex-grow: 1; Not applicable in this non-flex context for the header itself */
+   
+}
+
+
+
+/* Your original #gradientContainer CSS is not directly used, 
+   .banner-container serves a similar purpose for the gradient iframe.
+   The #pfp style for transition and animation is kept.
+*/
+@media (max-width: 600px) {
+
+:root {
+    --pfp-overlap-banner-percentage: 0.70; /* 30% on banner */
+
+}
+    #pfpp #statusEmoji {
+      font-size: 20px !important;
+      bottom: -2px !important;
+      right: -2px !important;
+      
+    }
+}
+@media (min-width: 600px) {
+    #pfp {
+      border: 8px solid #111;
+    }
+}
+.dynamic-wavy-divider-container {
+  width: 80%; /* Or your desired width */
+  height: 60px; /* Adjust based on desired wave amplitude */
+  margin: 40px auto; /* Centering and spacing */
+  overflow: hidden; /* Good practice */
+}
+
+#wavySvg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+hr.rounded {
+  border: 1px dashed #333333d6;
+}
+hr.roundedlol {
+  border: 3px solid #333333d6;
+  border-radius: 2px;
 }

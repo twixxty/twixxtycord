@@ -3,14 +3,17 @@
     <meta name="p:domain_verify" content="2cbbe64ddb89652b2bcbd18655496534"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title id="pageTitle">Loading...</title>
-    <link rel="icon" id="favicon" type="image/png" href="https://glargle.netlify.app/image.png">
+    <link rel="icon" id="favicon" type="image/png" href="https://images-ext-1.discordapp.net/external/rx07DCSRxc_zNvE_LteE8uz-DFF_A6OgHbwPe5W88c8/%3Fsize%3D2048/https/cdn.discordapp.com/icons/1137352510919671818/0b3a2fdfe5064eb85068a03ef9634d6a.webp?format=webp&width=930&height=930">
     <link rel="stylesheet" href="https://unpkg.com/lenis@1.2.3/dist/lenis.css">
     <meta property="og:title" content="twixxt" id="ogTitle">
     <meta property="og:description" content="Hammad's personal webpage – a web developer, video editor, and tech enthusiast.">
-    <meta property="og:image" content="https://glargle.netlify.app/image.png" id="ogImage">
+    <meta property="og:image" content="https://images-ext-1.discordapp.net/external/rx07DCSRxc_zNvE_LteE8uz-DFF_A6OgHbwPe5W88c8/%3Fsize%3D2048/https/cdn.discordapp.com/icons/1137352510919671818/0b3a2fdfe5064eb85068a03ef9634d6a.webp?format=webp&width=930&height=930" id="ogImage">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://twixxt.vercel.app">
     <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&display=swap" rel="stylesheet">
   </head>
   
   <body>
@@ -19,36 +22,50 @@
   <main>
 
     <article>
-      <header>
-        <div style="display: flex; align-items: center; gap: 10px; position: relative;">
-          <h1 id="displayHeader" style="flex-grow: 1; margin-bottom: 0px;">hammad</h1>
-              <iframe id="gradient" src="gradient/index.html"></iframe>
+<header class="profile-header">
+    <div class="banner-container">
+        <iframe id="gradient" src="gradient/index.html" title="Background Gradient"></iframe>
+    </div>
 
-          <div id="pfpp" style="position: relative; display: inline-block;">
-            <img id="pfp" src="" alt="Profile Picture">
-            <div id="statusEmoji"></div>
-          </div>
-        </div>
-        
-        <p id="randomText" style="margin-bottom: 30px;">lemme cook...</p>
-      </header>
-  
+    <div id="pfpp" class="profile-picture-wrapper">
+        <img id="pfp" src="https://via.placeholder.com/150" alt="Profile Picture">
+        <div id="statusEmoji"></div>
+    </div>
+
+    <div class="profile-info">
+        <h1 id="displayHeader">hammad</h1>
+        <p id="randomText">lemme cook...</p>
+    </div>
+</header>
+                       <hr class="roundedlol">
+
       <h2>about</h2>
       <p id="aboutText"></p>
+                           <hr class="rounded">
+
       <h2 id="connections">connections</h2>
       <a href="https://twixxt.netlify.app">portfolio</a>
       <a href="https://discord.gg/QvEhTxzZT4">discord</a>
       <a href="https://youtube.com/@twixxt">youtube</a>
       <a href="mailto:glarglecheeseball@gmail.com">email</a>
+                           <hr class="rounded">
+
       <h2 id="randomMessage" style="margin-bottom: 0px;"></h2>  
+
       <p id="indiaTime" style="margin-bottom: 0px;"></p>
      <p id="timefunc" style="margin-top: 0px;"></p>
+                     <hr class="rounded">
+
      <h2>friends</h2>
      <div id="friendsContainer" class="friends-grid"></div>
      <h2>cool people</h2>
      <div id="morefriendsContainer" class="friends-grid"></div>
+          <hr class="rounded">
+
      <h2>my birday</h2>
      <div id="countdown"></div>
+     <hr class="rounded">
+
      <h2><a href="#" id="retroMode" style="padding: 5px;  font-family: 'comic', cursive; color: #FF6BA7; filter: blur(0.6px), text-decoration: underline wavy;">cool</a><a id="gtaMode" href="#" style="display: none; font-family: 'san';  color: #9bb2d6; ">cool</a><a id="classicMode" href="#" style="display: none; color: #9bb2d6; ">cool</a><a id="refresh" href="#" style="display: none; color: var(--accent); font-family: Web Tandy2K;">cool</a>
 
         stuff</h2>
@@ -64,6 +81,7 @@
         <img id="caseohVisible" src="images/caseoh.jpg" alt="Click me!" class="clickable-image">
         <img id="gunimg"   src="https://media.istockphoto.com/id/535481859/photo/handgun.jpg?s=612x612&w=0&k=20&c=44RTUSAOJaeBdr3EQcgTL3p5QiEuNPxBy46niaEd5is=" alt="Clickable Image">
     </div>
+<hr class="rounded">
 
 
     <footer><br>
@@ -78,9 +96,14 @@
     </footer>
     <img id="caseohHidden" src="images/caseoh.jpg" style="position: absolute !important; top: 50% !important; left: 50% !important; width: 100px !important; height: 100px !important; z-index: 1000 !important; display: none !important; pointer-events: none !important;">
     <div id="retroLines" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 2999; display: none; background: #000000; pointer-events: none;"></div>
-
+<div class="dynamic-wavy-divider-container">
+  <svg id="wavySvg" preserveAspectRatio="none">
+    <path id="wavyLinePath" stroke="#333" stroke-width="3" fill="none" />
+   
+  </svg>
+</div>
   </main>
-  <img id="imageOverlay" class="overlay" src="" alt="Random Image" style="display: none;">
+  <img id="imageOverlay" class="overlay" src="" alt="Random Image" style="display: none; z-index: 9999;">
   <video id="randomVideo" class="fullscreen-video"></video>
   <video id="fullscreenVideo" class="fullscreen-video"></video>
   <img id="chaseImage" src="images/chase.jpg" class="clickable-image" alt="Catch Me" style="position: absolute; top: 50%; left: 50%; transition: transform 0.1s linear; display: none;">

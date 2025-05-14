@@ -179,14 +179,14 @@ async function updateDiscordStatus() {
   
       function setRandomAboutText() {
           const aboutTexts = [
-              "A retired web developer. (got bored)",
+              "A dumbo.",
               "A Roblox enjoyer.",
               "Hi I'm Hammad.",
               "The father of Glargle Cheeseball.",
               "A retired video editor. (too cringe)",
               "A tech enthusiast.",
               "A person who drinks water.",
-              "The developer of twixxt.netlify.app",
+              "The developer of twixxt.vercel.app",
               "A fellow pirate.",
               "A person that exists... somehow."
           ];
@@ -424,6 +424,10 @@ if (friend.previousElementSibling?.previousElementSibling?.previousElementSiblin
     const randomSound = sounds[Math.floor(Math.random() * sounds.length)];
     const audio = new Audio(randomSound);
     audio.play();
+    pfp.style.pointerEvents="none";
+    setTimeout(() => {
+        pfp.style.pointerEvents="auto";
+    }, 50);
 });
 async function fetchWithRetry(url, retries = 3, delay = 2000) {
     for (let attempt = 1; attempt <= retries; attempt++) {
@@ -878,7 +882,7 @@ function toggleTheme() {
                 if (isDark) {
                     document.body.classList.toggle('dark-mode');                   document.body.style.backgroundColor = "#FFFFFF"; // Change to any color
                     document.documentElement.style.backgroundColor = "#FFFFFF"; // Change to any color
-
+                toggleImage.style.backgroundColor = "#FFF";
                     el.style.color = "#212529";
                     document.querySelector("main").style.filter = "blur(2px)";
                     toggleImage.src = 'images/sunny.png'; // Moon icon for dark mode                    el.style.color = "#212529";
@@ -1202,3 +1206,93 @@ document.addEventListener("keydown", (e) => {
 }
 
 countdown();
+document.addEventListener('DOMContentLoaded', () => {
+    const svgPath = document.getElementById('wavyLinePath');
+    // const svgPath2 = document.getElementById('wavyLinePath2'); // Uncomment if using second wave
+    const svg = document.getElementById('wavySvg');
+
+    if (!svgPath || !svg) {
+        console.error("SVG elements not found for wave animation.");
+        return;
+    }
+
+    // --- Configuration ---
+    const waveConfig = {
+        amplitude: 10,      // Max height of the wave peaks from center
+        frequency: 0.1,    // How many waves across the width (lower = wider waves)
+        phaseShiftSpeed: 0.02, // How fast the wave animates
+        points: 60,        // Number of points to define the wave (more = smoother, but more perf cost)
+        yOffset: svg.clientHeight / 2 // Vertical center
+    };
+
+    // Optional: Config for a second wave (if you uncomment HTML/JS for it)
+    /*
+    const waveConfig2 = {
+        amplitude: 12,
+        frequency: 0.025,
+        phaseShiftSpeed: 0.07,
+        points: 100,
+        yOffset: svg.clientHeight / 2 + 5 // Slightly offset
+    };
+    */
+
+    let currentPhase = 0;
+    // let currentPhase2 = Math.PI / 2; // Start second wave at a different phase
+
+    function generateWavePath(config, phase) {
+        const width = svg.clientWidth;
+        const height = svg.clientHeight; // Re-read in case of resize
+        const effectiveYOffset = height / 2; // Recalculate yOffset based on current height
+
+        let pathData = `M 0 ${effectiveYOffset}`; // Start Move To command
+
+        for (let i = 0; i <= config.points; i++) {
+            const x = (width / config.points) * i;
+            // Sine wave: y = amplitude * sin(frequency * x + phase)
+            const y = effectiveYOffset + config.amplitude * Math.sin(x * config.frequency + phase);
+            pathData += ` L ${x.toFixed(2)} ${y.toFixed(2)}`; // Line To command
+        }
+        return pathData;
+    }
+
+    function animateWave() {
+        // Update phase for animation
+        currentPhase += waveConfig.phaseShiftSpeed;
+        // currentPhase2 += waveConfig2.phaseShiftSpeed; // Uncomment for second wave
+
+        // Generate new path data
+        const newPathData = generateWavePath(waveConfig, currentPhase);
+        svgPath.setAttribute('d', newPathData);
+
+        /*
+        // Uncomment for second wave
+        const newPathData2 = generateWavePath(waveConfig2, currentPhase2);
+        svgPath2.setAttribute('d', newPathData2);
+        */
+
+
+        requestAnimationFrame(animateWave); // Loop the animation
+    }
+
+    function onResize() {
+       
+    }
+
+    window.addEventListener('resize', onResize);
+
+   
+    if (svg.clientWidth > 0 && svg.clientHeight > 0) {
+        animateWave();
+    } else {
+        const observer = new ResizeObserver(entries => {
+            for (let entry of entries) {
+                if (entry.target === svg && entry.contentRect.width > 0 && entry.contentRect.height > 0) {
+                    animateWave();
+                    observer.unobserve(svg); // Stop observing once sized and animation started
+                    break;
+                }
+            }
+        });
+        observer.observe(svg);
+    }
+});
