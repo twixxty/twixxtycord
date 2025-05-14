@@ -896,7 +896,7 @@ a:hover {
     }
 }
 .dynamic-wavy-divider-container {
-  width: 80%; /* Or your desired width */
+  width: 100%; /* Or your desired width */
   height: 60px; /* Adjust based on desired wave amplitude */
   margin: 40px auto; /* Centering and spacing */
   overflow: hidden; /* Good practice */
