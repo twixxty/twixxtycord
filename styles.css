@@ -1591,4 +1591,10 @@ margin-top:0;
 .column.connections-column a {
     text-decoration: none; /* Remove underline */
 }
+.connections-column a .icon {
+    width: 1.1em;
+    height: 1.1em;
+    vertical-align: middle; /* <<< LIKELY FIX for fine-tuning */
+    
+}
 /* --- END OF CSS --- */
