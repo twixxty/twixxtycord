@@ -580,7 +580,6 @@ overlay.style.display = "block";
         overlay.classList.remove("animate-overlay");
             overlay.style.display = "none"; // Hide overlay after animation
             imageElement.style.pointerEvents = "auto";
-            imageElement.style.display = "block"; // **Reappear the image**
     }, 1500);
 });
         
