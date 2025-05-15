@@ -10,6 +10,12 @@
     font-weight: normal;
     font-style: normal;
   }
+  @font-face {
+    font-family: 'editorialbolditalic';
+    src: url('/fonts/PPEditorialNew-UltraboldItalic-BF644b214faef01.otf') format('woff2'),
+    font-weight: normal;
+    font-style: normal;
+  }
 @font-face {
     font-family: 'Gome';
     src: url('/fonts/GomePixel-ARJd7.otf') format('woff2'),
@@ -158,7 +164,7 @@ scale: 1;
             cursor: url('/images/crosshair.png'), auto; /* Replace with your image */
         }
     input[type="text"] {
-        font-family: "Web Tandy2K";
+        font-family: "poppins";
     }
    .full-screen-image {
   position: fixed;
@@ -309,7 +315,7 @@ footer {
   }
   
         @font-face {
-            font-family: "Web Tandy2K";
+            font-family: "web tandy2k";
             font-style: normal;
             font-weight: 400;
             src: url(fonts/web_tandy2k.woff) format("woff");
@@ -344,7 +350,7 @@ footer {
             src: url(fonts/vintext.otf) format("woff");
         } 
         .custom-fonti {
-            font-family: "Web Tandy2K" !important;
+            font-family: "poppins" !important;
             color: var(--accent) !important;
         }
         main {
@@ -365,7 +371,7 @@ footer {
             --dark: #111;
             --light: #eee;
             --accent: var(--mint);
-            font-family: "Web Tandy2K";
+            font-family: "poppins";
             background-color: var(--dark);
             color: var(--light);
         }
@@ -435,7 +441,7 @@ font-family: "editorial";
         }
   
         a {
-            font-family: gome;
+            font-family: poppins;
             color: var(--accent);
             text-decoration: underline dashed 1px;
             text-underline-offset: 2px;
@@ -922,3 +928,667 @@ hr.roundedlol {
   border: 3px solid #333333d6;
   border-radius: 2px;
 }
+#aboutText {
+  font-family: "poppins";
+  font-size: 20px;
+  font-weight: 600;
+  color: #eeeeeedb;
+  text-align: right;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+fw {
+      opacity: 0.5;
+        font-family: "web tandy2k";
+
+}
+ .container {
+            display: flex; /* This enables flexbox */
+            gap: 20px;     /* Optional: adds space between the columns */
+            align-items: flex-start; /* Aligns items to the top of the container */
+        }
+
+        .column {
+            flex: 1; /* Each column will take up equal available space */
+            /* You can also use percentages like flex-basis: 50%; */
+            /* border: 1px solid #eee; /* Optional: for visualizing columns */
+            /* padding: 10px; /* Optional: for inner spacing */
+        }
+
+        /* Optional: Style the links in the second column to stack nicely */
+        .column.connections-column a {
+            display: block; /* Makes each link take its own line */
+            margin-bottom: 8px; /* Adds space below each link */
+        }
+        .column.connections-column  {
+            text-align: right; /* Center the text in the column */
+        }
+
+       
+
+        /* Responsive: Stack columns on smaller screens */
+        @media (max-width: 768px) { /* Adjust breakpoint as needed */
+            .container {
+                flex-direction: column; /* Stack columns vertically */
+                width: 100%; /* Full width for each column */
+            }
+            .column {
+                margin-bottom: 20px; /* Add space between stacked columns */
+                                width: 100%; /* Full width for each column */
+
+            }
+             .column.connections-column  {
+            text-align: left; /* Center the text in the column */
+        }
+        }
+        #projects {
+margin-top: 0;
+        }
+#projectsContainer p {
+    padding-bottom: 0px;
+
+    margin-bottom: 0;
+    font-size: 16px;
+    font-weight: 300;
+    color: #eeeeeecb;
+}
+/* --- Styles for Project Number Scroll --- */
+.projects-outer-container {
+    display: flex;
+    position: relative;
+    margin-top: 30px; 
+    gap: 25px; 
+}
+
+.project-number-indicator {
+    position: sticky;
+    top: 100px; /* Adjust for desktop sticky header */
+    left: 0; 
+    height: 4rem; /* CRITICAL: Viewport height for one number */
+    z-index: 10;
+    display: flex; 
+    align-items: center; 
+}
+
+.static-project-zero {
+    font-size: 4rem; 
+    font-weight: bold;
+    color: var(--accent, #FFD700); /* Fallback if --accent not defined */
+    line-height: 1; 
+    height: 4rem; 
+    display: flex;
+    align-items: center;
+    margin-right: 0.08em; /* Gap between "0" and scrolling digit */
+    flex-shrink: 0; 
+}
+
+.dynamic-digits-reel-container {
+    height: 4rem; 
+    overflow: hidden; 
+    line-height: 1; 
+}
+
+/* .dynamic-digits-reel-inner: JS sets transition */
+
+.dynamic-digit-only-slot {
+    height: 4rem; 
+    font-size: 4rem; 
+    font-weight: bold;
+    color: var(--accent, #FFD700);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1; 
+    min-width: 0.6em; /* Adjust based on font for consistent digit width */
+    text-align: center;
+}
+
+.projects-list-content {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 100px; 
+}
+
+.project-item {
+    min-height: 70vh; /* Ensure items are tall enough to scroll past */
+    padding: 25px;
+    border: 1px solid var(--border-color, #333); /* Fallback for border */
+    border-radius: 10px;
+    background-color: rgba(0,0,0,0.03); /* Or your card background color */
+}
+
+.project-item h3 {
+    margin-top: 0;
+    margin-bottom: 15px;
+    color: var(--accent, #FFD700);
+}
+
+.project-item img {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+/* --- Mobile Specific Styles for Project Scroll & Layout --- */
+@media (max-width: 768px) { 
+    .projects-outer-container {
+        flex-direction: column; 
+        gap: 15px; 
+    }
+
+    .project-number-indicator {
+        width: 100%; 
+        min-width: unset; 
+        position: sticky;
+        top: 0; /* Stick to top. Adjust if global mobile header exists (e.g., top: 50px) */
+        left: unset; 
+        background-color: var(--bg-color, #121212); /* Fallback for body background */
+        padding-top: 15px;    /* Was 5px, increased to 10px. Adjust to your liking. */
+        padding-bottom: 5px;
+        padding-left: 15px; 
+        padding-right: 15px; 
+        box-sizing: border-box; 
+        justify-content: flex-start; /* Align "0X" to the left */
+    }
+    
+    .projects-list-content {
+        width: 100%; 
+        gap: 50px; 
+    }
+
+    .project-item {
+        min-height: auto; 
+        padding: 20px;   
+    }
+
+    /* Optional: Adjust font size of numbers on mobile if 4rem is too big */
+    /*
+    .static-project-zero,
+    .dynamic-digit-only-slot {
+        font-size: 2.5rem; 
+        height: 2.5rem; 
+    }
+    .dynamic-digits-reel-container,
+    .project-number-indicator { 
+        height: 2.5rem;
+    }
+    */
+}
+/* Styling for the static "0" */
+/* Styling for the static "0" (if it's also getting clipped on the right) */
+.static-project-zero {
+    font-family: 'editorialbolditalic', sans-serif;
+    font-size: 4rem; 
+    font-weight: bold; 
+    color: var(--accent, #FFD700);
+    height: 4rem;
+    line-height: 4rem; 
+    display: flex;
+    align-items: center;
+    justify-content: center; 
+    margin-right: 0.05em; 
+    flex-shrink: 0; 
+    padding-top: 0.1em;
+    
+    /* --- ADD PADDING FOR ITALIC SLANT --- */
+                            /* This gives the italic "0" more room on its right */
+    
+    box-sizing: border-box;
+}
+
+/* Container for the scrolling second digits (1, 2, 3, 4) */
+.dynamic-digits-reel-container {
+    height: 4rem; 
+    overflow: hidden; 
+    /* background-color: rgba(255,0,0,0.1); /* DEBUG */
+}
+
+/* Individual slots for the dynamic digits (1, 2, 3, 4) */
+.dynamic-digit-only-slot {
+    font-family: 'editorialbolditalic', sans-serif;
+    height: 4rem; 
+    font-size: 4rem; 
+    font-weight: bold; 
+    color: var(--accent, #FFD700);
+    line-height: 4rem; 
+    display: flex;
+    align-items: center; 
+    justify-content: center; 
+    
+    /* Adjust min-width to account for the new padding-right if needed, 
+       or set a fixed width that's wide enough.
+       The goal is for the visible character to appear centered within the allocated space.
+       If 0.6em was for the character width, and you add 0.2em padding, 
+       the total width for min-width might be closer to 0.8em.
+       This requires careful visual tuning.
+    */
+    min-width: 0.7em;   /* Example: Increased from 0.6em. Test! */
+    /* OR, set an explicit width: e.g., width: 2.8rem; */
+
+    text-align: center;
+    padding-top: 0.1em; 
+
+    /* --- ADD PADDING FOR ITALIC SLANT --- */
+                            /* This gives the italic digit more room on its right within its slot */
+                            /* The overflow:hidden on the PARENT will clip the slot if the slot itself becomes too wide */
+    
+    box-sizing: border-box; 
+    /* background-color: rgba(0,255,0,0.1); /* DEBUG */
+}
+/* Ensure .project-item is a good container (from previous response, adapt if needed) */
+.project-item {
+    background-color: #1A1A1A; /* Dark background for the card area */
+    border-radius: 12px;
+    overflow: hidden;
+    padding: 0; /* Card will manage its own padding */
+    min-height: auto; 
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #282828;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+}
+
+.stylish-project-card {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    position: relative; 
+}
+
+/* Gallery Overlay */
+.card-gallery-overlay {
+    position: absolute;
+    top: 20px; 
+    left: 20px; 
+    right: 20px; 
+    z-index: 2;
+    background: linear-gradient(to bottom, rgba(10, 10, 10, 0.85), rgba(10, 10, 10, 0.7));
+    /* Optional noise texture: 
+       background-image: linear-gradient(to bottom, rgba(10,10,10,0.85), rgba(10,10,10,0.7)), url('path/to/noise.png'); 
+    */
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border-radius: 8px;
+    padding: 12px;
+    overflow-x: auto;
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+}
+.card-gallery-overlay::-webkit-scrollbar { /* Hide scrollbar for Chrome, Safari, Opera */
+    display: none;
+}
+
+.card-gallery-scroller {
+    display: flex;
+    gap: 10px;
+    width: max-content; 
+}
+
+.card-thumbnail {
+    height: 70px; 
+    width: auto;  
+    min-width: 100px; 
+    object-fit: cover;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    clip-path: polygon(0 0, 100% 0, calc(100% - 12px) 100%, 0% 100%); /* Angled cut */
+}
+
+/* Main Image & Hover Effect */
+.card-main-image-wrapper {
+    position: relative; 
+    width: 100%;
+    aspect-ratio: 16 / 9; 
+    background-color: #222; 
+    overflow: hidden; 
+}
+
+.card-main-image {
+    width: 100%;
+    height: 100%;
+    object-fit: fill;
+    display: block;
+    transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.card-main-image-wrapper:hover .card-main-image {
+}
+
+.card-view-button {
+    position: absolute;
+    top: 50%; 
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.8);
+    background-color: rgba(240, 240, 240, 0.95); 
+    color: #333; 
+    padding: 8px 16px;
+    border-radius: 20px; 
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    opacity: 0;
+    pointer-events: none;
+    z-index: 1; 
+    transition: opacity 0.3s ease, transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                top 0.1s linear, left 0.1s linear; 
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    white-space: nowrap;
+    text-decoration: none; /* Remove underline from link */
+}
+
+
+
+
+/* Info Content */
+.card-info-content {
+    padding: 20px;
+    background-color: #111111; /* Or use var(--bg-color) if it's your darkest bg */
+}
+
+.card-category-label {
+    font-size: 0.8rem;
+    color: #AAAAAA; /* Lighter gray for category */
+    margin-bottom: 4px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.card-title-and-tags {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end; 
+    gap: 15px;
+}
+
+.card-project-title {
+    /* Choose your desired font here, e.g., a bold serif or sans-serif */
+    font-family: 'YourProjectTitleFont', 'Poppins', sans-serif; 
+    font-size: 2.2rem; 
+    font-weight: 700; /* Bold */
+    color: #E0E0E0; /* Off-white for title */
+    margin: 0; 
+    line-height: 1.1;
+    text-decoration: none; /* Remove global h3 underline if any */
+}
+
+.card-tags-container {
+    display: flex;
+    gap: 8px;
+    flex-shrink: 0; 
+}
+
+.info-tag {
+    /* Choose your desired font for tags, e.g., a monospaced or clean sans-serif */
+    font-family:  monospace; 
+    background-color: transparent;
+    color: #999999; /* Medium gray for tags */
+    padding: 5px 10px;
+    border-radius: 15px; 
+    font-size: 0.75rem;
+    border: 1px solid #444444; /* Darker border for tags */
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    white-space: nowrap;
+}
+.info-tag.year-info-tag {
+    color: #BBBBBB; /* Slightly lighter for year */
+    border-color: #555555;
+}
+
+
+
+
+.card-main-image-wrapper:hover .card-main-image {
+transform: scale(1.2);
+}
+
+/* "View" box indicator styling */
+.card-view-box-indicator {
+    position: absolute;
+    top: 50%; 
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.8);
+
+    background-color: rgba(240, 240, 240, 0.95); 
+    color: #333; 
+    padding: 8px 16px;
+    border-radius: 20px; 
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    opacity: 0;
+    pointer-events: none; 
+    z-index: 1; /* Above the image link */
+    transition: opacity 0.3s ease, transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                top 0.1s linear, left 0.1s linear; 
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    white-space: nowrap;
+}
+
+.card-main-image-wrapper:hover .card-view-box-indicator {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1); 
+}
+
+.view-button-icon {
+    font-size: 1.1em;
+    line-height: 1;
+}
+/* Trigger Button for the Tray */
+.cool-stuff-trigger-button {
+    position: fixed;
+    bottom: -90px; /* Initial off-screen position */
+    left: 50%;
+    transform: translateX(-50%);
+    width: 50px; /* Adjust size */
+    height: 50px; /* Adjust size */
+    background-color: #222; /* Or your card background */
+    border-radius: 50%;
+    padding: 10px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    cursor: pointer;
+    z-index: 1050; /* Above most content, below tray when open */
+    transition: all 0.3s ease, bottom 0.3s ease; /* Make sure 'bottom' is in the transition */
+    display: flex; /* For centering icon if you use SVG/FontAwesome */
+    align-items: center;
+    justify-content: center;
+    opacity: 0.5;
+    /* border: 2px solid var(--bg-color, #121212); */ /* Optional border */
+}
+
+/* New class for the visible state */
+.cool-stuff-trigger-button.is-visible {
+    bottom: -20px;
+
+}
+
+
+.cool-stuff-trigger-button:hover {
+    transform: translateX(-50%) scale(1.1);
+        bottom: 20px;
+        opacity: 1;
+
+}
+
+/* The Bottom Tray Itself */
+.cool-stuff-bottom-tray {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    max-height: 70vh; /* Max height of the tray, adjust as needed */
+    background-color: var(--card-bg-color, #1e1e1e); /* Or your desired tray background */
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    box-shadow: 0 -5px 25px rgba(0,0,0,0.3);
+    
+    transform: translateY(100%); /* Initially hidden below the screen */
+    transition: transform 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55); /* Smooth slide animation */
+    
+    z-index: 1100; /* Above the trigger and overlay */
+    overflow-y: auto; /* Allow scrolling within the tray if content is tall */
+    color: var(--text-color, #e0e0e0); /* Text color for tray content */
+}
+
+.cool-stuff-bottom-tray.open {
+    transform: translateY(0%); /* Slides into view */
+}
+
+.tray-content-wrapper {
+    padding: 20px;
+    padding-bottom: 40px; /* Extra padding at bottom for scroll room */
+    max-width: 800px; /* Max width of content inside tray */
+    margin: 0 auto; /* Center content */
+    text-align: center; /* Center h2 */
+}
+
+.cool-stuff-bottom-tray h2 {
+    margin-top: 0;
+    color: var(--accent, #FFD700); /* Heading color in tray */
+}
+
+/* Background Overlay for Blur/Dim Effect */
+.tray-background-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.3); /* Semi-transparent black */
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    opacity: 0;
+    visibility: hidden;
+    z-index: 1000; /* Below tray, above main content */
+    transition: opacity 0.4s ease, visibility 0s linear 0.4s;
+}
+
+.tray-background-overlay.active {
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.4s ease, visibility 0s linear 0s;
+}
+
+/* When tray is open, blur the main content */
+/* You might need to adjust this selector if your main content is not directly in `body > main` */
+body.tray-open > main, 
+body.tray-open > header, /* Add other top-level content containers */
+body.tray-open > footer {
+    /* This approach is simpler if the overlay handles the visual blur */
+    /* filter: blur(5px); */ 
+    /* transition: filter 0.4s ease; */
+    /* pointer-events: none; /* Prevent interaction with blurred content */
+}
+
+/* Adjust clickable images in tray if needed */
+.cool-stuff-bottom-tray .clickable-image,
+.cool-stuff-bottom-tray .clickable-video {
+    width: 80px; /* Slightly smaller in tray */
+    height: 80px;
+}
+ .main-content-wrapper {
+            display: flex;  /* Enables flexbox layout */
+            gap: 20px;      /* Adds space between the two columns */
+            margin-bottom: 20px; /* Space before the HR */
+        }
+
+        .friend-column {
+            flex: 1; /* Each column will take up equal space */
+            /* You might want to add some padding or borders if needed */
+            /* padding: 10px; */
+            /* border: 1px solid #eee; */
+        }
+
+  
+
+        .rounded {
+            border-radius: 5px;
+        }
+
+        /* Optional: Make it stack on smaller screens */
+        @media (max-width: 768px) {
+            .main-content-wrapper {
+                flex-direction: column; /* Stack vertically */
+            }
+        }
+     
+
+#footerlol {
+    padding: 20px 5%; /* Add some padding */
+    margin-top: 40px;
+    color: #ffffffb5;
+    font-size: 0.9em;
+
+    /* --- Flexbox for 2 Columns --- */
+    display: flex;
+    justify-content: space-between; /* Pushes items to ends */
+    align-items: center; /* Vertically align items in the center */
+    gap: 20px; /* Space between left and right content if they were closer */
+}
+
+.footer-content-left {
+    /* This div groups the left-side text */
+    /* No specific flex properties needed here, it will just take its content width */
+    text-align: left;
+}
+
+.footer-copyright {
+    margin: 0 0 5px 0; /* Adjust margin as needed */
+}
+.footer-copyright b {
+}
+
+.footer-design {
+    margin: 0;
+}
+
+.footer-back-to-top {
+    text-align: right; /* Ensures text within span is right aligned if span has width */
+    cursor: pointer;
+    display: inline-flex; /* Align icon and text properly */
+    align-items: center;
+    gap: 5px; /* Space between icon and text */
+    transition: all 0.2s ease-in-out;
+    white-space: nowrap; /* Prevents "BACK TO TOP" from wrapping */
+}
+
+.footer-back-to-top:hover {
+    transform: translateY(-3px); /* Lifts the element up by 3 pixels */
+}
+
+.footer-back-to-top svg {
+    width: 1em; /* Size relative to font size */
+    height: 1em;
+    fill: currentColor; /* Icon will inherit text color */
+}
+
+/* --- MOBILE STYLING --- */
+@media (max-width: 600px) { /* Adjust breakpoint as needed */
+    #footerlol {
+margin-top:0;
+        /* On mobile, we still want left/right, but maybe they stack if content is too long.
+           Flexbox with space-between should still work.
+           If stacking is preferred for very small screens:
+           flex-direction: column;
+           align-items: flex-start; /* Or center */
+        /* For this request, keeping space-between should work */
+        align-items: flex-start; /* Align top of left block with top of BTT */
+    }
+
+    .footer-content-left {
+        /* No change needed, paragraphs will stack naturally */
+    }
+
+    .footer-back-to-top {
+        /* Potentially add some margin-top if footer stacks and you want space */
+        /* align-self: flex-end; /* If footer flex-direction becomes column and you want it far right */
+    }
+}
+.column.connections-column a {
+    text-decoration: none; /* Remove underline */
+}
+/* --- END OF CSS --- */

@@ -1,3 +1,46 @@
+document.addEventListener('DOMContentLoaded', () => {
+    const linksWithIcons = document.querySelectorAll('.connections-column a[data-icon]');
+
+    linksWithIcons.forEach(link => {
+        const iconUrl = link.dataset.icon;
+        if (iconUrl) {
+            fetch(iconUrl)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`Network response was not ok for ${iconUrl}`);
+                    }
+                    return response.text();
+                })
+                .then(svgText => {
+                    const parser = new DOMParser();
+                    const svgDoc = parser.parseFromString(svgText, 'image/svg+xml');
+                    const svgElement = svgDoc.querySelector('svg');
+                    if (svgElement) {
+                        svgElement.classList.add('icon'); // Add class for styling
+                        svgElement.setAttribute('aria-hidden', 'true');
+                        link.prepend(svgElement); // Add icon before the text
+                    }
+                })
+                .catch(error => {
+                    console.error('Error fetching or parsing SVG:', error);
+                });
+        }
+    });
+});
+document.addEventListener('DOMContentLoaded', function() {
+        // Select the button
+        const triggerButton = document.querySelector('.cool-stuff-trigger-button');
+
+        if (triggerButton) {
+            // Wait for 3 seconds (3000 milliseconds)
+            setTimeout(() => {
+                // Add the 'is-visible' class to trigger the transition
+                triggerButton.classList.add('is-visible');
+            }, 4000); // 3000 milliseconds = 3 seconds
+        } else {
+            console.warn('Cool stuff trigger button not found.');
+        }
+    });
 async function updateDiscordStatus() {
     const statusElement = document.getElementById("randomText");
     const statusEmoji = document.getElementById("statusEmoji");
@@ -179,16 +222,8 @@ async function updateDiscordStatus() {
   
       function setRandomAboutText() {
           const aboutTexts = [
-              "A dumbo.",
-              "A Roblox enjoyer.",
-              "Hi I'm Hammad.",
-              "The father of Glargle Cheeseball.",
-              "A retired video editor. (too cringe)",
-              "A tech enthusiast.",
-              "A person who drinks water.",
-              "The developer of twixxt.vercel.app",
-              "A fellow pirate.",
-              "A person that exists... somehow."
+              "Hi! I'm Hammad, a 15 year old web designer/developer. I love making websites and Graphic Designing. I hope to earn some day and inspire others using my skills",
+                          "hii im hammad, am 15 and a web designer/developer. i like making websites and can graphic design pretty well. give me money pls (im broke)",
           ];
           document.getElementById("aboutText").textContent = aboutTexts[Math.floor(Math.random() * aboutTexts.length)];
       }
@@ -580,6 +615,7 @@ overlay.style.display = "block";
         overlay.classList.remove("animate-overlay");
             overlay.style.display = "none"; // Hide overlay after animation
             imageElement.style.pointerEvents = "auto";
+            imageElement.style.display = "block"; // **Reappear the image**
     }, 1500);
 });
         
@@ -1295,3 +1331,222 @@ document.addEventListener('DOMContentLoaded', () => {
         observer.observe(svg);
     }
 });
+
+// --- Start of the main DOMContentLoaded ---
+document.addEventListener('DOMContentLoaded', () => {
+    // Initialize Lenis (or your preferred smooth scroll library)
+    const lenis = new Lenis(); // Default options
+    function raf(time) {
+        lenis.raf(time);
+        requestAnimationFrame(raf);
+    }
+    requestAnimationFrame(raf);
+    window.lenisInstance = lenis; // Make instance accessible
+
+    // Call all other initializations that depend on DOM ready
+    // (Many of your functions are already wrapped or self-calling, which is fine)
+    // ... e.g. fetchUserData(), setRandomText(), etc. are already called or set up
+
+    initProjectScrollNumber(); // IMPORTANT: Call the project scroll setup
+});
+// --- End of the main DOMContentLoaded ---
+
+
+// --- Project Number Scrolling Functionality ---
+// (This function is defined outside DOMContentLoaded but called from within it)
+function initProjectScrollNumber() {
+    const projects = Array.from(document.querySelectorAll('.project-item'));
+    const numberIndicator = document.querySelector('.project-number-indicator');
+
+    if (!projects.length || !numberIndicator) {
+        if (!projects.length) console.warn('Project Scroll: No project items found.');
+        if (!numberIndicator) console.warn('Project Scroll: Number indicator element not found.');
+        return;
+    }
+
+    const numberSlotHeightRem = 4; 
+    let dynamicDigitsReelInnerEl; 
+
+    numberIndicator.innerHTML = ''; 
+    numberIndicator.style.display = 'flex'; 
+    numberIndicator.style.alignItems = 'center';
+
+    const staticZero = document.createElement('div');
+    staticZero.classList.add('static-project-zero');
+    staticZero.textContent = '0';
+
+    const dynamicDigitsReelContainer = document.createElement('div');
+    dynamicDigitsReelContainer.classList.add('dynamic-digits-reel-container');
+
+    dynamicDigitsReelInnerEl = document.createElement('div');
+    dynamicDigitsReelInnerEl.classList.add('dynamic-digits-reel-inner');
+    dynamicDigitsReelInnerEl.style.transition = 'transform 0.15s ease-out';
+
+    projects.forEach((project, index) => {
+        const projectIdFull = project.dataset.projectId || String(index + 1).padStart(2, '0');
+        const dynamicDigit = projectIdFull.length > 1 ? projectIdFull.substring(1) : projectIdFull; 
+
+        const digitSlot = document.createElement('div');
+        digitSlot.classList.add('dynamic-digit-only-slot');
+        digitSlot.textContent = dynamicDigit;
+        dynamicDigitsReelInnerEl.appendChild(digitSlot);
+    });
+
+    dynamicDigitsReelContainer.appendChild(dynamicDigitsReelInnerEl);
+    numberIndicator.appendChild(staticZero);
+    numberIndicator.appendChild(dynamicDigitsReelContainer);
+
+    let currentActiveProjectIndex = -1;
+
+    function updateActiveProjectBasedOnScroll(scrollEventData) { 
+        const viewportCenterY = window.innerHeight / 2;
+        let bestMatchIndex = -1;
+        let minAbsDistanceToCenter = Infinity;
+
+        projects.forEach((project, index) => {
+            const rect = project.getBoundingClientRect();
+            if (rect.bottom > 0 && rect.top < window.innerHeight) {
+                const projectCenterY = rect.top + rect.height / 2;
+                const absDistance = Math.abs(projectCenterY - viewportCenterY);
+                if (absDistance < minAbsDistanceToCenter) {
+                    minAbsDistanceToCenter = absDistance;
+                    bestMatchIndex = index;
+                }
+            }
+        });
+
+        if (bestMatchIndex !== -1 && bestMatchIndex !== currentActiveProjectIndex) {
+            currentActiveProjectIndex = bestMatchIndex;
+            const translateY = currentActiveProjectIndex * -numberSlotHeightRem;
+            if (dynamicDigitsReelInnerEl) { 
+                dynamicDigitsReelInnerEl.style.transform = `translateY(${translateY}rem)`;
+            }
+        }
+    }
+
+    if (window.lenisInstance && typeof window.lenisInstance.on === 'function') {
+        window.lenisInstance.on('scroll', updateActiveProjectBasedOnScroll);
+    } else {
+        console.warn('Project Scroll: Lenis instance not found. Using native scroll.');
+        let scrollTimeout;
+        window.addEventListener('scroll', () => {
+            clearTimeout(scrollTimeout);
+            scrollTimeout = setTimeout(() => updateActiveProjectBasedOnScroll(null), 50);
+        }, { passive: true });
+    }
+    setTimeout(() => updateActiveProjectBasedOnScroll(null), 250);
+}
+function initStylishCardHoverEffect() { // Renamed function
+    const cardImageWrappers = document.querySelectorAll('.card-main-image-wrapper'); // Changed selector
+
+    cardImageWrappers.forEach(wrapper => {
+        const viewButton = wrapper.querySelector('.card-view-button'); // Changed selector
+        if (!viewButton) return;
+
+        let currentX = 0;
+        let currentY = 0;
+        let targetX = 0;
+        let targetY = 0;
+        const easingFactor = 0.15; 
+        let animationFrameId;
+
+        function animateButton() {
+            currentX += (targetX - currentX) * easingFactor;
+            currentY += (targetY - currentY) * easingFactor;
+
+            viewButton.style.left = `${currentX}px`;
+            viewButton.style.top = `${currentY}px`;
+
+            if (wrapper.matches(':hover')) {
+                 animationFrameId = requestAnimationFrame(animateButton);
+            }
+        }
+
+        wrapper.addEventListener('mousemove', (e) => {
+            const rect = wrapper.getBoundingClientRect();
+            targetX = e.clientX - rect.left;
+            targetY = e.clientY - rect.top;
+
+            if (!animationFrameId && wrapper.matches(':hover')) {
+                 animationFrameId = requestAnimationFrame(animateButton);
+            }
+        });
+
+        wrapper.addEventListener('mouseenter', () => {
+            const rect = wrapper.getBoundingClientRect(); 
+            targetX = rect.width / 2;
+            targetY = rect.height / 2;
+            currentX = targetX; 
+            currentY = targetY;
+            viewButton.style.left = `${currentX}px`;
+            viewButton.style.top = `${currentY}px`;
+            
+            if (!animationFrameId) { 
+                animationFrameId = requestAnimationFrame(animateButton);
+            }
+        });
+
+        wrapper.addEventListener('mouseleave', () => {
+            if (animationFrameId) {
+                cancelAnimationFrame(animationFrameId);
+                animationFrameId = null;
+            }
+        });
+    });
+}
+
+// Call this in your main DOMContentLoaded listener:
+// document.addEventListener('DOMContentLoaded', () => {
+//     // ... your other initializations ...
+//     initStylishCardHoverEffect(); 
+// });
+document.addEventListener('DOMContentLoaded', () => {
+    const coolStuffTrigger = document.getElementById('coolStuffTrigger');
+    const bottomTray = document.getElementById('bottomTray');
+    const trayBackgroundOverlay = document.getElementById('trayBackgroundOverlay');
+    const mainContentElements = document.querySelectorAll('body > main, body > header, body > footer'); // Adjust if your main content containers are different
+
+    if (coolStuffTrigger && bottomTray && trayBackgroundOverlay) {
+        coolStuffTrigger.addEventListener('click', () => {
+            const isOpen = bottomTray.classList.contains('open');
+            
+            if (isOpen) {
+                bottomTray.classList.remove('open');
+                trayBackgroundOverlay.classList.remove('active');
+                document.body.classList.remove('tray-open'); // For general body styling if needed
+                coolStuffTrigger.style.bottom = '20px'; // Reset trigger position
+                // mainContentElements.forEach(el => el.style.filter = 'none');
+            } else {
+                bottomTray.classList.add('open');
+                trayBackgroundOverlay.classList.add('active');
+                document.body.classList.add('tray-open');
+                // Move trigger up slightly so it's not hidden by the opening tray
+                coolStuffTrigger.style.bottom = `calc(${bottomTray.offsetHeight}px + 20px)`; 
+                // mainContentElements.forEach(el => el.style.filter = 'blur(5px)');
+            }
+        });
+
+        // Optional: Close tray if clicking on the overlay
+        trayBackgroundOverlay.addEventListener('click', () => {
+            if (bottomTray.classList.contains('open')) {
+                coolStuffTrigger.click(); // Simulate a click on the trigger to close
+            }
+        });
+
+    } else {
+        console.warn("Tray elements not found. Bottom tray functionality will not work.");
+    }
+
+    // ... rest of your DOMContentLoaded code ...
+    // initStylishCardHoverEffect(); // etc.
+});
+   const backToTopButton = document.getElementById('backToTopBtn');
+
+    if (backToTopButton) {
+        backToTopButton.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth' // This enables smooth scrolling
+            });
+        });
+    }
