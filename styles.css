@@ -1570,6 +1570,8 @@ body.tray-open > footer {
 @media (max-width: 600px) { /* Adjust breakpoint as needed */
     #footerlol {
 margin-top:0;
+        padding: 0px 0px;
+        font-size: 0.7em;
         /* On mobile, we still want left/right, but maybe they stack if content is too long.
            Flexbox with space-between should still work.
            If stacking is preferred for very small screens:
