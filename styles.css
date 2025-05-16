@@ -1835,6 +1835,8 @@ margin-top:0;
 .mobile-mode .testimonial-quote {
     font-size: 1.6rem; /* ADJUSTED: Mobile quote size */
     line-height: 1.4;
+    margin-left: 0;
+    width: 100%;
 }
 .mobile-mode .testimonial-author {
     font-size: 0.9rem; /* ADJUSTED: Mobile author size */
