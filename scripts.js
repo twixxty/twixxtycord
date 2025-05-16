@@ -11,7 +11,8 @@ function initMagneticLinks() {
         'article a:not(.card-main-image-link):not([data-icon]):not(.testimonial-author-title a):not(#show-iframe),' + // Links
         'footer #backToTopBtn,' +                 // Back to top button
         '#coolStuffTrigger,' +                    // Cool stuff trigger
-        '#pfp,'                                  // Profile picture
+        '#pfp,' +                                 // Profile picture
+        '.fiend-pfp'                             // Friend PFPs
     );
 
     const attractionFactor = 0.20; // Adjusted from 0.50 as it might be too strong
