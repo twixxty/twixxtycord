@@ -63,18 +63,7 @@
   }
 }
 
-@keyframes fadeIntext {
-from{
-    opacity: 0;
-    scale: 0.9;
-    filter: blur(10px);
-}
-to{
-    opacity: 1;
-    scale: 1;
-    filter: blur(0px);
-}
-}
+/* Removed fadeIntext keyframes, replaced by animateInFromBottom */
 
 @keyframes fadeIframe {
     50% {
@@ -354,10 +343,12 @@ footer {
             color: var(--accent) !important;
         }
         main {
-        scale: 1;
-          filter: blur(700px);
-          transition: filter, 4s ease-in-out;
-      }
+            /* Removed initial scale and filter blur. JS will handle timed animation. */
+            /* transition: filter, 4s ease-in-out; /* REMOVED - was causing issues with new animation */
+            opacity: 0; /* Start hidden for new animation */
+            filter: blur(10px); /* Start blurred for new animation */
+            transform: translateY(20px); /* Start slightly down for new animation */
+        }
         :root {
             --peach: #efc4df;
             --strawberry: #e5a0a0;
@@ -447,26 +438,39 @@ font-family: "editorial";
             text-underline-offset: 2px;
         }
 
-        #overlayText {
-            animation: fadeIntext 1s ease-in-out;
-            font-family: editorial;
-
+#pageLoadOverlay {
     position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: #000;
+    z-index: 100000; /* Very high z-index */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden; /* Important for clip-path animations */
+}
+
+#overlayText {
+    /* Existing styles like font-family, font-size, color, padding, etc. */
+    font-family: editorial;
     font-size: 32px;
     font-weight: bold;
     color: var(--light);
     padding: 20px;
     border-radius: 10px;
-    pointer-events: none; 
     text-align: center;
-    backdrop-filter: blur(5px);
-    opacity: 1;
-    transition: opacity 1s ease-in, filter 4s ease-in-out;
-
+    /* backdrop-filter: blur(5px); /* Optional if you want blur on text bg *within* the black overlay */
+    
+    /* Initial state for animation */
+    opacity: 0;
+    filter: blur(10px);
+    transform: translateY(20px);
+    /* Remove fixed positioning if it had any, parent #pageLoadOverlay handles centering */
+    /* Remove transition/animation properties, will be applied by JS */
 }
+
 
 ::selection {
 
@@ -480,10 +484,8 @@ font-family: "editorial";
     background: var(--accent);
     color: var(--dark);
 }
-#overlayText.hidden {
-    opacity: 0;
-    filter: blur(1000px);
-}
+/* Removed #overlayText.hidden and its transition/opacity */
+
 a, button, * {
     -webkit-tap-highlight-color:transparent;
 }
@@ -760,6 +762,7 @@ a:hover {
       font-size: 20px !important;
       bottom: -2px !important;
       right: -2px !important;
+      
     }
   }
 #gradientContainer {
@@ -1349,7 +1352,7 @@ transform: scale(1.2);
     position: absolute;
     top: 50%; 
     left: 50%;
-    transform: translate(-50%, -50%) scale(0.8);
+    transform: translate(-50%, -50%) scale(0);
 
     background-color: rgba(240, 240, 240, 0.95); 
     color: #333; 
@@ -1426,7 +1429,7 @@ transform: scale(1.2);
     border-top-right-radius: 20px;
     box-shadow: 0 -5px 25px rgba(0,0,0,0.3);
     
-    transform: translateY(110%); /* Initially hidden below the screen */
+    transform: translateY(110vh); /* MODIFIED: Initially hidden one full viewport height down */
     transition: transform 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55); /* Smooth slide animation */
     
     z-index: 1100; /* Above the trigger and overlay */
@@ -1599,4 +1602,272 @@ margin-top:0;
     vertical-align: middle; /* <<< LIKELY FIX for fine-tuning */
     
 }
+
+@keyframes animateInFromBottom {
+  from {
+    opacity: 0;
+    filter: blur(10px);
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    filter: blur(0px);
+    transform: translateY(0);
+  }
+}
+
+@keyframes revealWithBend { /* For #pageLoadOverlay */
+    0% {
+        clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 50% 100%, 0% 100%);
+    }
+    30% { /* Bottom corners start moving up, center lags */
+        clip-path: polygon(0% 0%, 100% 0%, 100% 70%, 50% 100%, 0% 70%);
+    }
+    70% { /* Center part catches up and moves ahead of corners for the "bend" */
+        clip-path: polygon(0% 0%, 100% 0%, 100% 20%, 50% 0%, 0% 20%);
+    }
+    100% {
+        clip-path: polygon(0% 0%, 100% 0%, 100% 0%, 50% 0%, 0% 0%);
+    }
+}
 /* --- END OF CSS --- */
+/* --- Testimonials Section --- */
+.testimonials-section {
+    margin-top: 40px;
+    margin-bottom: 40px;
+    font-family: 'Poppins', sans-serif; /* APPLY POPPINS TO THE ENTIRE SECTION */
+}
+
+.testimonial-item {
+    padding: 25px;
+    border-radius: 12px;
+    border: 1px solid var(--border-color, #282828);
+    box-sizing: border-box;
+}
+
+.testimonial-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.testimonial-quote {
+    /* font-family: 'editorialbold', serif; /* KEEPING THIS IF IT'S INTENTIONAL FOR QUOTES */
+                                       /* IF YOU WANT POPPINS HERE TOO, UNCOMMENT THE LINE BELOW */
+    /* font-family: 'Poppins', sans-serif; font-weight: 600; */
+    font-size: 1.9rem; /* ADJUSTED: Slightly smaller for balance */
+    line-height: 1.45; /* ADJUSTED: Slightly more line height */
+    color: var(--light);
+    margin-bottom: 25px;
+}
+
+.testimonial-author {
+    font-family: 'Poppins', sans-serif; /* Explicitly Poppins */
+    font-size: 1.0rem;  /* ADJUSTED: Slightly smaller */
+    font-weight: 600;   /* Good weight for author name */
+    color: var(--accent);
+    margin-top: 0;
+    margin-bottom: 3px; /* ADJUSTED: Tighter spacing */
+}
+
+.testimonial-author-title {
+    font-family: 'Poppins', sans-serif; /* Explicitly Poppins */
+    font-size: 0.8rem;  /* ADJUSTED: Smaller for title */
+    font-weight: 400;   /* Regular weight */
+    color: var(--tapioca);
+    margin-top: 0;
+    margin-bottom: 20px;
+}
+
+.testimonial-tags {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+/* .info-tag styling (font, etc.) is assumed to be globally available from your existing CSS.
+   If not, you might want to style it here:
+.info-tag {
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.7rem;
+    ... other styles ...
+}
+*/
+
+.testimonial-image-area {
+    display: flex;         /* Helps with alignment if needed */
+    justify-content: center; /* Center the square image if it's not full width */
+    align-items: center;   /* Center the square image if it's not full height */
+}
+
+.testimonial-image {
+    display: block;
+    /* object-fit: cover; will be set per mode to ensure it's applied correctly */
+    /* width and height will be set by the wrapper or per mode */
+}
+
+
+/* --- DESKTOP MODE STYLES --- */
+.testimonials-section.desktop-mode {
+    position: relative;
+    min-height: 520px;
+    overflow: hidden;
+}
+
+.desktop-mode .testimonial-item {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: calc(100% - 70px);
+    padding: 25px;
+    background-color: var(--dark);
+    transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+    opacity: 0;
+    transform: translateY(0);
+    visibility: hidden;
+    pointer-events: none;
+}
+
+.desktop-mode .testimonial-item.active {
+    opacity: 1;
+    transform: translateY(0);
+    visibility: visible;
+    z-index: 20;
+    pointer-events: auto;
+    transition-delay: 0s;
+}
+
+.desktop-mode .testimonial-item.is-leaving {
+    opacity: 0;
+    transform: translateY(-50px);
+    visibility: visible;
+    z-index: 10;
+    pointer-events: none;
+}
+
+.desktop-mode .testimonial-item.is-entering {
+    opacity: 0;
+    transform: translateY(50px);
+    visibility: visible; /* Needs to be visible to animate in */
+    z-index: 15;
+    pointer-events: none;
+}
+
+.desktop-mode .testimonial-item .testimonial-content {
+    flex: 3;
+}
+.desktop-mode .testimonial-item .testimonial-image-area {
+    flex: 2; /* Or your desired flex proportion */
+    display: flex; /* Ensure it's a flex container for centering the square */
+    justify-content: center; /* Center the square horizontally if flex-basis allows */
+    align-items: center;   /* Center the square vertically */
+    height: 100%;          /* Takes full height of its flex allocation */
+    max-height: 250px;     /* ADJUSTED: Maximum height for the square image area */
+                               /* This will also dictate the max width due to aspect-ratio */
+    /* We will make the image itself square inside this area */
+}
+/* --- Navigation for Desktop Mode --- */
+.desktop-mode .testimonial-navigation { /* THIS WAS THE MISSING PIECE */
+    position: absolute;
+    bottom: 15px; /* Position from the bottom of .testimonials-section */
+    left: 50%;
+    transform: translateX(-50%); /* Center horizontally */
+    z-index: 30; /* Above all cards */
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 0; /* Override any default margin */
+}
+.desktop-mode .testimonial-image {
+    width: 300px;  /* ADJUSTED: Define a width for the square */
+    height: 350px; /* ADJUSTED: Make height equal to width for a square */
+                   /* Alternatively, use aspect-ratio if supported by target browsers:
+                      width: 100%; max-width: 200px; aspect-ratio: 1 / 1; */
+    object-fit: cover; /* This is key: scales image to maintain aspect ratio while filling dimensions, cropping excess */
+    border-radius: 8px; /* Optional: slightly rounded corners for the square image */
+}
+.desktop-mode .testimonial-nav-button {
+    font-family: 'Poppins', sans-serif; /* ENSURE POPPINS FOR BUTTONS */
+    background-color: #2a2a2a;
+    color: var(--light);
+    border: 1px solid #444;
+    padding: 9px 18px; /* ADJUSTED: Slightly smaller padding */
+    border-radius: 25px;
+    cursor: pointer;
+    font-size: 0.8rem; /* ADJUSTED: Slightly smaller button text */
+    font-weight: 500;
+    transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    line-height: 1.2; /* ADJUSTED: Slightly more line height for button text */
+}
+.desktop-mode .testimonial-nav-button:hover {
+    background-color: var(--accent);
+    color: var(--dark);
+    transform: translateY(-2px);
+}
+
+
+/* --- MOBILE MODE STYLES --- */
+.testimonials-section.mobile-mode {
+    /* No special positioning */
+}
+.mobile-mode .testimonial-item {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 30px;
+    background-color: rgba(0,0,0,0.03);
+    opacity: 1;
+    transform: none;
+    visibility: visible;
+    position: relative;
+}
+.mobile-mode .testimonial-item:last-child {
+    margin-bottom: 0;
+}
+.mobile-mode .testimonial-content {
+    order: 2;
+    text-align: center;
+}
+.mobile-mode .testimonial-quote {
+    font-size: 1.6rem; /* ADJUSTED: Mobile quote size */
+    line-height: 1.4;
+}
+.mobile-mode .testimonial-author {
+    font-size: 0.9rem; /* ADJUSTED: Mobile author size */
+}
+.mobile-mode .testimonial-author-title {
+    font-size: 0.75rem; /* ADJUSTED: Mobile title size */
+}
+.mobile-mode .testimonial-image-area {
+    order: 1;
+    width: 100%; /* Full width for the area */
+    display: flex;
+    justify-content: center; /* Center the square image within this area */
+    align-items: center;
+    margin-bottom: 25px; /* ADJUSTED: More space below image */
+    /* No max-height here, let the square image define its height */
+}
+
+.mobile-mode .testimonial-image {
+    width: 250px;  /* ADJUSTED: Define a smaller width for the square on mobile */
+    height: 250px; /* ADJUSTED: Make height equal to width */
+                   /* Alternatively: width: 50%; max-width: 150px; aspect-ratio: 1 / 1; */
+    object-fit: cover;
+    border-radius: 8px; /* Optional: rounded corners */
+}
+.mobile-mode .testimonial-navigation {
+    display: none;
+}
+a {
+  display: inline-block;
+  border-radius: 5px; /* Rounded corners */
+  transition: background-color 0.3s ease, color 0.3s ease, padding 0.3s ease, text-decoration 0.3s ease, transform 0.1s ease-out; 
+  font-family: poppins;
+  color: var(--accent);
+  text-decoration: underline dashed 1px;
+  text-underline-offset: 2px;
+}

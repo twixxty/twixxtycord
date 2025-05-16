@@ -12,9 +12,15 @@
     <meta property="og:image" content="https://images-ext-1.discordapp.net/external/rx07DCSRxc_zNvE_LteE8uz-DFF_A6OgHbwPe5W88c8/%3Fsize%3D2048/https/cdn.discordapp.com/icons/1137352510919671818/0b3a2fdfe5064eb85068a03ef9634d6a.webp?format=webp&width=930&height=930" id="ogImage">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://twixxt.vercel.app">
-    
+        <link rel="stylesheet" href="locomotive-scroll.css">
+
     <link rel="stylesheet" href="styles.css">
-    
+    <script src="locomotive-scroll.min.js"></script>
+<script>
+    (function () {
+        var scroll = new LocomotiveScroll();
+    })();
+</script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
@@ -24,7 +30,9 @@
 <body>
   <img src="images/expand.png" alt="Open Cool Stuff" id="coolStuffTrigger" class="cool-stuff-trigger-button"> 
 
+<div id="pageLoadOverlay">
     <div id="overlayText"></div>
+</div>
 <div id="trayBackgroundOverlay" class="tray-background-overlay"></div>
 <div id="bottomTray" class="cool-stuff-bottom-tray">
     <div class="tray-content-wrapper"> <!-- Added for better content centering/padding -->
@@ -221,10 +229,80 @@
             </div>
         </div>
     </div>
+            <hr class="rounded"> <!-- This HR is after the .main-content-wrapper -->
 
-    <hr class="rounded">
+            <!-- START: Testimonials Section -->
+                       <!-- START: Testimonials Section -->
+            <h2>dont believe me?</h2>
+                                    <fw>(TESTIMONIALS)</fw>
 
-           
+            <div class="testimonials-section"> <!-- JS will add desktop-mode or mobile-mode class -->
+                <!-- Testimonial 1 -->
+                <div class="testimonial-item">
+                    <div class="testimonial-content">
+                        <blockquote class="testimonial-quote">
+"I've never seen such talent, and I definitely recommend Hammad."
+
+                        </blockquote>
+                        <p class="testimonial-author">Georgi Zhelev</p>
+                        <p class="testimonial-author-title">Creator of <a href="https://georgedash.github.io">georgedash.github.io</a></p>
+                        <div class="testimonial-tags">
+                            <span class="info-tag">WEB DEVELOPMENT</span>
+                            <span class="info-tag">UI/UX DESIGN</span>
+                        </div>
+                    </div>
+                    <div class="testimonial-image-area">
+                        <img src="https://georgedash.github.io/build/img/portrait.jpg" alt="georgedash" class="testimonial-image">
+                    </div>
+                </div>
+
+                <!-- Testimonial 2 -->
+                <div class="testimonial-item">
+                    <div class="testimonial-content">
+                        <blockquote class="testimonial-quote">
+"agreed on the terms of conditions and now my lives had changed for forever!!!!!"
+                         </blockquote>
+                        <p class="testimonial-author">opipoy</p>
+                        <p class="testimonial-author-title">invisible</p>
+                        <div class="testimonial-tags">
+                            <span class="info-tag">YAPS</span>
+                            <span class="info-tag">NONCHALANT</span>
+                        </div>
+                    </div>
+                    <div class="testimonial-image-area">
+                         <img src="images/opipoy.png" alt="opipoy" class="testimonial-image">
+                    </div>
+                </div>
+                
+                <!-- Testimonial 3 -->
+                <div class="testimonial-item">
+                    <div class="testimonial-content">
+                        <blockquote class="testimonial-quote">
+"Opened the site... now there's a red dot on my forehead. Incredible work."
+                        </blockquote>
+                        <p class="testimonial-author">Bill Gates</p>
+                        <p class="testimonial-author-title">Founder of Microsoft</p>
+                        <div class="testimonial-tags">
+                            <span class="info-tag">loving this</span>
+                            <span class="info-tag">blinking SOS</span>
+                            <span class="info-tag">negotiating for his life</span>
+                            <span class="info-tag">send help</span>
+
+                        </div>
+                    </div>
+                    <div class="testimonial-image-area">
+                        <img src="images/bill.png" alt="Bill Gates" class="testimonial-image">
+                    </div>
+                </div>
+
+                <div class="testimonial-navigation">
+                    <button class="testimonial-nav-button prev" id="testimonialPrev">< PREV</button>
+                    <button class="testimonial-nav-button next" id="testimonialNext">NEXT ></button>
+                </div>
+            </div>
+
+            <!-- END: Testimonials Section -->
+            <hr class="roundedlol"> <!-- This HR is after the testimonials section -->
 
            <!-- Add this trigger image somewhere always visible, e.g., just before </body> -->
 <!-- Make sure you have an icon like 'images/tray-trigger-icon.png' -->
