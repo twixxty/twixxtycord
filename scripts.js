@@ -122,7 +122,7 @@ async function updateDiscordStatus() {
       else if (d.discord_status === "dnd") emojiStatusText = "⛔";
   
       const onMobile = d.active_on_discord_mobile;
-      if (statusEmoji) statusEmoji.textContent = onMobile && d.discord_status === "online" ? `📱` : emojiStatusText;
+      if (statusEmoji) statusEmoji.textContent = onMobile && d.discord_status === "online" ? `🟢` : emojiStatusText;
   
     } catch (err) {
       console.error("Status fetch failed (Lanyard):", err);
