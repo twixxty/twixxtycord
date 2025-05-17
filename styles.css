@@ -1873,3 +1873,69 @@ a {
   text-decoration: underline dashed 1px;
   text-underline-offset: 2px;
 }
+/* In your main CSS file that's definitely being loaded */
+
+#overlay-iframe {
+  /* --- Core for full-screen overlay --- */
+  position: fixed; /* Sticks to the viewport */
+  top: 0;
+  left: 0;
+  width: 100vw; /* Use viewport units for explicit full width */
+  height: 100vh; /* Use viewport units for explicit full height */
+  z-index: 1000; /* High z-index to be on top */
+
+  /* --- Core for centering its child (the iframe) --- */
+  display: none;
+  justify-content: center; /* Horizontal centering */
+  align-items: center;     /* Vertical centering */
+  /* ... other styles like position: fixed, width, height ... */
+
+  /* --- Visuals & Animation --- */
+  background-color: rgba(0, 0, 0, 0.7);
+  opacity: 0;
+  transition: opacity 0.3s ease-out;
+}
+
+#overlay-iframe iframe {
+    filter: blur(10px);
+  transform: translateX(-50%) scale(0);
+  /* --- Sizing --- */
+  width: 80%; /* Or a fixed width like 600px */
+  height: 80%; /* Or a fixed height like 500px */
+  max-width: 800px; /* Prevent it from getting too wide on large screens */
+  max-height: 600px; /* Prevent it from getting too tall */
+
+  /* --- Reset/Base Styling --- */
+  border: none;
+  margin: 0; /* CRITICAL: Ensure no rogue margins are pushing it */
+  padding: 0;
+
+  /* --- Visuals & Animation --- */
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+  opacity: 0;
+  transform: scale(0.95) translateY(10px);
+  transition: opacity 0.3s ease-out 0.1s, transform 0.3s ease-out 0.1s;
+}
+
+/* This class is added by JS to the body when the TOS is open */
+/* It's an alternative way to trigger the visibility, not strictly necessary if JS handles display/opacity directly */
+body.tos-iframe-open #overlay-iframe {
+  /* display: flex; /* JS sets this directly, but good for override if needed */
+  /* opacity: 1;   /* JS sets this directly */
+}
+
+body.tos-iframe-open #overlay-iframe iframe {
+  /* opacity: 1;                              /* JS sets this directly */
+  /* transform: scale(1) translateY(0);       /* JS sets this directly */
+}#overlay-iframe iframe {
+  /* No special positioning needed for centering itself */
+  /* Just width, height, etc. */
+  margin: 0; /* Ensure no margins are pushing it */
+}#overlay-iframe iframe { /* If #overlay-iframe is the positioned ancestor */
+  position: absolute;
+       /* Position the left edge at the container's horizontal midpoint */
+  transform: translate(-50%, -50%); /* Shift element back by half its own width and height */
+  /* ... width, height ... */
+}
