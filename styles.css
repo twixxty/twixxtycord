@@ -1,2061 +1,1648 @@
 @font-face {
-    font-family: 'editorial';
-    src: url('/fonts/PPEditorialNew-Regular-BF644b214ff145f.otf') format('woff2'),
-    font-weight: normal;
-    font-style: normal;
-  }
+font-family: 'editorial';
+src: url('/fonts/PPEditorialNew-Regular-BF644b214ff145f.otf') format('woff2'),
+font-weight: normal;
+font-style: normal;
+}
 @font-face {
-    font-family: 'editorialbold';
-    src: url('/fonts/PPEditorialNew-Ultrabold-BF644b21500840c.otf') format('woff2'),
-    font-weight: normal;
-    font-style: normal;
-  }
-  @font-face {
-    font-family: 'editorialbolditalic';
-    src: url('/fonts/PPEditorialNew-UltraboldItalic-BF644b214faef01.otf') format('woff2'),
-    font-weight: normal;
-    font-style: normal;
-  }
+font-family: 'editorialbold';
+src: url('/fonts/PPEditorialNew-Ultrabold-BF644b21500840c.otf') format('woff2'),
+font-weight: normal;
+font-style: normal;
+}
 @font-face {
-    font-family: 'Gome';
-    src: url('/fonts/GomePixel-ARJd7.otf') format('woff2'),
-         url('/fonts/GomePixel-DYJX1.otf') format('woff');
-    font-weight: normal;
-    font-style: normal;
-  }
-  @font-face {
-    font-family: 'zefani';
-    src: url('/fonts/Zefani.otf') format('woff2'),
-    font-weight: normal;
-    font-style: normal;
-  }
-  @font-face {
-    font-family: 'vcr';
-    src: url('/fonts/VCR_OSD_MONO_1.001.ttf') format('truetype');
-    font-weight: normal;
-    font-style: normal;
-  }
-  @keyframes fadeIn {
-    from {
-        filter: blur(5px);
-    }
-    to {
-        opacity: 1;
-        filter: blur(0px);
-        transform: translateY(0); /* Ends in normal position */
-    }
+font-family: 'editorialbolditalic';
+src: url('/fonts/PPEditorialNew-UltraboldItalic-BF644b214faef01.otf') format('woff2'),
+font-weight: normal;
+font-style: normal;
+}
+@font-face {
+font-family: 'Gome';
+src: url('/fonts/GomePixel-ARJd7.otf') format('woff2'),
+url('/fonts/GomePixel-DYJX1.otf') format('woff');
+font-weight: normal;
+font-style: normal;
+}
+@font-face {
+font-family: 'zefani';
+src: url('/fonts/Zefani.otf') format('woff2'),
+font-weight: normal;
+font-style: normal;
+}
+@font-face {
+font-family: 'vcr';
+src: url('/fonts/VCR_OSD_MONO_1.001.ttf') format('truetype');
+font-weight: normal;
+font-style: normal;
+}
+@keyframes fadeIn {
+from {
+filter: blur(5px);
+}
+to {
+opacity: 1;
+filter: blur(0px);
+transform: translateY(0);
+}
 }
 @-webkit-keyframes rotate {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
+0% {
+transform: rotate(0deg);
 }
-
+100% {
+transform: rotate(360deg);
+}
+}
 @keyframes rotate {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
+0% {
+transform: rotate(0deg);
 }
-
-/* Removed fadeIntext keyframes, replaced by animateInFromBottom */
-
+100% {
+transform: rotate(360deg);
+}
+}
 @keyframes fadeIframe {
-    50% {
-        scale: 0.5;
-        opacity: 0;
-        filter: blur(100px);
-    }
-    100 {
-scale: 1;
-        opacity: 1;
-        filter: blur(0px);
-
-    }
+50% {
+scale: 0.5;
+opacity: 0;
+filter: blur(100px);
 }
-      .floating-image {
-            position: fixed;
-            width: 100px;
-            height: 100px;
-            background: url('/images/gun.png') no-repeat center;
-            background-size: contain;
-            pointer-events: none;
-            transform: translate(-50%, -10%) rotate(0deg);
-            z-index: 9998;
-            transition: transform 0.3s ease-out;
-            display: none;
-        }
-
-      .no-pointer {
-            cursor: none;
-        }
-
-        .overlay-gun {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            cursor: none;
-            z-index: 10;
-        }
+100 {
+scale: 1;
+opacity: 1;
+filter: blur(0px);
+}
+}
+.floating-image {
+position: fixed;
+width: 100px;
+height: 100px;
+background: url('/images/gun.png') no-repeat center;
+background-size: contain;
+pointer-events: none;
+transform: translate(-50%, -10%) rotate(0deg);
+z-index: 9998;
+transition: transform 0.3s ease-out;
+display: none;
+}
+.no-pointer {
+cursor: none;
+}
+.overlay-gun {
+position: fixed;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+pointer-events: none;
+cursor: none;
+z-index: 10;
+}
 .overlay-gun :hover{
-    cursor: none;
+cursor: none;
 }
 @keyframes perishEffect {
-            from {
-                opacity: 1;
-            }
-            to {
-                opacity: 0;
-            }
-        }
-        .custom-cursor {
-            filter: invert(1); /* Invert cursor colors */
-
-            position: fixed;
-            width: 32px;
-            height: 32px;
-            background: url('images/crosshair.png') no-repeat center;
-            background-size: contain;
-            pointer-events: none;
-            transform: translate(-50%, -50%);
-            z-index: 9999; /* Ensures cursor stays above all other elements */
-            display: none;
-        }
-        .custom-cursor.animate {
-            animation: cursorClickEffect 0.2s ease-out forwards;
-        }
-
-        @keyframes cursorClickEffect {
-            from {
-                transform: translate(-50%, -50%) scale(0.5);
-            }
-            to {
-                transform: translate(-50%, -50%) scale(1);
-
-            }
-        }
-
-    #gunimg {
-        width: 100px;
-        height: 100px;
-        cursor: pointer;
-        }
-
-        .no-pointer {
-            cursor: url('/images/crosshair.png'), auto; /* Replace with your image */
-        }
-    input[type="text"] {
-        font-family: "poppins";
-    }
-   .full-screen-image {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-size: cover;
-  background-position: center;
-  opacity: 1;
-  z-index: 9999; /* Ensure it's on top of everything else */
+from {
+opacity: 1;
 }
-
-      #coolStuff {
-        position: relative;
-        display: flex;
-        justify-content: left;
-        margin-top: 20px;
-    }
-  
-    .clickable-image {
-        width: 100px;
-        height: 100px;
-        cursor: pointer;
-    }
-    .fullscreen-video {
-        z-index: 9999;
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        display: none;
-    }
-    .overlay {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(0, 0, 0, 0.5);
-        pointer-events: none;
-        filter: blur(1000px);
+to {
+opacity: 0;
+}
+}
+.custom-cursor {
+filter: invert(1);
+position: fixed;
+width: 32px;
+height: 32px;
+background: url('images/crosshair.png') no-repeat center;
+background-size: contain;
+pointer-events: none;
+transform: translate(-50%, -50%);
+z-index: 9999;
+display: none;
+}
+.custom-cursor.animate {
+animation: cursorClickEffect 0.2s ease-out forwards;
+}
+@keyframes cursorClickEffect {
+from {
+transform: translate(-50%, -50%) scale(0.5);
+}
+to {
+transform: translate(-50%, -50%) scale(1);
+}
+}
+#gunimg {
+width: 100px;
+height: 100px;
+cursor: pointer;
+}
+.no-pointer {
+cursor: url('/images/crosshair.png'), auto;
+}
+input[type="text"] {
+font-family: "poppins";
+}
+.full-screen-image {
+position: fixed;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+background-size: cover;
+background-position: center;
+opacity: 1;
+z-index: 9999;
+}
+#coolStuff {
+position: relative;
+display: flex;
+justify-content: left;
+margin-top: 20px;
+}
+.clickable-image {
+width: 100px;
+height: 100px;
+cursor: pointer;
+}
+.fullscreen-video {
+z-index: 9999;
+position: fixed;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+object-fit: cover;
+display: none;
+}
+.overlay {
+position: fixed;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+background: rgba(0, 0, 0, 0.5);
+pointer-events: none;
+filter: blur(1000px);
 opacity: 0;
 font-family: "zefani";
-    }
-    .animate-overlay {
-        animation: fadeInZoom 2s ease-in-out;
-    }
-    @keyframes fadeInZoom {
-        0% {
-            filter: blur(1000px);
-            filter: brightness(10);
-            opacity: 1;
-            transform: scale(1.2);
-        }
-        10% { 
-            filter: blur(0px);
-            filter: brightness(1);
-            opacity: 1;
-            transform: scale(1);
-        }
-        50% {
-           }
-        90% {}
-        100% {
-            display: none;
-            transform: scale(1);
-        }
-    }
-    .custom-font {
-  font-family: 'san' !important;
-  color: #9bb2d6 !important;
+}
+.animate-overlay {
+animation: fadeInZoom 2s ease-in-out;
+}
+@keyframes fadeInZoom {
+0% {
+filter: blur(1000px);
+filter: brightness(10);
+opacity: 1;
+transform: scale(1.2);
+}
+10% {
+filter: blur(0px);
+filter: brightness(1);
+opacity: 1;
+transform: scale(1);
+}
+100% {
+display: none;
+transform: scale(1);
+}
+}
+.custom-font {
+font-family: 'san' !important;
+color: #9bb2d6 !important;
 }
 .custom-fonty {
-  font-family: 'vintext' !important;
-  color: #B5828C !important;
+font-family: 'vintext' !important;
+color: #B5828C !important;
 }
 ::-webkit-scrollbar {
-    width: 1px;
-    height: 1px; 
+width: 1px;
+height: 1px;
 }
-
 ::-webkit-scrollbar-thumb {
-    background: rgba(0, 0, 0, 0);
-    border-radius: 10px; 
+background: rgba(0, 0, 0, 0);
+border-radius: 10px;
 }
-
 ::-webkit-scrollbar-track {
-    background: transparent; 
+background: transparent;
 }
-
- {
-    scrollbar-width: thin;
-    scrollbar-color: rgba(0, 0, 0, 0) transparent;
+{
+scrollbar-width: thin;
+scrollbar-color: rgba(0, 0, 0, 0) transparent;
 }
 footer {
-    text-rendering: pixelated;
-
+text-rendering: pixelated;
 }
 #displayHeader {
-    flex-grow: 1;
-    margin-bottom: 0px;
-    white-space: nowrap; 
-    overflow: auto;
-    padding-right: 5px;
+flex-grow: 1;
+margin-bottom: 0px;
+white-space: nowrap;
+overflow: auto;
+padding-right: 5px;
 }
-
-
-
-    #randomText {
-    margin-top: 10px !important; 
-    margin-bottom: 30px;
-    position: relative; 
+#randomText {
+margin-top: 10px !important;
+margin-bottom: 30px;
+position: relative;
 }
 @keyframes fadeInPFP {
-    from {
+from {
 scale: 1.2;
-        transform: rotate(5deg);
-        filter: blur(5px);
-    }
-    to {
-        transform: rotate(0deg);
-        scale: 1;
-
-        opacity: 1;
-        filter: blur(0px);
-        transform: translateY(0); /* Ends in normal position */
-    }
+transform: rotate(5deg);
+filter: blur(5px);
+}
+to {
+transform: rotate(0deg);
+scale: 1;
+opacity: 1;
+filter: blur(0px);
+transform: translateY(0);
+}
 }
 #pfp {
-    border: #111 5px solid;
-    cursor: pointer;
-      width: 150px !important;
-      height: 150px !important;
-      border-radius: 30%;
-      transition: transform 0.5s ease-in-out; /* Correct transition */  }
-  #pfp:hover {
-    animation: fadeInPFP 1s forwards;
-  }
+border: #111 5px solid;
+cursor: pointer;
+width: 150px !important;
+height: 150px !important;
+border-radius: 30%;
+transition: transform 0.5s ease-in-out;   }
+#pfp:hover {
+animation: fadeInPFP 1s forwards;
+}
 footer {
-    font-size: 15px;
+font-size: 15px;
 }
-  @media (max-width: 600px) {
-
-
-  }
-  
-        @font-face {
-            font-family: "web tandy2k";
-            font-style: normal;
-            font-weight: 400;
-            src: url(fonts/web_tandy2k.woff) format("woff");
-        }
-        @font-face {
-            font-family: "comic";
-            font-style: normal;
-            font-weight: 400;
-            src: url(fonts/ComicSansMS3.ttf) format("woff");
-        } 
-        @font-face {
-            font-family: "san";
-            font-style: normal;
-            font-weight: 400;
-            src: url(fonts/ahronbd.ttf) format("woff");
-        }
-        @font-face {
-            font-family: "sant";
-            font-style: normal;
-            font-weight: 400;
-            src: url(fonts/BECKETT_.TTF) format("woff");
-        } 
-        @font-face {
-            font-family: "vintage";
-            font-style: normal;
-            font-weight: 400;
-            src: url(fonts/brighton.otf) format("woff");
-        } 
-        @font-face {
-            font-family: "vintext";
-
-            src: url(fonts/vintext.otf) format("woff");
-        } 
-        .custom-fonti {
-            font-family: "poppins" !important;
-            color: var(--accent) !important;
-        }
-        main {
-            /* Removed initial scale and filter blur. JS will handle timed animation. */
-            /* transition: filter, 4s ease-in-out; /* REMOVED - was causing issues with new animation */
-            opacity: 0; /* Start hidden for new animation */
-            filter: blur(10px); /* Start blurred for new animation */
-            transform: translateY(20px); /* Start slightly down for new animation */
-        }
-        :root {
-            --peach: #efc4df;
-            --strawberry: #e5a0a0;
-            --cantaloupe: #f9b28c;
-            --banana: #f0cf9f;
-            --watermelon: #b0d2b0;
-            --mint: #95fecc;
-            --water: #80bbdb;
-            --ube: #a99dbd;
-            --tapioca: #c1c1c1;
-            --dark: #111;
-            --light: #eee;
-            --accent: var(--mint);
-            font-family: "poppins";
-            background-color: var(--dark);
-            color: var(--light);
-        }
-  
-        body {
-            text-rendering: pixelated;
-            max-width: 750px;
-            margin: 50px auto;
-            padding: 50px;
-        }
-  
-        h1 {
+@font-face {
+font-family: "web tandy2k";
+font-style: normal;
+font-weight: 400;
+src: url(fonts/web_tandy2k.woff) format("woff");
+}
+@font-face {
+font-family: "comic";
+font-style: normal;
+font-weight: 400;
+src: url(fonts/ComicSansMS3.ttf) format("woff");
+}
+@font-face {
+font-family: "san";
+font-style: normal;
+font-weight: 400;
+src: url(fonts/ahronbd.ttf) format("woff");
+}
+@font-face {
+font-family: "sant";
+font-style: normal;
+font-weight: 400;
+src: url(fonts/BECKETT_.TTF) format("woff");
+}
+@font-face {
+font-family: "vintage";
+font-style: normal;
+font-weight: 400;
+src: url(fonts/brighton.otf) format("woff");
+}
+@font-face {
+font-family: "vintext";
+src: url(fonts/vintext.otf) format("woff");
+}
+.custom-fonti {
+font-family: "poppins" !important;
+color: var(--accent) !important;
+}
+main {
+opacity: 0;
+filter: blur(10px);
+transform: translateY(20px);
+}
+:root {
+--peach: #efc4df;
+--strawberry: #e5a0a0;
+--cantaloupe: #f9b28c;
+--banana: #f0cf9f;
+--watermelon: #b0d2b0;
+--mint: #95fecc;
+--water: #80bbdb;
+--ube: #a99dbd;
+--tapioca: #c1c1c1;
+--dark: #111;
+--light: #eee;
+--accent: var(--mint);
+font-family: "poppins";
+background-color: var(--dark);
+color: var(--light);
+}
+body {
+text-rendering: pixelated;
+max-width: 750px;
+margin: 50px auto;
+padding: 50px;
+}
+h1 {
 font-family: "editorialbold";
-            text-rendering: pixelated;
-            font-size: 48px;
-            font-weight: 1900;
-        }
-  
-        h2 {
+text-rendering: pixelated;
+font-size: 48px;
+font-weight: 1900;
+}
+h2 {
 font-family: "editorial";
-            text-rendering: pixelated;
-            font-size: 32px;
-            
-        }
-  
-        h3, h4, h5, h6, body, {
-            text-rendering: pixelated;
-            font-size: 16px;
-        }
-        .animated-underline {
-  text-decoration: underline wavy 2px;
-  text-decoration-color: blue;
-  text-underline-offset: 4px;
-  animation: wave-animation 1.5s infinite linear;
+text-rendering: pixelated;
+font-size: 32px;
 }
-
+h3, h4, h5, h6, body, {
+text-rendering: pixelated;
+font-size: 16px;
+}
+.animated-underline {
+text-decoration: underline wavy 2px;
+text-decoration-color: blue;
+text-underline-offset: 4px;
+animation: wave-animation 1.5s infinite linear;
+}
 @keyframes wave-animation {
-  0% {
-    text-underline-offset: 2px;
-  }
-  50% {
-    text-underline-offset: 6px;
-  }
-  100% {
-    text-underline-offset: 2px;
-  }
+0% {
+text-underline-offset: 2px;
 }
-
-        h1, h2 {
-            
-            text-decoration: underline wavy 2px;
-            text-underline-offset: 6px;
-            color: var(--accent);
-        }
-  
-        h3 a {
-            color: inherit;
-        }
-  
-        h3 a .key {
-            color: var(--accent);
-            text-decoration: inherit;
-        }
-  
-        header h1 + p {
-            margin-top: -20px;
-        }
-  
-        a {
-            font-family: poppins;
-            color: var(--accent);
-            text-decoration: underline dashed 1px;
-            text-underline-offset: 2px;
-        }
-
+50% {
+text-underline-offset: 6px;
+}
+100% {
+text-underline-offset: 2px;
+}
+}
+h1, h2 {
+text-decoration: underline wavy 2px;
+text-underline-offset: 6px;
+color: var(--accent);
+}
+h3 a {
+color: inherit;
+}
+h3 a .key {
+color: var(--accent);
+text-decoration: inherit;
+}
+header h1 + p {
+margin-top: -20px;
+}
+a {
+font-family: poppins;
+color: var(--accent);
+text-decoration: underline dashed 1px;
+text-underline-offset: 2px;
+}
 #pageLoadOverlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background-color: #000;
-    z-index: 100000; /* Very high z-index */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden; /* Important for clip-path animations */
+position: fixed;
+top: 0;
+left: 0;
+width: 100vw;
+height: 100vh;
+background-color: #000;
+z-index: 100000;
+display: flex;
+align-items: center;
+justify-content: center;
+overflow: hidden;
 }
-
 #overlayText {
-    /* Existing styles like font-family, font-size, color, padding, etc. */
-    font-family: editorial;
-    font-size: 32px;
-    font-weight: bold;
-    color: var(--light);
-    padding: 20px;
-    border-radius: 10px;
-    text-align: center;
-    /* backdrop-filter: blur(5px); /* Optional if you want blur on text bg *within* the black overlay */
-    
-    /* Initial state for animation */
-    opacity: 0;
-    filter: blur(10px);
-    transform: translateY(20px);
-    /* Remove fixed positioning if it had any, parent #pageLoadOverlay handles centering */
-    /* Remove transition/animation properties, will be applied by JS */
+font-family: editorial;
+font-size: 32px;
+font-weight: bold;
+color: var(--light);
+padding: 20px;
+border-radius: 10px;
+text-align: center;
+opacity: 0;
+filter: blur(10px);
+transform: translateY(20px);
 }
-
-
 ::selection {
-
-    background: var(--accent); 
-    color: var(--dark); 
-    text-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
-    backdrop-filter: blur(5px); 
+background: var(--accent);
+color: var(--dark);
+text-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+backdrop-filter: blur(5px);
 }
 ::-moz-selection {
-
-    background: var(--accent);
-    color: var(--dark);
+background: var(--accent);
+color: var(--dark);
 }
-/* Removed #overlayText.hidden and its transition/opacity */
-
 a, button, * {
-    -webkit-tap-highlight-color:transparent;
+-webkit-tap-highlight-color:transparent;
 }
 .friends-grid {
-        
-        display: flex;
-        gap: 0;
-        justify-content: left;
-        margin-top: 10px;
-        position: relative;
-    }
-    .friend {
+display: flex;
+gap: 0;
+justify-content: left;
+margin-top: 10px;
 position: relative;
-        cursor: pointer;
-        transition: z-index 0.2s, filter 0.2s;
-        margin-left: -15px;
-        z-index: 1;
+}
+.friend {
+position: relative;
+cursor: pointer;
+transition: z-index 0.2s, filter 0.2s;
+margin-left: -15px;
+z-index: 1;
 filter: brightness(0.3);
 transform: scale(1);
-
-    }
-    .friend:first-child {
-        margin-left: 0;
-    }
-    .friend-pfp {
-
-        border: 2px solid #111;
-        background-color: #11111140; /* sensparent */
-        backdrop-filter: blur(10px);
-        border-radius: 50%;
-        width: 50px;
-        height: 50px;
-        transition: transform 0.2s ease-in-out, border-radius 0.2s ease-in-out, filter 0.5s ease-in-out, padding 0.2s ease-in-out;
-    }
-    .friend:hover .friend-pfp {
-        animation: fadeIn 0.7s forwards;
-        transition: transform 0.2s ease-in-out, border-radius 0.2s ease-in-out, filter 0.5s ease-in-out, padding 0.2s ease-in-out;
-                backdrop-filter: blur(10px);
-
-        padding: 5px;
-        border-radius: 20px;
-        transform: scale(1.2);
-    }
-    .friend.active {
-        transition: transform 0.2s ease-in-out, border-radius 0.2s ease-in-out, filter 0.5s ease-in-out, padding 0.2s ease-in-out;
-
-        z-index: 5 !important;
-        filter: brightness(1);
-        transform: scale(1.25);
-
-    }
-    .friend.previous {
-        transition: transform 0.2s ease-in-out, border-radius 0.2s ease-in-out, filter 0.5s ease-in-out, padding 0.2s ease-in-out;
-
-        z-index: 4;
-        filter: brightness(0.7);
-        transform: scale(1.20);
-
-    }
-    .friend.previous-2 {
-        transition: transform 0.2s ease-in-out, border-radius 0.2s ease-in-out, filter 0.5s ease-in-out, padding 0.2s ease-in-out;
-
-        z-index: 3;
-        filter: brightness(0.5);
-        transform: scale(1.17);
-
-    }
-    .friend.previous-3 {
-        transition: transform 0.2s ease-in-out, border-radius 0.2s ease-in-out, filter 0.5s ease-in-out, padding 0.2s ease-in-out;
-
-        z-index: 2;
-        filter: brightness(0.3);
-        transform: scale(1.15);
-
-    }
-    .friend.previous-4 {
-        transition: transform 0.2s ease-in-out, border-radius 0.2s ease-in-out, filter 0.5s ease-in-out, padding 0.2s ease-in-out;
-
-        z-index: 1;
-    }
-    .friend.next {
-        transition: transform 0.2s ease-in-out, border-radius 0.2s ease-in-out, filter 0.5s ease-in-out, padding 0.2s ease-in-out;
-
-        z-index: 4;
-        filter: brightness(0.7);
-        transform: scale(1.25);
-
-    }
-    .friend.next-2 {
-        transition: transform 0.2s ease-in-out, border-radius 0.2s ease-in-out, filter 0.5s ease-in-out, padding 0.2s ease-in-out;
-
-        z-index: 3;
-        filter: brightness(0.5);
-        transform: scale(1.20);
-
-    }
-    .friend.next-3 {
-        transition: transform 0.2s ease-in-out, border-radius 0.2s ease-in-out, filter 0.5s ease-in-out, padding 0.2s ease-in-out;
-
-        z-index: 2;
-        filter: brightness(0.3);
-        transform: scale(1.15);
-
-    }
-    .friend.next-4 {
-        transition: transform 0.2s ease-in-out, border-radius 0.2s ease-in-out, filter 0.5s ease-in-out, padding 0.2s ease-in-out;
-
-        z-index: 1;
-    }
-    .friend::after {
-        content: attr(data-username);
-        position: absolute;
-        bottom: -25px;
-        left: 50%;
-        transform: translateX(-50%);
-        background: rgba(0, 0, 0, 0.7);
-        color: white;
-        padding: 5px 10px;
-        border-radius: 5px;
-        font-size: 12px;
-        white-space: nowrap;
-        opacity: 0;
-        transition: opacity 0.2s ease-in-out, border-radius 0.2s ease-in-out;
-        pointer-events: none;
-    }
-    .friend.active::after {
-        opacity: 1;
-    }
-    .floating-icon {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  width: 50px;
-  height: 50px;
-  cursor: pointer;
-  transition: transform 0.3s, filter 0.3s, opacity 0.3s, all 0.3s;
-  opacity: 0;  /* Start hidden */
-  filter: blur(10px);
-  background-color: #111;
-  border-radius: 100px;
+}
+.friend:first-child {
+margin-left: 0;
+}
+.friend-pfp {
+border: 2px solid #111;
+background-color: #11111140;
+backdrop-filter: blur(10px);
+border-radius: 50%;
+width: 50px;
+height: 50px;
+transition: transform 0.2s ease-in-out, border-radius 0.2s ease-in-out, filter 0.5s ease-in-out, padding 0.2s ease-in-out;
+}
+.friend:hover .friend-pfp {
+animation: fadeIn 0.7s forwards;
+transition: transform 0.2s ease-in-out, border-radius 0.2s ease-in-out, filter 0.5s ease-in-out, padding 0.2s ease-in-out;
+backdrop-filter: blur(10px);
+padding: 5px;
+border-radius: 20px;
+transform: scale(1.2);
+}
+.friend.active {
+transition: transform 0.2s ease-in-out, border-radius 0.2s ease-in-out, filter 0.5s ease-in-out, padding 0.2s ease-in-out;
+z-index: 5 !important;
+filter: brightness(1);
+transform: scale(1.25);
+}
+.friend.previous {
+transition: transform 0.2s ease-in-out, border-radius 0.2s ease-in-out, filter 0.5s ease-in-out, padding 0.2s ease-in-out;
+z-index: 4;
+filter: brightness(0.7);
+transform: scale(1.20);
+}
+.friend.previous-2 {
+transition: transform 0.2s ease-in-out, border-radius 0.2s ease-in-out, filter 0.5s ease-in-out, padding 0.2s ease-in-out;
+z-index: 3;
+filter: brightness(0.5);
+transform: scale(1.17);
+}
+.friend.previous-3 {
+transition: transform 0.2s ease-in-out, border-radius 0.2s ease-in-out, filter 0.5s ease-in-out, padding 0.2s ease-in-out;
+z-index: 2;
+filter: brightness(0.3);
+transform: scale(1.15);
+}
+.friend.previous-4 {
+transition: transform 0.2s ease-in-out, border-radius 0.2s ease-in-out, filter 0.5s ease-in-out, padding 0.2s ease-in-out;
+z-index: 1;
+}
+.friend.next {
+transition: transform 0.2s ease-in-out, border-radius 0.2s ease-in-out, filter 0.5s ease-in-out, padding 0.2s ease-in-out;
+z-index: 4;
+filter: brightness(0.7);
+transform: scale(1.25);
+}
+.friend.next-2 {
+transition: transform 0.2s ease-in-out, border-radius 0.2s ease-in-out, filter 0.5s ease-in-out, padding 0.2s ease-in-out;
+z-index: 3;
+filter: brightness(0.5);
+transform: scale(1.20);
+}
+.friend.next-3 {
+transition: transform 0.2s ease-in-out, border-radius 0.2s ease-in-out, filter 0.5s ease-in-out, padding 0.2s ease-in-out;
+z-index: 2;
+filter: brightness(0.3);
+transform: scale(1.15);
+}
+.friend.next-4 {
+transition: transform 0.2s ease-in-out, border-radius 0.2s ease-in-out, filter 0.5s ease-in-out, padding 0.2s ease-in-out;
+z-index: 1;
+}
+.friend::after {
+content: attr(data-username);
+position: absolute;
+bottom: -25px;
+left: 50%;
+transform: translateX(-50%);
+background: rgba(0, 0, 0, 0.7);
+color: white;
+padding: 5px 10px;
+border-radius: 5px;
+font-size: 12px;
+white-space: nowrap;
+opacity: 0;
+transition: opacity 0.2s ease-in-out, border-radius 0.2s ease-in-out;
+pointer-events: none;
+}
+.friend.active::after {
+opacity: 1;
+}
+.floating-icon {
+position: fixed;
+bottom: 20px;
+right: 20px;
+width: 50px;
+height: 50px;
+cursor: pointer;
+transition: transform 0.3s, filter 0.3s, opacity 0.3s, all 0.3s;
+opacity: 0;
+filter: blur(10px);
+background-color: #111;
+border-radius: 100px;
 }
 .floating-icon:hover {
-    padding: 3px;
-    scale: 1.2;
-    transform: rotate(30deg);
+padding: 3px;
+scale: 1.2;
+transform: rotate(30deg);
 }
 .floating-icon.fade-in {
-  opacity: 1;  /* Make the image visible */
-  filter: blur(0px);
+opacity: 1;
+filter: blur(0px);
 }
-
 #sigma {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover; /* Ensures the video covers the screen while maintaining aspect ratio */
-  z-index: 9999; /* Makes sure the video is on top of other elements */
-  display: none; /* Initially hidden */
+position: fixed;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+object-fit: cover;
+z-index: 9999;
+display: none;
 }
-
 input[type="text"] {
-  bottom: 20px;
-  left: 20px;
-  padding: 10px;
+bottom: 20px;
+left: 20px;
+padding: 10px;
 background-color: #11111100;
 border: 3px solid #555;
 color: var(--accent);
 transition: padding 0.3s, border 0.3s;
 }
 input[type="text"]:hover {
-  bottom: 20px;
-  left: 20px;
-  padding: 13px;
+bottom: 20px;
+left: 20px;
+padding: 13px;
 background-color: #11111100;
 border: 3.3px solid var(--accent);
 color: var(--accent);
 }
 #overlay-iframe {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.5); /* Semi-transparent background for overlay */
-  z-index: 1000; /* Ensure the iframe is above other content */
-  display: flex;
-  justify-content: center;
-  align-items: center;
+position: fixed;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+background: rgba(0, 0, 0, 0.5);
+z-index: 1000;
+display: flex;
+justify-content: center;
+align-items: center;
 }
-
 iframe {
-  position: absolute;
-  top: 10%;
-  left: 50%;
-  transform: translateX(-50%) scale(0);
-  width: 80%;
-  height: 80%;
-  border: none;
-  transition: all 1s ease-in-out;
-  animation: fadeIframe 2s forwards;
-
+position: absolute;
+top: 10%;
+left: 50%;
+transform: translateX(-50%) scale(0);
+width: 80%;
+height: 80%;
+border: none;
+transition: all 1s ease-in-out;
+animation: fadeIframe 2s forwards;
 }
 #retroMode {
-    display: inline-block;
-    border-radius: 5px; /* Rounded corners */
-    transition: background-color 0.3s ease, color 0.3s ease, padding 0.3s ease, underline 0.3s; /* Smooth transition */
-  
+display: inline-block;
+border-radius: 5px;
+transition: background-color 0.3s ease, color 0.3s ease, padding 0.3s ease, underline 0.3s;
 }
 #retroMode:hover {
-    padding: 5px;
-    font-weight: bold;
-  background-color: blue; /* New background color on hover */
-  color: #000000; /* New text color on hover */
-  text-decoration: underline wavy;
+padding: 5px;
+font-weight: bold;
+background-color: blue;
+color: #000000;
+text-decoration: underline wavy;
 }
 a {
-  display: inline-block;
-  border-radius: 5px; /* Rounded corners */
-  transition: background-color 0.3s ease, color 0.3s ease, padding 0.3s ease, underline 0.3s; /* Smooth transition */
+display: inline-block;
+border-radius: 5px;
+transition: background-color 0.3s ease, color 0.3s ease, padding 0.3s ease, underline 0.3s;
 }
 a:hover {
-    padding: 5px;
-    font-weight: bold;
-  background-color: var(--accent); /* New background color on hover */
-  color: #000000; /* New text color on hover */
-  text-decoration: underline wavy;
+padding: 5px;
+font-weight: bold;
+background-color: var(--accent);
+color: #000000;
+text-decoration: underline wavy;
 }
 <link rel=”stylesheet” href=”https://unpkg.com/lenis@1.1.13/dist/lenis.css"
 #statusEmoji {
-    -webkit-animation: rotate 5s linear infinite;
-          animation: rotate 15s linear infinite;
-    position: absolute;
-    bottom: -4px;
-    right: -4px;
-    font-size: 34px;
-    backdrop-filter: blur(10px);
-    background-color: #00000074;
-    border-radius: 100px;
-  }
-  #statusEmoji {
-      border: solid 1px #111;
-    position: absolute;
-    bottom: -4px;
-    right: -4px;
-    font-size: 34px;
-    background-color: #111;
-    border-radius: 100px;
-    pointer-events: none; 
-        -webkit-animation: rotate 5s linear infinite;
-          animation: rotate 15s linear infinite;
-
-  }
-  
-  @media (max-width: 600px) {
-    #pfpp #pfp {
-      width: 100px !important;
-      height: 100px !important;
-    }
+-webkit-animation: rotate 5s linear infinite;
+animation: rotate 15s linear infinite;
+position: absolute;
+bottom: -4px;
+right: -4px;
+font-size: 34px;
+backdrop-filter: blur(10px);
+background-color: #00000074;
+border-radius: 100px;
+}
+#statusEmoji {
+border: solid 1px #111;
+position: absolute;
+bottom: -4px;
+right: -4px;
+font-size: 34px;
+background-color: #111;
+border-radius: 100px;
+pointer-events: none;
+-webkit-animation: rotate 5s linear infinite;
+animation: rotate 15s linear infinite;
+}
+@media (max-width: 600px) {
+#pfpp #pfp {
+width: 100px !important;
+height: 100px !important;
+}
 :root {
-    --pfp-overlap-banner-percentage: 0.60; /* 30% on banner */
-
+--pfp-overlap-banner-percentage: 0.60;
 }
-      :root {
-    --banner-height: 200px; /* Adjust as needed */
-    --pfp-size: 75px;
-    --pfp-border-width: 7px;
-    --pfp-total-size: calc(var(--pfp-size) + (2 * var(--pfp-border-width))); /* 150px + 10px = 160px */
-    --pfp-overlap-banner-percentage: 0.98; /* 30% on banner */
-    --pfp-left-offset: 30px; /* How far from the left edge the PFP should be */
-      }
-    #pfpp #statusEmoji {
-      font-size: 20px !important;
-      bottom: -2px !important;
-      right: -2px !important;
-      
-    }
-  }
+:root {
+--banner-height: 200px;
+--pfp-size: 75px;
+--pfp-border-width: 7px;
+--pfp-total-size: calc(var(--pfp-size) + (2 * var(--pfp-border-width)));
+--pfp-overlap-banner-percentage: 0.98;
+--pfp-left-offset: 30px;
+}
+#pfpp #statusEmoji {
+font-size: 20px !important;
+bottom: -2px !important;
+right: -2px !important;
+}
+}
 #gradientContainer {
-    display: block;
-    position: relative; /* Changed to relative to contain the gradient */
-    width: 100%; /* Set the desired width of the box */
-    height: 50vw; /* Set the desired height of the box */
-    margin: 0 auto; /* Center the box horizontally */
-    overflow: hidden; /* Ensure the gradient doesn't overflow the box */
-    border-radius: 10px; /* Optional: Add rounded corners */
+display: block;
+position: relative;
+width: 100%;
+height: 50vw;
+margin: 0 auto;
+overflow: hidden;
+border-radius: 10px;
 }
-
 #gradient {
-        filter: blur(9vw);
-    position: absolute;
-    top: 0;
-    left: 0;
-    transform: translateX(0) scale(1); /* Adjusted for the box */
-    width: 100%;
-    height: 100%;
-    border: none;
-    transition: all 1s ease-in-out;
-    z-index: -1;
-    pointer-events: none;
+filter: blur(9vw);
+position: absolute;
+top: 0;
+left: 0;
+transform: translateX(0) scale(1);
+width: 100%;
+height: 100%;
+border: none;
+transition: all 1s ease-in-out;
+z-index: -1;
+pointer-events: none;
 }
 #top {
-    height: 100%;
-    width: 100%;
+height: 100%;
+width: 100%;
 }
-/* --- CSS Variables for easier management --- */
 :root {
-    --banner-height: 200px; /* Adjust as needed */
-    --pfp-size: 150px;
-    --pfp-border-width: 7px;
-    --pfp-total-size: calc(var(--pfp-size) + (2 * var(--pfp-border-width))); /* 150px + 10px = 160px */
-    --pfp-overlap-banner-percentage: 0.80; /* 30% on banner */
-    --pfp-left-offset: 50px; /* How far from the left edge the PFP should be */
+--banner-height: 200px;
+--pfp-size: 150px;
+--pfp-border-width: 7px;
+--pfp-total-size: calc(var(--pfp-size) + (2 * var(--pfp-border-width)));
+--pfp-overlap-banner-percentage: 0.80;
+--pfp-left-offset: 50px;
 }
-
-/* --- Main Header Container --- */
 .profile-header {
-    position: relative; 
+position: relative;
 }
-
-/* --- Banner --- */
 .banner-container {
-    position: relative; 
-    width: 100%;
-    height: var(--banner-height);
-    overflow: hidden;
-    border-radius: 20px;
+position: relative;
+width: 100%;
+height: var(--banner-height);
+overflow: hidden;
+border-radius: 20px;
 }
-
 #gradient {
-    filter: blur(9vw);
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    border: none;
-    transition: all 1s ease-in-out;
-    z-index: 1; 
-    pointer-events: none;
+filter: blur(9vw);
+position: absolute;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+border: none;
+transition: all 1s ease-in-out;
+z-index: 1;
+pointer-events: none;
 }
-
-.profile-picture-wrapper { /* Replaces #pfpp for styling */
-    position: absolute;
-    /* 
-      Calculate top position:
-      PFP top edge should be (PFP total size * 30%) *above* the bottom of the banner.
-      So, from the top of the banner: banner_height - (pfp_total_size * 30%)
-    */
-    top: calc(var(--banner-height) - (var(--pfp-total-size) * var(--pfp-overlap-banner-percentage)));
-    left: var(--pfp-left-offset);
-    z-index: 2; /* Above gradient */
-    /* display: inline-block; is fine if you don't set width/height here */
+.profile-picture-wrapper {
+position: absolute;
+top: calc(var(--banner-height) - (var(--pfp-total-size) * var(--pfp-overlap-banner-percentage)));
+left: var(--pfp-left-offset);
+z-index: 2;
 }
-
 #pfp {
-    display: block; /* Good practice for images to remove bottom space */
-    border: var(--pfp-border-width) solid #111;
-    cursor: pointer;
-    width: var(--pfp-size) !important; /* Use variable */
-    height: var(--pfp-size) !important; /* Use variable */
-    border-radius: 30%;
-    transition: transform 0.5s ease-in-out;
+display: block;
+border: var(--pfp-border-width) solid #111;
+cursor: pointer;
+width: var(--pfp-size) !important;
+height: var(--pfp-size) !important;
+border-radius: 30%;
+transition: transform 0.5s ease-in-out;
 }
-
 #pfp:hover {
-    /* animation: fadeInPFP 1s forwards; */ /* You can re-add your animation */
-    transform: scale(1.05); /* Simpler hover effect */
+transform: scale(1.05);
 }
-
-
-
-/* --- Text Info Below PFP --- */
 .profile-info {
-    /*
-      Calculate margin-top to clear the PFP:
-      The PFP's top is at: banner_height - (pfp_total_size * 0.3)
-      The PFP's height is: pfp_total_size
-      So the bottom of the PFP is at: (banner_height - (pfp_total_size * 0.3)) + pfp_total_size
-      This needs to be the margin-top for profile-info, plus some spacing.
-    */
-    margin-top: calc(
-        (var(--banner-height) - (var(--pfp-total-size) * var(--pfp-overlap-banner-percentage))) + 
-        var(--pfp-total-size) + 
-    );
-
+margin-top: calc(
+(var(--banner-height) - (var(--pfp-total-size) * var(--pfp-overlap-banner-percentage))) +
+var(--pfp-total-size) +
+);
 }
-
-#displayHeader {
-    /* flex-grow: 1; Not applicable in this non-flex context for the header itself */
-   
-}
-
-
-
-/* Your original #gradientContainer CSS is not directly used, 
-   .banner-container serves a similar purpose for the gradient iframe.
-   The #pfp style for transition and animation is kept.
-*/
 @media (max-width: 600px) {
-
 :root {
-    --pfp-overlap-banner-percentage: 0.80; /* 30% on banner */
-
+--pfp-overlap-banner-percentage: 0.80;
 }
-    :root {
-    --banner-height: 150px; /* Adjust as needed */
-    --pfp-size: 75px;
-    --pfp-border-width: 7px;
-    --pfp-total-size: calc(var(--pfp-size) + (2 * var(--pfp-border-width))); /* 150px + 10px = 160px */
-    --pfp-overlap-banner-percentage: 0.99; /* 30% on anner */
-    --pfp-left-offset: 20px; /* How far from the left edge the PFP should be */
-    }
-    #pfpp #statusEmoji {
-      font-size: 20px !important;
-      bottom: -2px !important;
-      right: -2px !important;
-      
-    }
+:root {
+--banner-height: 150px;
+--pfp-size: 75px;
+--pfp-border-width: 7px;
+--pfp-total-size: calc(var(--pfp-size) + (2 * var(--pfp-border-width)));
+--pfp-overlap-banner-percentage: 0.99;
+--pfp-left-offset: 20px;
+}
+#pfpp #statusEmoji {
+font-size: 20px !important;
+bottom: -2px !important;
+right: -2px !important;
+}
 }
 @media (min-width: 600px) {
-    #pfp {
-      border: 8px solid #111;
-    }
+#pfp {
+border: 8px solid #111;
+}
 }
 .dynamic-wavy-divider-container {
-  width: 100%; /* Or your desired width */
-  height: 60px; /* Adjust based on desired wave amplitude */
-  margin: 40px auto; /* Centering and spacing */
-  overflow: hidden; /* Good practice */
+width: 100%;
+height: 60px;
+margin: 40px auto;
+overflow: hidden;
 }
-
 #wavySvg {
-  width: 100%;
-  height: 100%;
-  display: block;
+width: 100%;
+height: 100%;
+display: block;
 }
 hr.rounded {
-  border: 1px dashed #333333d6;
+border: 1px dashed #333333d6;
 }
 hr.roundedlol {
-  border: 3px solid #333333d6;
-  border-radius: 2px;
+border: 3px solid #333333d6;
+border-radius: 2px;
 }
 #aboutText {
-  font-family: "poppins";
-  font-size: 20px;
-  font-weight: 600;
-  color: #eeeeeedb;
-  text-align: right;
-  margin-top: 20px;
-  margin-bottom: 20px;
+font-family: "poppins";
+font-size: 20px;
+font-weight: 600;
+color: #eeeeeedb;
+text-align: right;
+margin-top: 20px;
+margin-bottom: 20px;
 }
 fw {
-      opacity: 0.5;
-        font-family: "web tandy2k";
-
+opacity: 0.5;
+font-family: "web tandy2k";
 }
- .container {
-            display: flex; /* This enables flexbox */
-            gap: 20px;     /* Optional: adds space between the columns */
-            align-items: flex-start; /* Aligns items to the top of the container */
-        }
-
-        .column {
-            flex: 1; /* Each column will take up equal available space */
-            /* You can also use percentages like flex-basis: 50%; */
-            /* border: 1px solid #eee; /* Optional: for visualizing columns */
-            /* padding: 10px; /* Optional: for inner spacing */
-        }
-
-        /* Optional: Style the links in the second column to stack nicely */
-        .column.connections-column a {
-            display: block; /* Makes each link take its own line */
-            margin-bottom: 8px; /* Adds space below each link */
-        }
-        .column.connections-column  {
-            text-align: right; /* Center the text in the column */
-        }
-
-       
-
-        /* Responsive: Stack columns on smaller screens */
-        @media (max-width: 768px) { /* Adjust breakpoint as needed */
-            .container {
-                flex-direction: column; /* Stack columns vertically */
-                width: 100%; /* Full width for each column */
-            }
-            .column {
-                margin-bottom: 20px; /* Add space between stacked columns */
-                                width: 100%; /* Full width for each column */
-
-            }
-             .column.connections-column  {
-            text-align: left; /* Center the text in the column */
-        }
-        }
-        #projects {
+.container {
+display: flex;
+gap: 20px;
+align-items: flex-start;
+}
+.column {
+flex: 1;
+}
+.column.connections-column a {
+display: block;
+margin-bottom: 8px;
+}
+.column.connections-column  {
+text-align: right;
+}
+@media (max-width: 768px) {
+.container {
+flex-direction: column;
+width: 100%;
+}
+.column {
+margin-bottom: 20px;
+width: 100%;
+}
+.column.connections-column  {
+text-align: left;
+}
+}
+#projects {
 margin-top: 0;
-        }
+}
 #projectsContainer p {
-    padding-bottom: 0px;
-
-    margin-bottom: 0;
-    font-size: 16px;
-    font-weight: 300;
-    color: #eeeeeecb;
+padding-bottom: 0px;
+margin-bottom: 0;
+font-size: 16px;
+font-weight: 300;
+color: #eeeeeecb;
 }
-/* --- Styles for Project Number Scroll --- */
 .projects-outer-container {
-    display: flex;
-    position: relative;
-    margin-top: 30px; 
-    gap: 25px; 
+display: flex;
+position: relative;
+margin-top: 30px;
+gap: 25px;
 }
-
 .project-number-indicator {
-    position: sticky;
-    top: 100px; /* Adjust for desktop sticky header */
-    left: 0; 
-    height: 4rem; /* CRITICAL: Viewport height for one number */
-    z-index: 10;
-    display: flex; 
-    align-items: center; 
+position: sticky;
+top: 100px;
+left: 0;
+height: 4rem;
+z-index: 10;
+display: flex;
+align-items: center;
 }
-
 .static-project-zero {
-    font-size: 4rem; 
-    font-weight: bold;
-    color: var(--accent, #FFD700); /* Fallback if --accent not defined */
-    line-height: 1; 
-    height: 4rem; 
-    display: flex;
-    align-items: center;
-    margin-right: 0.08em; /* Gap between "0" and scrolling digit */
-    flex-shrink: 0; 
+font-size: 4rem;
+font-weight: bold;
+color: var(--accent, #FFD700);
+line-height: 1;
+height: 4rem;
+display: flex;
+align-items: center;
+margin-right: 0.08em;
+flex-shrink: 0;
 }
-
 .dynamic-digits-reel-container {
-    height: 4rem; 
-    overflow: hidden; 
-    line-height: 1; 
+height: 4rem;
+overflow: hidden;
+line-height: 1;
 }
-
-/* .dynamic-digits-reel-inner: JS sets transition */
-
 .dynamic-digit-only-slot {
-    height: 4rem; 
-    font-size: 4rem; 
-    font-weight: bold;
-    color: var(--accent, #FFD700);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    line-height: 1; 
-    min-width: 0.6em; /* Adjust based on font for consistent digit width */
-    text-align: center;
+height: 4rem;
+font-size: 4rem;
+font-weight: bold;
+color: var(--accent, #FFD700);
+display: flex;
+align-items: center;
+justify-content: center;
+line-height: 1;
+min-width: 0.6em;
+text-align: center;
 }
-
 .projects-list-content {
-    flex-grow: 1;
-    display: flex;
-    flex-direction: column;
-    gap: 100px; 
+flex-grow: 1;
+display: flex;
+flex-direction: column;
+gap: 100px;
 }
-
 .project-item {
-    min-height: 70vh; /* Ensure items are tall enough to scroll past */
-    padding: 25px;
-    border: 1px solid var(--border-color, #333); /* Fallback for border */
-    border-radius: 10px;
-    background-color: rgba(0,0,0,0.03); /* Or your card background color */
+min-height: 70vh;
+padding: 25px;
+border: 1px solid var(--border-color, #333);
+border-radius: 10px;
+background-color: rgba(0,0,0,0.03);
 }
-
 .project-item h3 {
-    margin-top: 0;
-    margin-bottom: 15px;
-    color: var(--accent, #FFD700);
+margin-top: 0;
+margin-bottom: 15px;
+color: var(--accent, #FFD700);
 }
-
 .project-item img {
-    width: 100%;
-    height: 100%;
-    display: block;
+width: 100%;
+height: 100%;
+display: block;
 }
-
-/* --- Mobile Specific Styles for Project Scroll & Layout --- */
-@media (max-width: 768px) { 
-    .projects-outer-container {
-        flex-direction: column; 
-        gap: 15px; 
-    }
-
-    .project-number-indicator {
-        width: 100%; 
-        min-width: unset; 
-        position: sticky;
-        top: 0; /* Stick to top. Adjust if global mobile header exists (e.g., top: 50px) */
-        left: unset; 
-        background-color: var(--bg-color, #121212); /* Fallback for body background */
-        padding-top: 15px;    /* Was 5px, increased to 10px. Adjust to your liking. */
-        padding-bottom: 5px;
-        padding-left: 15px; 
-        padding-right: 15px; 
-        box-sizing: border-box; 
-        justify-content: flex-start; /* Align "0X" to the left */
-    }
-    
-    .projects-list-content {
-        width: 100%; 
-        gap: 50px; 
-    }
-
-    .project-item {
-        min-height: auto; 
-        padding: 20px;   
-    }
-
-    /* Optional: Adjust font size of numbers on mobile if 4rem is too big */
-    /*
-    .static-project-zero,
-    .dynamic-digit-only-slot {
-        font-size: 2.5rem; 
-        height: 2.5rem; 
-    }
-    .dynamic-digits-reel-container,
-    .project-number-indicator { 
-        height: 2.5rem;
-    }
-    */
+@media (max-width: 768px) {
+.projects-outer-container {
+flex-direction: column;
+gap: 15px;
 }
-/* Styling for the static "0" */
-/* Styling for the static "0" (if it's also getting clipped on the right) */
-.static-project-zero {
-    font-family: 'editorialbolditalic', sans-serif;
-    font-size: 4rem; 
-    font-weight: bold; 
-    color: var(--accent, #FFD700);
-    height: 4rem;
-    line-height: 4rem; 
-    display: flex;
-    align-items: center;
-    justify-content: center; 
-    margin-right: 0.05em; 
-    flex-shrink: 0; 
-    padding-top: 0.1em;
-    
-    /* --- ADD PADDING FOR ITALIC SLANT --- */
-                            /* This gives the italic "0" more room on its right */
-    
-    box-sizing: border-box;
+.project-number-indicator {
+width: 100%;
+min-width: unset;
+position: sticky;
+top: 0;
+left: unset;
+background-color: var(--bg-color, #121212);
+padding-top: 15px;
+padding-bottom: 5px;
+padding-left: 15px;
+padding-right: 15px;
+box-sizing: border-box;
+justify-content: flex-start;
 }
-
-/* Container for the scrolling second digits (1, 2, 3, 4) */
-.dynamic-digits-reel-container {
-    height: 4rem; 
-    overflow: hidden; 
-    /* background-color: rgba(255,0,0,0.1); /* DEBUG */
+.projects-list-content {
+width: 100%;
+gap: 50px;
 }
-
-/* Individual slots for the dynamic digits (1, 2, 3, 4) */
-.dynamic-digit-only-slot {
-    font-family: 'editorialbolditalic', sans-serif;
-    height: 4rem; 
-    font-size: 4rem; 
-    font-weight: bold; 
-    color: var(--accent, #FFD700);
-    line-height: 4rem; 
-    display: flex;
-    align-items: center; 
-    justify-content: center; 
-    
-    /* Adjust min-width to account for the new padding-right if needed, 
-       or set a fixed width that's wide enough.
-       The goal is for the visible character to appear centered within the allocated space.
-       If 0.6em was for the character width, and you add 0.2em padding, 
-       the total width for min-width might be closer to 0.8em.
-       This requires careful visual tuning.
-    */
-    min-width: 0.7em;   /* Example: Increased from 0.6em. Test! */
-    /* OR, set an explicit width: e.g., width: 2.8rem; */
-
-    text-align: center;
-    padding-top: 0.1em; 
-
-    /* --- ADD PADDING FOR ITALIC SLANT --- */
-                            /* This gives the italic digit more room on its right within its slot */
-                            /* The overflow:hidden on the PARENT will clip the slot if the slot itself becomes too wide */
-    
-    box-sizing: border-box; 
-    /* background-color: rgba(0,255,0,0.1); /* DEBUG */
-}
-/* Ensure .project-item is a good container (from previous response, adapt if needed) */
 .project-item {
-    background-color: #1A1A1A; /* Dark background for the card area */
-    border-radius: 12px;
-    overflow: hidden;
-    padding: 0; /* Card will manage its own padding */
-    min-height: auto; 
-    display: flex;
-    flex-direction: column;
-    border: 1px solid #282828;
-    box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+min-height: auto;
+padding: 20px;
 }
-
+}
+.static-project-zero {
+font-family: 'editorialbolditalic', sans-serif;
+font-size: 4rem;
+font-weight: bold;
+color: var(--accent, #FFD700);
+height: 4rem;
+line-height: 4rem;
+display: flex;
+align-items: center;
+justify-content: center;
+margin-right: 0.05em;
+flex-shrink: 0;
+padding-top: 0.1em;
+box-sizing: border-box;
+}
+.dynamic-digits-reel-container {
+height: 4rem;
+overflow: hidden;
+}
+.dynamic-digit-only-slot {
+font-family: 'editorialbolditalic', sans-serif;
+height: 4rem;
+font-size: 4rem;
+font-weight: bold;
+color: var(--accent, #FFD700);
+line-height: 4rem;
+display: flex;
+align-items: center;
+justify-content: center;
+min-width: 0.7em;
+text-align: center;
+padding-top: 0.1em;
+box-sizing: border-box;
+}
+.project-item {
+background-color: #1A1A1A;
+border-radius: 12px;
+overflow: hidden;
+padding: 0;
+min-height: auto;
+display: flex;
+flex-direction: column;
+border: 1px solid #282828;
+box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+}
 .stylish-project-card {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    position: relative; 
+width: 100%;
+display: flex;
+flex-direction: column;
+position: relative;
 }
-
-/* Gallery Overlay */
 .card-gallery-overlay {
-    position: absolute;
-    top: 20px; 
-    left: 20px; 
-    right: 20px; 
-    z-index: 2;
-    background: linear-gradient(to bottom, rgba(10, 10, 10, 0.85), rgba(10, 10, 10, 0.7));
-    /* Optional noise texture: 
-       background-image: linear-gradient(to bottom, rgba(10,10,10,0.85), rgba(10,10,10,0.7)), url('path/to/noise.png'); 
-    */
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-    border-radius: 8px;
-    padding: 12px;
-    overflow-x: auto;
-    -ms-overflow-style: none;  /* IE and Edge */
-    scrollbar-width: none;  /* Firefox */
+position: absolute;
+top: 20px;
+left: 20px;
+right: 20px;
+z-index: 2;
+background: linear-gradient(to bottom, rgba(10, 10, 10, 0.85), rgba(10, 10, 10, 0.7));
+backdrop-filter: blur(8px);
+-webkit-backdrop-filter: blur(8px);
+border-radius: 8px;
+padding: 12px;
+overflow-x: auto;
+-ms-overflow-style: none;
+scrollbar-width: none;
 }
-.card-gallery-overlay::-webkit-scrollbar { /* Hide scrollbar for Chrome, Safari, Opera */
-    display: none;
+.card-gallery-overlay::-webkit-scrollbar {
+display: none;
 }
-
 .card-gallery-scroller {
-    display: flex;
-    gap: 10px;
-    width: max-content; 
+display: flex;
+gap: 10px;
+width: max-content;
 }
-
 .card-thumbnail {
-    height: 70px; 
-    width: auto;  
-    min-width: 100px; 
-    object-fit: cover;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    clip-path: polygon(0 0, 100% 0, calc(100% - 12px) 100%, 0% 100%); /* Angled cut */
+height: 70px;
+width: auto;
+min-width: 100px;
+object-fit: cover;
+border: 1px solid rgba(255, 255, 255, 0.1);
+clip-path: polygon(0 0, 100% 0, calc(100% - 12px) 100%, 0% 100%);
 }
-
-/* Main Image & Hover Effect */
 .card-main-image-wrapper {
-    position: relative; 
-    width: 100%;
-    aspect-ratio: 16 / 9; 
-    background-color: #222; 
-    overflow: hidden; 
+position: relative;
+width: 100%;
+aspect-ratio: 16 / 9;
+background-color: #222;
+overflow: hidden;
 }
-
 .card-main-image {
-    width: 100%;
-    height: 100%;
-    object-fit: fill;
-    display: block;
-    transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+width: 100%;
+height: 100%;
+object-fit: fill;
+display: block;
+transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
-
-.card-main-image-wrapper:hover .card-main-image {
-}
-
 .card-view-button {
-    position: absolute;
-    top: 50%; 
-    left: 50%;
-    transform: translate(-50%, -50%) scale(0.8);
-    background-color: rgba(240, 240, 240, 0.95); 
-    color: #333; 
-    padding: 8px 16px;
-    border-radius: 20px; 
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-size: 0.9rem;
-    font-weight: 500;
-    opacity: 0;
-    pointer-events: none;
-    z-index: 1; 
-    transition: opacity 0.3s ease, transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94),
-                top 0.1s linear, left 0.1s linear; 
-    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-    white-space: nowrap;
-    text-decoration: none; /* Remove underline from link */
+position: absolute;
+top: 50%;
+left: 50%;
+transform: translate(-50%, -50%) scale(0.8);
+background-color: rgba(240, 240, 240, 0.95);
+color: #333;
+padding: 8px 16px;
+border-radius: 20px;
+display: flex;
+align-items: center;
+gap: 8px;
+font-size: 0.9rem;
+font-weight: 500;
+opacity: 0;
+pointer-events: none;
+z-index: 1;
+transition: opacity 0.3s ease, transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+top 0.1s linear, left 0.1s linear;
+box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+white-space: nowrap;
+text-decoration: none;
 }
-
-
-
-
-/* Info Content */
 .card-info-content {
-    padding: 20px;
-    background-color: #111111; /* Or use var(--bg-color) if it's your darkest bg */
+padding: 20px;
+background-color: #111111;
 }
-
 .card-category-label {
-    font-size: 0.8rem;
-    color: #AAAAAA; /* Lighter gray for category */
-    margin-bottom: 4px;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
+font-size: 0.8rem;
+color: #AAAAAA;
+margin-bottom: 4px;
+text-transform: uppercase;
+letter-spacing: 0.5px;
 }
-
 .card-title-and-tags {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-end; 
-    gap: 15px;
+display: flex;
+justify-content: space-between;
+align-items: flex-end;
+gap: 15px;
 }
-
 .card-project-title {
-    /* Choose your desired font here, e.g., a bold serif or sans-serif */
-    font-family: 'YourProjectTitleFont', 'Poppins', sans-serif; 
-    font-size: 2.2rem; 
-    font-weight: 700; /* Bold */
-    color: #E0E0E0; /* Off-white for title */
-    margin: 0; 
-    line-height: 1.1;
-    text-decoration: none; /* Remove global h3 underline if any */
+font-family: 'YourProjectTitleFont', 'Poppins', sans-serif;
+font-size: 2.2rem;
+font-weight: 700;
+color: #E0E0E0;
+margin: 0;
+line-height: 1.1;
+text-decoration: none;
 }
-
 .card-tags-container {
-    display: flex;
-    gap: 8px;
-    flex-shrink: 0; 
+display: flex;
+gap: 8px;
+flex-shrink: 0;
 }
-
 .info-tag {
-    /* Choose your desired font for tags, e.g., a monospaced or clean sans-serif */
-    font-family:  monospace; 
-    background-color: transparent;
-    color: #999999; /* Medium gray for tags */
-    padding: 5px 10px;
-    border-radius: 15px; 
-    font-size: 0.75rem;
-    border: 1px solid #444444; /* Darker border for tags */
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    white-space: nowrap;
+font-family:  monospace;
+background-color: transparent;
+color: #999999;
+padding: 5px 10px;
+border-radius: 15px;
+font-size: 0.75rem;
+border: 1px solid #444444;
+text-transform: uppercase;
+letter-spacing: 0.5px;
+white-space: nowrap;
 }
 .info-tag.year-info-tag {
-    color: #BBBBBB; /* Slightly lighter for year */
-    border-color: #555555;
+color: #BBBBBB;
+border-color: #555555;
 }
-
-
-
-
 .card-main-image-wrapper:hover .card-main-image {
 transform: scale(1.2);
 }
-
-/* "View" box indicator styling */
 .card-view-box-indicator {
-    position: absolute;
-    top: 50%; 
-    left: 50%;
-    transform: translate(-50%, -50%) scale(0);
-
-    background-color: rgba(240, 240, 240, 0.95); 
-    color: #333; 
-    padding: 8px 16px;
-    border-radius: 20px; 
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-size: 0.9rem;
-    font-weight: 500;
-    opacity: 0;
-    pointer-events: none; 
-    z-index: 1; /* Above the image link */
-    transition: opacity 0.3s ease, transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94),
-                top 0.1s linear, left 0.1s linear; 
-    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-    white-space: nowrap;
+position: absolute;
+top: 50%;
+left: 50%;
+transform: translate(-50%, -50%) scale(0);
+background-color: rgba(240, 240, 240, 0.95);
+color: #333;
+padding: 8px 16px;
+border-radius: 20px;
+display: flex;
+align-items: center;
+gap: 8px;
+font-size: 0.9rem;
+font-weight: 500;
+opacity: 0;
+pointer-events: none;
+z-index: 1;
+transition: opacity 0.3s ease, transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+top 0.1s linear, left 0.1s linear;
+box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+white-space: nowrap;
 }
-
 .card-main-image-wrapper:hover .card-view-box-indicator {
-    opacity: 1;
-    transform: translate(-50%, -50%) scale(1); 
+opacity: 1;
+transform: translate(-50%, -50%) scale(1);
 }
-
 .view-button-icon {
-    font-size: 1.1em;
-    line-height: 1;
+font-size: 1.1em;
+line-height: 1;
 }
-/* Trigger Button for the Tray */
 .cool-stuff-trigger-button {
-    position: fixed;
-    bottom: -90px; /* Initial off-screen position */
-    left: 50%;
-    transform: translateX(-50%);
-    width: 50px; /* Adjust size */
-    height: 50px; /* Adjust size */
-    background-color: #222; /* Or your card background */
-    border-radius: 50%;
-    padding: 10px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-    cursor: pointer;
-    z-index: 1050; /* Above most content, below tray when open */
-    transition: all 0.3s ease, bottom 0.3s ease; /* Make sure 'bottom' is in the transition */
-    display: flex; /* For centering icon if you use SVG/FontAwesome */
-    align-items: center;
-    justify-content: center;
-    opacity: 0.5;
-    /* border: 2px solid var(--bg-color, #121212); */ /* Optional border */
+position: fixed;
+bottom: -90px;
+left: 50%;
+transform: translateX(-50%);
+width: 50px;
+height: 50px;
+background-color: #222;
+border-radius: 50%;
+padding: 10px;
+box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+cursor: pointer;
+z-index: 1050;
+transition: all 0.3s ease, bottom 0.3s ease;
+display: flex;
+align-items: center;
+justify-content: center;
+opacity: 0.5;
 }
-
-/* New class for the visible state */
 .cool-stuff-trigger-button.is-visible {
-    bottom: -20px;
-
+bottom: -20px;
 }
-
-
 .cool-stuff-trigger-button:hover {
-    transform: translateX(-50%) scale(1.1);
-        bottom: 20px;
-        opacity: 1;
-
+transform: translateX(-50%) scale(1.1);
+bottom: 20px;
+opacity: 1;
 }
-
-/* The Bottom Tray Itself */
 .cool-stuff-bottom-tray {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    max-height: 70vh; /* Max height of the tray, adjust as needed */
-    background-color: var(--card-bg-color, #1e1e1e); /* Or your desired tray background */
-    border-top-left-radius: 20px;
-    border-top-right-radius: 20px;
-    box-shadow: 0 -5px 25px rgba(0,0,0,0.3);
-    
-    transform: translateY(110vh); /* MODIFIED: Initially hidden one full viewport height down */
-    transition: transform 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55); /* Smooth slide animation */
-    
-    z-index: 1100; /* Above the trigger and overlay */
-    overflow-y: auto; /* Allow scrolling within the tray if content is tall */
-    color: var(--text-color, #e0e0e0); /* Text color for tray content */
+position: fixed;
+bottom: 0;
+left: 0;
+width: 100%;
+max-height: 70vh;
+background-color: var(--card-bg-color, #1e1e1e);
+border-top-left-radius: 20px;
+border-top-right-radius: 20px;
+box-shadow: 0 -5px 25px rgba(0,0,0,0.3);
+transform: translateY(110vh);
+transition: transform 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+z-index: 1100;
+overflow-y: auto;
+color: var(--text-color, #e0e0e0);
 }
-
 .cool-stuff-bottom-tray.open {
-    transform: translateY(0%); /* Slides into view */
+transform: translateY(0%);
 }
-
 .tray-content-wrapper {
-    padding: 20px;
-    padding-bottom: 40px; /* Extra padding at bottom for scroll room */
-    max-width: 800px; /* Max width of content inside tray */
-    margin: 0 auto; /* Center content */
-    text-align: center; /* Center h2 */
+padding: 20px;
+padding-bottom: 40px;
+max-width: 800px;
+margin: 0 auto;
+text-align: center;
 }
-
 .cool-stuff-bottom-tray h2 {
-    margin-top: 0;
-    color: var(--accent, #FFD700); /* Heading color in tray */
+margin-top: 0;
+color: var(--accent, #FFD700);
 }
-
-/* Background Overlay for Blur/Dim Effect */
 .tray-background-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0,0,0,0.3); /* Semi-transparent black */
-    backdrop-filter: blur(5px);
-    -webkit-backdrop-filter: blur(5px);
-    opacity: 0;
-    visibility: hidden;
-    z-index: 1000; /* Below tray, above main content */
-    transition: opacity 0.4s ease, visibility 0s linear 0.4s;
+position: fixed;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+background-color: rgba(0,0,0,0.3);
+backdrop-filter: blur(5px);
+-webkit-backdrop-filter: blur(5px);
+opacity: 0;
+visibility: hidden;
+z-index: 1000;
+transition: opacity 0.4s ease, visibility 0s linear 0.4s;
 }
-
 .tray-background-overlay.active {
-    opacity: 1;
-    visibility: visible;
-    transition: opacity 0.4s ease, visibility 0s linear 0s;
+opacity: 1;
+visibility: visible;
+transition: opacity 0.4s ease, visibility 0s linear 0s;
 }
-
-/* When tray is open, blur the main content */
-/* You might need to adjust this selector if your main content is not directly in `body > main` */
-body.tray-open > main, 
-body.tray-open > header, /* Add other top-level content containers */
-body.tray-open > footer {
-    /* This approach is simpler if the overlay handles the visual blur */
-    /* filter: blur(5px); */ 
-    /* transition: filter 0.4s ease; */
-    /* pointer-events: none; /* Prevent interaction with blurred content */
-}
-
-/* Adjust clickable images in tray if needed */
 .cool-stuff-bottom-tray .clickable-image,
 .cool-stuff-bottom-tray .clickable-video {
-    width: 80px; /* Slightly smaller in tray */
-    height: 80px;
+width: 80px;
+height: 80px;
 }
- .main-content-wrapper {
-            display: flex;  /* Enables flexbox layout */
-            gap: 20px;      /* Adds space between the two columns */
-            margin-bottom: 20px; /* Space before the HR */
-        }
-
-        .friend-column {
-            flex: 1; /* Each column will take up equal space */
-            /* You might want to add some padding or borders if needed */
-            /* padding: 10px; */
-            /* border: 1px solid #eee; */
-        }
-
-  
-
-        .rounded {
-            border-radius: 5px;
-        }
-
-        /* Optional: Make it stack on smaller screens */
-        @media (max-width: 768px) {
-            .main-content-wrapper {
-                flex-direction: column; /* Stack vertically */
-            }
-        }
-     
-
+.main-content-wrapper {
+display: flex;
+gap: 20px;
+margin-bottom: 20px;
+}
+.friend-column {
+flex: 1;
+}
+.rounded {
+border-radius: 5px;
+}
+@media (max-width: 768px) {
+.main-content-wrapper {
+flex-direction: column;
+}
+}
 #footerlol {
-    padding: 20px 5%; /* Add some padding */
-    margin-top: 40px;
-    color: #ffffffb5;
-    font-size: 0.9em;
-
-    /* --- Flexbox for 2 Columns --- */
-    display: flex;
-    justify-content: space-between; /* Pushes items to ends */
-    align-items: center; /* Vertically align items in the center */
-    gap: 20px; /* Space between left and right content if they were closer */
+padding: 20px 5%;
+margin-top: 40px;
+color: #ffffffb5;
+font-size: 0.9em;
+display: flex;
+justify-content: space-between;
+align-items: center;
+gap: 20px;
 }
-
 .footer-content-left {
-    /* This div groups the left-side text */
-    /* No specific flex properties needed here, it will just take its content width */
-    text-align: left;
+text-align: left;
 }
-
 .footer-copyright {
-    margin: 0 0 5px 0; /* Adjust margin as needed */
+margin: 0 0 5px 0;
 }
-.footer-copyright b {
-}
-
 .footer-design {
-    margin: 0;
+margin: 0;
 }
-
 .footer-back-to-top {
-    text-align: right; /* Ensures text within span is right aligned if span has width */
-    cursor: pointer;
-    display: inline-flex; /* Align icon and text properly */
-    align-items: center;
-    gap: 5px; /* Space between icon and text */
-    transition: all 0.2s ease-in-out;
-    white-space: nowrap; /* Prevents "BACK TO TOP" from wrapping */
+text-align: right;
+cursor: pointer;
+display: inline-flex;
+align-items: center;
+gap: 5px;
+transition: all 0.2s ease-in-out;
+white-space: nowrap;
 }
-
 .footer-back-to-top:hover {
-    transform: translateY(-3px); /* Lifts the element up by 3 pixels */
+transform: translateY(-3px);
 }
-
 .footer-back-to-top svg {
-    width: 1em; /* Size relative to font size */
-    height: 1em;
-    fill: currentColor; /* Icon will inherit text color */
+width: 1em;
+height: 1em;
+fill: currentColor;
 }
-
-/* --- MOBILE STYLING --- */
-@media (max-width: 600px) { /* Adjust breakpoint as needed */
-    #footerlol {
+@media (max-width: 600px) {
+#footerlol {
 margin-top:0;
-        padding: 0px 0px;
-        font-size: 0.7em;
-        /* On mobile, we still want left/right, but maybe they stack if content is too long.
-           Flexbox with space-between should still work.
-           If stacking is preferred for very small screens:
-           flex-direction: column;
-           align-items: flex-start; /* Or center */
-        /* For this request, keeping space-between should work */
-        align-items: flex-start; /* Align top of left block with top of BTT */
-    }
-
-    .footer-content-left {
-        /* No change needed, paragraphs will stack naturally */
-    }
-
-    .footer-back-to-top {
-        /* Potentially add some margin-top if footer stacks and you want space */
-        /* align-self: flex-end; /* If footer flex-direction becomes column and you want it far right */
-    }
+padding: 0px 0px;
+font-size: 0.7em;
+align-items: flex-start;
+}
 }
 .column.connections-column a {
-    text-decoration: none; /* Remove underline */
+text-decoration: none;
 }
 .connections-column a .icon {
-    width: 1.1em;
-    height: 1.1em;
-    vertical-align: middle; /* <<< LIKELY FIX for fine-tuning */
-    
+width: 1.1em;
+height: 1.1em;
+vertical-align: middle;
 }
-
 @keyframes animateInFromBottom {
-  from {
-    opacity: 0;
-    filter: blur(10px);
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    filter: blur(0px);
-    transform: translateY(0);
-  }
+from {
+opacity: 0;
+filter: blur(10px);
+transform: translateY(20px);
 }
-
-@keyframes revealWithBend { /* For #pageLoadOverlay */
-    0% {
-        clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 50% 100%, 0% 100%);
-    }
-    30% { /* Bottom corners start moving up, center lags */
-        clip-path: polygon(0% 0%, 100% 0%, 100% 70%, 50% 100%, 0% 70%);
-    }
-    70% { /* Center part catches up and moves ahead of corners for the "bend" */
-        clip-path: polygon(0% 0%, 100% 0%, 100% 20%, 50% 0%, 0% 20%);
-    }
-    100% {
-        clip-path: polygon(0% 0%, 100% 0%, 100% 0%, 50% 0%, 0% 0%);
-    }
+to {
+opacity: 1;
+filter: blur(0px);
+transform: translateY(0);
 }
-/* --- END OF CSS --- */
-/* --- Testimonials Section --- */
+}
+@keyframes revealWithBend {
+0% {
+clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 50% 100%, 0% 100%);
+}
+30% {
+clip-path: polygon(0% 0%, 100% 0%, 100% 70%, 50% 100%, 0% 70%);
+}
+70% {
+clip-path: polygon(0% 0%, 100% 0%, 100% 20%, 50% 0%, 0% 20%);
+}
+100% {
+clip-path: polygon(0% 0%, 100% 0%, 100% 0%, 50% 0%, 0% 0%);
+}
+}
 .testimonials-section {
-    margin-top: 40px;
-    margin-bottom: 40px;
-    font-family: 'Poppins', sans-serif; /* APPLY POPPINS TO THE ENTIRE SECTION */
+margin-top: 40px;
+margin-bottom: 40px;
+font-family: 'Poppins', sans-serif;
 }
-
 .testimonial-item {
-    padding: 25px;
-    border-radius: 12px;
-    border: 1px solid var(--border-color, #282828);
-    box-sizing: border-box;
+padding: 25px;
+border-radius: 12px;
+border: 1px solid var(--border-color, #282828);
+box-sizing: border-box;
 }
-
 .testimonial-content {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+display: flex;
+flex-direction: column;
+justify-content: center;
 }
-
 .testimonial-quote {
-    /* font-family: 'editorialbold', serif; /* KEEPING THIS IF IT'S INTENTIONAL FOR QUOTES */
-                                       /* IF YOU WANT POPPINS HERE TOO, UNCOMMENT THE LINE BELOW */
-    /* font-family: 'Poppins', sans-serif; font-weight: 600; */
-    font-size: 1.9rem; /* ADJUSTED: Slightly smaller for balance */
-    line-height: 1.45; /* ADJUSTED: Slightly more line height */
-    color: var(--light);
-    margin-bottom: 25px;
+font-size: 1.9rem;
+line-height: 1.45;
+color: var(--light);
+margin-bottom: 25px;
 }
-
 .testimonial-author {
-    font-family: 'Poppins', sans-serif; /* Explicitly Poppins */
-    font-size: 1.0rem;  /* ADJUSTED: Slightly smaller */
-    font-weight: 600;   /* Good weight for author name */
-    color: var(--accent);
-    margin-top: 0;
-    margin-bottom: 3px; /* ADJUSTED: Tighter spacing */
+font-family: 'Poppins', sans-serif;
+font-size: 1.0rem;
+font-weight: 600;
+color: var(--accent);
+margin-top: 0;
+margin-bottom: 3px;
 }
-
 .testimonial-author-title {
-    font-family: 'Poppins', sans-serif; /* Explicitly Poppins */
-    font-size: 0.8rem;  /* ADJUSTED: Smaller for title */
-    font-weight: 400;   /* Regular weight */
-    color: var(--tapioca);
-    margin-top: 0;
-    margin-bottom: 20px;
+font-family: 'Poppins', sans-serif;
+font-size: 0.8rem;
+font-weight: 400;
+color: var(--tapioca);
+margin-top: 0;
+margin-bottom: 20px;
 }
-
 .testimonial-tags {
-    display: flex;
-    gap: 8px;
-    flex-wrap: wrap;
+display: flex;
+gap: 8px;
+flex-wrap: wrap;
 }
-/* .info-tag styling (font, etc.) is assumed to be globally available from your existing CSS.
-   If not, you might want to style it here:
-.info-tag {
-    font-family: 'Poppins', sans-serif;
-    font-size: 0.7rem;
-    ... other styles ...
-}
-*/
-
 .testimonial-image-area {
-    display: flex;         /* Helps with alignment if needed */
-    justify-content: center; /* Center the square image if it's not full width */
-    align-items: center;   /* Center the square image if it's not full height */
+display: flex;
+justify-content: center;
+align-items: center;
 }
-
 .testimonial-image {
-    display: block;
-    /* object-fit: cover; will be set per mode to ensure it's applied correctly */
-    /* width and height will be set by the wrapper or per mode */
+display: block;
 }
-
-
-/* --- DESKTOP MODE STYLES --- */
 .testimonials-section.desktop-mode {
-    position: relative;
-    min-height: 520px;
-    overflow: hidden;
+position: relative;
+min-height: 520px;
+overflow: hidden;
 }
-
 .desktop-mode .testimonial-item {
-    display: flex;
-    align-items: center;
-    gap: 30px;
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: calc(100% - 70px);
-    padding: 25px;
-    background-color: var(--dark);
-    transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
-    opacity: 0;
-    transform: translateY(0);
-    visibility: hidden;
-    pointer-events: none;
+display: flex;
+align-items: center;
+gap: 30px;
+position: absolute;
+top: 0;
+left: 0;
+width: 100%;
+height: calc(100% - 70px);
+padding: 25px;
+background-color: var(--dark);
+transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+opacity: 0;
+transform: translateY(0);
+visibility: hidden;
+pointer-events: none;
 }
-
 .desktop-mode .testimonial-item.active {
-    opacity: 1;
-    transform: translateY(0);
-    visibility: visible;
-    z-index: 20;
-    pointer-events: auto;
-    transition-delay: 0s;
+opacity: 1;
+transform: translateY(0);
+visibility: visible;
+z-index: 20;
+pointer-events: auto;
+transition-delay: 0s;
 }
-
 .desktop-mode .testimonial-item.is-leaving {
-    opacity: 0;
-    transform: translateY(-50px);
-    visibility: visible;
-    z-index: 10;
-    pointer-events: none;
+opacity: 0;
+transform: translateY(-50px);
+visibility: visible;
+z-index: 10;
+pointer-events: none;
 }
-
 .desktop-mode .testimonial-item.is-entering {
-    opacity: 0;
-    transform: translateY(50px);
-    visibility: visible; /* Needs to be visible to animate in */
-    z-index: 15;
-    pointer-events: none;
+opacity: 0;
+transform: translateY(50px);
+visibility: visible;
+z-index: 15;
+pointer-events: none;
 }
-
 .desktop-mode .testimonial-item .testimonial-content {
-    flex: 3;
+flex: 3;
 }
 .desktop-mode .testimonial-item .testimonial-image-area {
-    flex: 2; /* Or your desired flex proportion */
-    display: flex; /* Ensure it's a flex container for centering the square */
-    justify-content: center; /* Center the square horizontally if flex-basis allows */
-    align-items: center;   /* Center the square vertically */
-    height: 100%;          /* Takes full height of its flex allocation */
-    max-height: 250px;     /* ADJUSTED: Maximum height for the square image area */
-                               /* This will also dictate the max width due to aspect-ratio */
-    /* We will make the image itself square inside this area */
+flex: 2;
+display: flex;
+justify-content: center;
+align-items: center;
+height: 100%;
+max-height: 250px;
 }
-/* --- Navigation for Desktop Mode --- */
-.desktop-mode .testimonial-navigation { /* THIS WAS THE MISSING PIECE */
-    position: absolute;
-    bottom: 15px; /* Position from the bottom of .testimonials-section */
-    left: 50%;
-    transform: translateX(-50%); /* Center horizontally */
-    z-index: 30; /* Above all cards */
-    display: flex;
-    justify-content: center;
-    gap: 15px;
-    margin-top: 0; /* Override any default margin */
+.desktop-mode .testimonial-navigation {
+position: absolute;
+bottom: 15px;
+left: 50%;
+transform: translateX(-50%);
+z-index: 30;
+display: flex;
+justify-content: center;
+gap: 15px;
+margin-top: 0;
 }
 .desktop-mode .testimonial-image {
-    width: 300px;  /* ADJUSTED: Define a width for the square */
-    height: 350px; /* ADJUSTED: Make height equal to width for a square */
-                   /* Alternatively, use aspect-ratio if supported by target browsers:
-                      width: 100%; max-width: 200px; aspect-ratio: 1 / 1; */
-    object-fit: cover; /* This is key: scales image to maintain aspect ratio while filling dimensions, cropping excess */
-    border-radius: 8px; /* Optional: slightly rounded corners for the square image */
+width: 300px;
+height: 350px;
+object-fit: cover;
+border-radius: 8px;
 }
 .desktop-mode .testimonial-nav-button {
-    font-family: 'Poppins', sans-serif; /* ENSURE POPPINS FOR BUTTONS */
-    background-color: #2a2a2a;
-    color: var(--light);
-    border: 1px solid #444;
-    padding: 9px 18px; /* ADJUSTED: Slightly smaller padding */
-    border-radius: 25px;
-    cursor: pointer;
-    font-size: 0.8rem; /* ADJUSTED: Slightly smaller button text */
-    font-weight: 500;
-    transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    line-height: 1.2; /* ADJUSTED: Slightly more line height for button text */
+font-family: 'Poppins', sans-serif;
+background-color: #2a2a2a;
+color: var(--light);
+border: 1px solid #444;
+padding: 9px 18px;
+border-radius: 25px;
+cursor: pointer;
+font-size: 0.8rem;
+font-weight: 500;
+transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
+text-transform: uppercase;
+letter-spacing: 0.5px;
+line-height: 1.2;
 }
 .desktop-mode .testimonial-nav-button:hover {
-    background-color: var(--accent);
-    color: var(--dark);
-    transform: translateY(-2px);
-}
-
-
-/* --- MOBILE MODE STYLES --- */
-.testimonials-section.mobile-mode {
-    /* No special positioning */
+background-color: var(--accent);
+color: var(--dark);
+transform: translateY(-2px);
 }
 .mobile-mode .testimonial-item {
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 30px;
-    background-color: rgba(0,0,0,0.03);
-    opacity: 1;
-    transform: none;
-    visibility: visible;
-    position: relative;
+display: flex;
+flex-direction: column;
+margin-bottom: 30px;
+background-color: rgba(0,0,0,0.03);
+opacity: 1;
+transform: none;
+visibility: visible;
+position: relative;
 }
 .mobile-mode .testimonial-item:last-child {
-    margin-bottom: 0;
+margin-bottom: 0;
 }
 .mobile-mode .testimonial-content {
-    order: 2;
-    text-align: center;
+order: 2;
+text-align: center;
 }
 .mobile-mode .testimonial-quote {
-    font-size: 1.6rem; /* ADJUSTED: Mobile quote size */
-    line-height: 1.4;
-    margin-left: 0;
-    width: 100%;
+font-size: 1.6rem;
+line-height: 1.4;
+margin-left: 0;
+width: 100%;
 }
 .mobile-mode .testimonial-author {
-    font-size: 0.9rem; /* ADJUSTED: Mobile author size */
+font-size: 0.9rem;
 }
 .mobile-mode .testimonial-author-title {
-    font-size: 0.75rem; /* ADJUSTED: Mobile title size */
+font-size: 0.75rem;
 }
 .mobile-mode .testimonial-image-area {
-    order: 1;
-    width: 100%; /* Full width for the area */
-    display: flex;
-    justify-content: center; /* Center the square image within this area */
-    align-items: center;
-    margin-bottom: 25px; /* ADJUSTED: More space below image */
-    /* No max-height here, let the square image define its height */
+order: 1;
+width: 100%;
+display: flex;
+justify-content: center;
+align-items: center;
+margin-bottom: 25px;
 }
-
 .mobile-mode .testimonial-image {
-    width: 250px;  /* ADJUSTED: Define a smaller width for the square on mobile */
-    height: 250px; /* ADJUSTED: Make height equal to width */
-                   /* Alternatively: width: 50%; max-width: 150px; aspect-ratio: 1 / 1; */
-    object-fit: cover;
-    border-radius: 8px; /* Optional: rounded corners */
+width: 250px;
+height: 250px;
+object-fit: cover;
+border-radius: 8px;
 }
 .mobile-mode .testimonial-navigation {
-    display: none;
+display: none;
 }
 a {
-  display: inline-block;
-  border-radius: 5px; /* Rounded corners */
-  transition: background-color 0.3s ease, color 0.3s ease, padding 0.3s ease, text-decoration 0.3s ease, transform 0.1s ease-out; 
-  font-family: poppins;
-  color: var(--accent);
-  text-decoration: underline dashed 1px;
-  text-underline-offset: 2px;
+display: inline-block;
+border-radius: 5px;
+transition: background-color 0.3s ease, color 0.3s ease, padding 0.3s ease, text-decoration 0.3s ease, transform 0.1s ease-out;
+font-family: poppins;
+color: var(--accent);
+text-decoration: underline dashed 1px;
+text-underline-offset: 2px;
 }
-/* In your main CSS file that's definitely being loaded */
-
 #overlay-iframe {
-  /* --- Core for full-screen overlay --- */
-  position: fixed; /* Sticks to the viewport */
-  top: 0;
-  left: 0;
-  width: 100vw; /* Use viewport units for explicit full width */
-  height: 100vh; /* Use viewport units for explicit full height */
-  z-index: 1000; /* High z-index to be on top */
-
-  /* --- Core for centering its child (the iframe) --- */
-  display: none;
-  justify-content: center; /* Horizontal centering */
-  align-items: center;     /* Vertical centering */
-  /* ... other styles like position: fixed, width, height ... */
-
-  /* --- Visuals & Animation --- */
-  background-color: rgba(0, 0, 0, 0.7);
-  opacity: 0;
-  transition: opacity 0.3s ease-out;
+position: fixed;
+top: 0;
+left: 0;
+width: 100vw;
+height: 100vh;
+z-index: 1000;
+display: none;
+justify-content: center;
+align-items: center;
+background-color: rgba(0, 0, 0, 0.7);
+opacity: 0;
+transition: opacity 0.3s ease-out;
 }
-
 #overlay-iframe iframe {
-    filter: blur(10px);
-  transform: translateX(-50%) scale(0);
-  /* --- Sizing --- */
-  width: 80%; /* Or a fixed width like 600px */
-  height: 80%; /* Or a fixed height like 500px */
-  max-width: 800px; /* Prevent it from getting too wide on large screens */
-  max-height: 600px; /* Prevent it from getting too tall */
-
-  /* --- Reset/Base Styling --- */
-  border: none;
-  margin: 0; /* CRITICAL: Ensure no rogue margins are pushing it */
-  padding: 0;
-
-  /* --- Visuals & Animation --- */
-  background-color: white;
-  border-radius: 8px;
-  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-  opacity: 0;
-  transform: scale(0.95) translateY(10px);
-  transition: opacity 0.3s ease-out 0.1s, transform 0.3s ease-out 0.1s;
-}
-
-/* This class is added by JS to the body when the TOS is open */
-/* It's an alternative way to trigger the visibility, not strictly necessary if JS handles display/opacity directly */
-body.tos-iframe-open #overlay-iframe {
-  /* display: flex; /* JS sets this directly, but good for override if needed */
-  /* opacity: 1;   /* JS sets this directly */
-}
-
-body.tos-iframe-open #overlay-iframe iframe {
-  /* opacity: 1;                              /* JS sets this directly */
-  /* transform: scale(1) translateY(0);       /* JS sets this directly */
+filter: blur(10px);
+transform: translateX(-50%) scale(0);
+width: 80%;
+height: 80%;
+max-width: 800px;
+max-height: 600px;
+border: none;
+margin: 0;
+padding: 0;
+background-color: white;
+border-radius: 8px;
+box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+opacity: 0;
+transform: scale(0.95) translateY(10px);
+transition: opacity 0.3s ease-out 0.1s, transform 0.3s ease-out 0.1s;
 }#overlay-iframe iframe {
-  /* No special positioning needed for centering itself */
-  /* Just width, height, etc. */
-  margin: 0; /* Ensure no margins are pushing it */
-}#overlay-iframe iframe { /* If #overlay-iframe is the positioned ancestor */
-  position: absolute;
-       /* Position the left edge at the container's horizontal midpoint */
-  transform: translate(-50%, -50%); /* Shift element back by half its own width and height */
-  /* ... width, height ... */
+margin: 0;
+}#overlay-iframe iframe {
+position: absolute;
+transform: translate(-50%, -50%);
 }
-/* --- Testimonials Section --- */
 .testimonials-section {
-    margin-top: 40px;
-    margin-bottom: 40px;
-    font-family: 'Poppins', sans-serif;
-    /* Add overflow: hidden; to mobile mode as well if content might exceed bounds */
+margin-top: 40px;
+margin-bottom: 40px;
+font-family: 'Poppins', sans-serif;
 }
-
-/* Add/Adjust these for mobile-mode to be more explicit */
 .testimonials-section.mobile-mode {
-    min-height: auto !important; /* Override desktop min-height */
-    overflow-x: hidden; /* Prevent horizontal scroll if items are too wide before stacking */
-    overflow-y: auto;   /* Allow vertical scroll for stacked items */
+min-height: auto !important;
+overflow-x: hidden;
+overflow-y: auto;
 }
-
 .mobile-mode .testimonial-item {
-    display: flex;
-    flex-direction: column !important; /* Ensure stacking */
-    margin-bottom: 30px;
-    background-color: rgba(0,0,0,0.03);
-    opacity: 1 !important; /* Ensure visible */
-    transform: none !important;
-    visibility: visible !important; /* Ensure visible */
-    position: relative !important; /* Override absolute positioning from desktop */
-    width: 100% !important; /* Take full width */
-    height: auto !important; /* Adjust height automatically */
-    padding: 20px; /* Ensure consistent padding */
-    box-sizing: border-box;
+display: flex;
+flex-direction: column !important;
+margin-bottom: 30px;
+background-color: rgba(0,0,0,0.03);
+opacity: 1 !important;
+transform: none !important;
+visibility: visible !important;
+position: relative !important;
+width: 100% !important;
+height: auto !important;
+padding: 20px;
+box-sizing: border-box;
 }
-
 .mobile-mode .testimonial-item:last-child {
-    margin-bottom: 0;
+margin-bottom: 0;
 }
-
 .mobile-mode .testimonial-content {
-    order: 2;
-    text-align: center;
-    width: 100%; /* Ensure content takes full width */
+order: 2;
+text-align: center;
+width: 100%;
 }
-
 .mobile-mode .testimonial-quote {
-    font-size: 1.6rem;
-    line-height: 1.4;
-    margin-left: 0;
-    width: 100%;
+font-size: 1.6rem;
+line-height: 1.4;
+margin-left: 0;
+width: 100%;
 }
-
 .mobile-mode .testimonial-author {
-    font-size: 0.9rem;
+font-size: 0.9rem;
 }
-
 .mobile-mode .testimonial-author-title {
-    font-size: 0.75rem;
+font-size: 0.75rem;
 }
-
 .mobile-mode .testimonial-image-area {
-    order: 1;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 25px;
+order: 1;
+width: 100%;
+display: flex;
+justify-content: center;
+align-items: center;
+margin-bottom: 25px;
 }
-
 .mobile-mode .testimonial-image {
-    width: 200px;  /* Adjusted for potentially better fit, was 250px */
-    height: 200px; /* Square */
-    object-fit: cover;
-    border-radius: 8px;
+width: 200px;
+height: 200px;
+object-fit: cover;
+border-radius: 8px;
 }
-
 .mobile-mode .testimonial-navigation {
-    display: none !important; /* Forcefully hide navigation on mobile */
+display: none !important;
 }
-
-/* --- DESKTOP MODE STYLES (Reviewing for potential conflicts) --- */
 .testimonials-section.desktop-mode {
-    position: relative;
-    min-height: 520px; /* This is fine for desktop */
-    overflow: hidden;  /* This is fine for desktop */
+position: relative;
+min-height: 520px;
+overflow: hidden;
 }
-
 .desktop-mode .testimonial-item {
-    display: flex;
-    align-items: center;
-    gap: 30px;
-    position: absolute; /* Key for desktop slider */
-    top: 0;
-    left: 0;
-    width: 100%;
-    /* height: calc(100% - 70px); /* Height for desktop item */
-    /* Let's make height more flexible or ensure content fits this */
-    min-height: 400px; /* Ensure items have enough space for content */
-    padding: 25px 40px; /* More horizontal padding for desktop */
-    box-sizing: border-box;
-    background-color: var(--dark);
-    transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
-    opacity: 0;
-    transform: translateY(0);
-    visibility: hidden;
-    pointer-events: none;
+display: flex;
+align-items: center;
+gap: 30px;
+position: absolute;
+top: 0;
+left: 0;
+width: 100%;
+min-height: 400px;
+padding: 25px 40px;
+box-sizing: border-box;
+background-color: var(--dark);
+transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+opacity: 0;
+transform: translateY(0);
+visibility: hidden;
+pointer-events: none;
 }
-/* Adjust height of items in desktop mode if they are part of the full section height */
 .desktop-mode .testimonial-item {
-    height: calc(100% - 70px); /* 70px approx for navigation buttons area */
-    /* ... other styles ... */
+height: calc(100% - 70px);
 }
-
-
 .desktop-mode .testimonial-item.active {
-    opacity: 1;
-    transform: translateY(0);
-    visibility: visible;
-    z-index: 20;
-    pointer-events: auto;
-    transition-delay: 0s; /* Ensure active item shows immediately */
+opacity: 1;
+transform: translateY(0);
+visibility: visible;
+z-index: 20;
+pointer-events: auto;
+transition-delay: 0s;
 }
-
-/* ... rest of your desktop styles for .is-leaving, .is-entering, content, image-area, image, navigation, nav-button ... */
-/* Ensure no desktop styles leak due to lack of .desktop-mode specificity if global styles exist */
