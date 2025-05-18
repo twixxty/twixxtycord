@@ -1939,3 +1939,123 @@ body.tos-iframe-open #overlay-iframe iframe {
   transform: translate(-50%, -50%); /* Shift element back by half its own width and height */
   /* ... width, height ... */
 }
+/* --- Testimonials Section --- */
+.testimonials-section {
+    margin-top: 40px;
+    margin-bottom: 40px;
+    font-family: 'Poppins', sans-serif;
+    /* Add overflow: hidden; to mobile mode as well if content might exceed bounds */
+}
+
+/* Add/Adjust these for mobile-mode to be more explicit */
+.testimonials-section.mobile-mode {
+    min-height: auto !important; /* Override desktop min-height */
+    overflow-x: hidden; /* Prevent horizontal scroll if items are too wide before stacking */
+    overflow-y: auto;   /* Allow vertical scroll for stacked items */
+}
+
+.mobile-mode .testimonial-item {
+    display: flex;
+    flex-direction: column !important; /* Ensure stacking */
+    margin-bottom: 30px;
+    background-color: rgba(0,0,0,0.03);
+    opacity: 1 !important; /* Ensure visible */
+    transform: none !important;
+    visibility: visible !important; /* Ensure visible */
+    position: relative !important; /* Override absolute positioning from desktop */
+    width: 100% !important; /* Take full width */
+    height: auto !important; /* Adjust height automatically */
+    padding: 20px; /* Ensure consistent padding */
+    box-sizing: border-box;
+}
+
+.mobile-mode .testimonial-item:last-child {
+    margin-bottom: 0;
+}
+
+.mobile-mode .testimonial-content {
+    order: 2;
+    text-align: center;
+    width: 100%; /* Ensure content takes full width */
+}
+
+.mobile-mode .testimonial-quote {
+    font-size: 1.6rem;
+    line-height: 1.4;
+    margin-left: 0;
+    width: 100%;
+}
+
+.mobile-mode .testimonial-author {
+    font-size: 0.9rem;
+}
+
+.mobile-mode .testimonial-author-title {
+    font-size: 0.75rem;
+}
+
+.mobile-mode .testimonial-image-area {
+    order: 1;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+.mobile-mode .testimonial-image {
+    width: 200px;  /* Adjusted for potentially better fit, was 250px */
+    height: 200px; /* Square */
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.mobile-mode .testimonial-navigation {
+    display: none !important; /* Forcefully hide navigation on mobile */
+}
+
+/* --- DESKTOP MODE STYLES (Reviewing for potential conflicts) --- */
+.testimonials-section.desktop-mode {
+    position: relative;
+    min-height: 520px; /* This is fine for desktop */
+    overflow: hidden;  /* This is fine for desktop */
+}
+
+.desktop-mode .testimonial-item {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    position: absolute; /* Key for desktop slider */
+    top: 0;
+    left: 0;
+    width: 100%;
+    /* height: calc(100% - 70px); /* Height for desktop item */
+    /* Let's make height more flexible or ensure content fits this */
+    min-height: 400px; /* Ensure items have enough space for content */
+    padding: 25px 40px; /* More horizontal padding for desktop */
+    box-sizing: border-box;
+    background-color: var(--dark);
+    transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+    opacity: 0;
+    transform: translateY(0);
+    visibility: hidden;
+    pointer-events: none;
+}
+/* Adjust height of items in desktop mode if they are part of the full section height */
+.desktop-mode .testimonial-item {
+    height: calc(100% - 70px); /* 70px approx for navigation buttons area */
+    /* ... other styles ... */
+}
+
+
+.desktop-mode .testimonial-item.active {
+    opacity: 1;
+    transform: translateY(0);
+    visibility: visible;
+    z-index: 20;
+    pointer-events: auto;
+    transition-delay: 0s; /* Ensure active item shows immediately */
+}
+
+/* ... rest of your desktop styles for .is-leaving, .is-entering, content, image-area, image, navigation, nav-button ... */
+/* Ensure no desktop styles leak due to lack of .desktop-mode specificity if global styles exist */
