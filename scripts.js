@@ -1581,69 +1581,41 @@ function initBackToTop() {
     }
 }
 
-function initTestimonialSlider() {
-    const testimonialsSection = document.querySelector('.testimonials-section');
-    if (!testimonialsSection) return;
-    const testimonialItems = Array.from(testimonialsSection.querySelectorAll('.testimonial-item'));
-    const prevButton = document.getElementById('testimonialPrev');
-    const nextButton = document.getElementById('testimonialNext');
-    if (testimonialItems.length === 0) return;
-    let currentTestimonialIndex = 0,
-        isDesktopMode = false,
-        isAnimating = false;
-    const animationDuration = 500;
-
-    function setMode() {
-        const newIsDesktopMode = window.innerWidth > 768;
-        if (newIsDesktopMode === isDesktopMode && testimonialsSection.dataset.modeInitialized === 'true') return;
-        isDesktopMode = newIsDesktopMode;
-        testimonialsSection.dataset.modeInitialized = 'true';
-        testimonialsSection.classList.toggle('desktop-mode', isDesktopMode);
-        testimonialsSection.classList.toggle('mobile-mode', !isDesktopMode);
-        testimonialItems.forEach(item => item.classList.remove('active', 'is-leaving', 'is-entering'));
-        if (isDesktopMode && testimonialItems.length > 0) {
-            testimonialItems[currentTestimonialIndex].classList.add('active');
-        } else if (!isDesktopMode) {
-            testimonialItems.forEach(item => item.classList.add('active'));
-        }
-    }
-
-    function showTestimonialDesktop(newIndex) {
-        if (isAnimating || newIndex === currentTestimonialIndex) return;
-        isAnimating = true;
-        const oldItem = testimonialItems[currentTestimonialIndex];
-        const newItem = testimonialItems[newIndex];
-        if (oldItem) {
-            oldItem.classList.add('is-leaving');
-            oldItem.classList.remove('active');
-        }
-        if (newItem) {
-            newItem.classList.remove('is-leaving');
-            newItem.classList.add('is-entering');
-            void newItem.offsetWidth;
-            newItem.classList.add('active');
-            newItem.classList.remove('is-entering');
-        }
-        currentTestimonialIndex = newIndex;
-        setTimeout(() => {
-            if (oldItem) oldItem.classList.remove('is-leaving');
-            isAnimating = false;
-        }, animationDuration + 50);
-    }
-    setMode();
-    window.addEventListener('resize', setMode);
-    if (prevButton && nextButton) {
-        prevButton.addEventListener('click', () => {
-            if (isDesktopMode) showTestimonialDesktop((currentTestimonialIndex - 1 + testimonialItems.length) % testimonialItems.length);
+function initBackToTop() {
+    const backToTopButton = document.getElementById('backToTopBtn');
+    if (backToTopButton) {
+        backToTopButton.addEventListener('click', (e) => {
+            e.preventDefault();
+            if (window.lenisInstance) {
+                window.lenisInstance.scrollTo(0, {
+                    duration: 1.5
+                });
+            } else {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            }
         });
-        nextButton.addEventListener('click', () => {
-            if (isDesktopMode) showTestimonialDesktop((currentTestimonialIndex + 1) % testimonialItems.length);
-        });
-    } else if (isDesktopMode && testimonialItems.length > 0) {
-        testimonialItems[0].classList.add('active');
+
+        const scrollHandler = () => {
+            if (window.scrollY > 300) {
+                backToTopButton.classList.add('visible');
+            } else {
+                backToTopButton.classList.remove('visible');
+            }
+        };
+        if (window.lenisInstance && typeof window.lenisInstance.on === 'function') {
+            window.lenisInstance.on('scroll', (e) => {
+                if (e.scroll > 300) backToTopButton.classList.add('visible');
+                else backToTopButton.classList.remove('visible');
+            });
+        } else {
+            window.addEventListener('scroll', scrollHandler);
+        }
+        scrollHandler();
     }
 }
-
 
 document.addEventListener('DOMContentLoaded', () => {
     const linksWithIcons = document.querySelectorAll('.connections-column a[data-icon]');
