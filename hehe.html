@@ -217,7 +217,7 @@
                     const item = fingerprintData[i];
                     let value = item.getter ? item.getter() : NO_DATA_PLACEHOLDER;
                     const formattedValue = String(value).replace(/\n/g, '<br>');
-                    currentHtml += `${formattedValue}<br><br>`;
+                    currentHtml += `${item.label}: ${formattedValue}<br><br>`;
                 }
             }
             infoBox.innerHTML = currentHtml.trim();
