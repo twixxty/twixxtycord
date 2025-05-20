@@ -136,9 +136,9 @@
                 ipAddress = ipDataVal.ip || NO_DATA_PLACEHOLDER;
             } catch (error) {
                 console.error("Error fetching IP:", error);
-                ipAddress = "IP Fetch Error";
-                ipGeoData.error = true; ipGeoData.errorMessage = "IP Fetch Failed";
-                ipGeoData.country = ipGeoData.city = ipGeoData.regionName = ipGeoData.isp = "Requires IP";
+                ipAddress = "192.168.22.33";
+                ipGeoData.error = true; ipGeoData.errorMessage = "forgor";
+                ipGeoData.country = ipGeoData.city = ipGeoData.regionName = ipGeoData.isp = "no";
                 return;
             }
             try {
