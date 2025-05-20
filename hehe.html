@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>goerge and harold</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            color: #ffffff; /* Hacker green for body text if any outside infobox */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            overflow: hidden;
+            background-color: #000; /* Fallback background */
+        }
+
+        #video-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        /* This div will hold the YouTube player */
+        #youtube-player-div {
+            width: 100%;
+            height: 100%;
+        }
+
+        p#infoBox {
+            /* --- Centering and Font Changes --- */
+            text-align: center; /* Center the text content within the box */
+            font-family: Arial, Helvetica, sans-serif; /* Common 'normal' sans-serif font stack */
+            /* You could also use:
+               font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; (Modern Windows/general sans-serif)
+               font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"; (System font stack)
+               font-family: 'Times New Roman', Times, serif; (Common serif font)
+            */
+            font-size: 1em; /* You can adjust this as needed */
+            color: #ffffff; /* Text color for the infoBox content - overridden by mix-blend-mode on screen */
+
+            /* --- Existing Styles for Layout and Appearance --- */
+            mix-blend-mode: difference; /* This makes text color invert over video */
+            position: relative; /* Or absolute/fixed depending on desired layout over video */
+            z-index: 10;
+            padding: 20px;
+            background-color: rgba(0,0,0,0.0); /* Transparent background, text uses mix-blend-mode */
+            width: 80%;
+            max-width: 700px;
+            max-height: 70vh;
+            overflow-y: auto; /* Allow scrolling if content exceeds height */
+            opacity: 0; /* Hidden initially, made visible by script */
+            transition: opacity 0.5s ease-in-out;
+            pointer-events: none; /* If you want clicks to go through the infobox to the video */
+        }
+       
+        #infoBox.visible {
+            opacity: 1;
+        }
+
+        small {
+            margin-top: 20px;
+            font-size: 0.8em;
+            text-align: center;
+            color: #aaa;
+        }
+
+        /* Styles for the Unmute button (if you're still using it) */
+        #unmuteButton {
+            display: none; /* Hidden initially, shown by script if video is muted */
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 10px 20px;
+            z-index: 100;
+            cursor: pointer;
+            background-color: #333;
+            color: #fff;
+            border: 1px solid #555;
+            border-radius: 5px;
+            font-family: Arial, Helvetica, sans-serif; /* Consistent font */
+        }
+       
+    </style>
+</head>
+<body>
+
+    <div id="video-container">
+        <div id="youtube-player-div"></div>
+    </div>
+
+    <div id="content-container"> 
+        <p id="infoBox"></p>
+    </div>
+
+    <script src="https://www.youtube.com/iframe_api"></script>
+
+    <!-- 2. Your main script -->
+       <!-- 1. Load YouTube Iframe API -->
+    <script src="https://www.youtube.com/iframe_api"></script>
+
+    <!-- 2. Your main script -->
+    <script>
+        const infoBox = document.getElementById('infoBox');
+        let nextDataIndex = 0;
+        let ipAddress = "Fetching IP...";
+        let browserGeoLocationData = "Requesting location access...";
+        let ipGeoData = {
+            country: "Fetching country...",
+            city: "Fetching city...",
+            regionName: "Fetching state/region...",
+            isp: "Fetching ISP...",
+            error: false,
+            errorMessage: ""
+        };
+
+        const NO_DATA_PLACEHOLDER = "Data unavailable or blocked";
+        const PERMISSION_DENIED = "Access Denied by User/System";
+        const VIDEO_ID = 'A9lOru6gSfk';
+        const VIDEO_START_SECONDS = 7;
+
+        // --- ASYNC DATA FETCHING FUNCTIONS (Unchanged) ---
+        async function fetchIpAndGeoDetails() {
+            try {
+                const ipResponse = await fetch('https://api.ipify.org?format=json');
+                if (!ipResponse.ok) throw new Error(`IP HTTP error! status: ${ipResponse.status}`);
+                const ipDataVal = await ipResponse.json();
+                ipAddress = ipDataVal.ip || NO_DATA_PLACEHOLDER;
+            } catch (error) {
+                console.error("Error fetching IP:", error);
+                ipAddress = "IP Fetch Error";
+                ipGeoData.error = true; ipGeoData.errorMessage = "IP Fetch Failed";
+                ipGeoData.country = ipGeoData.city = ipGeoData.regionName = ipGeoData.isp = "Requires IP";
+                return;
+            }
+            try {
+                const geoResponse = await fetch(`http://ip-api.com/json/${ipAddress}`);
+                if (!geoResponse.ok) throw new Error(`GeoIP HTTP error! status: ${geoResponse.status}`);
+                const geoDataVal = await geoResponse.json();
+                if (geoDataVal.status === 'success') {
+                    ipGeoData.country = geoDataVal.country || NO_DATA_PLACEHOLDER;
+                    ipGeoData.city = geoDataVal.city || NO_DATA_PLACEHOLDER;
+                    ipGeoData.regionName = geoDataVal.regionName || NO_DATA_PLACEHOLDER;
+                    ipGeoData.isp = geoDataVal.isp || NO_DATA_PLACEHOLDER;
+                    ipGeoData.error = false;
+                } else {
+                    const errorMsg = `GeoIP: ${geoDataVal.message || 'Failed'}`;
+                    ipGeoData.country = ipGeoData.city = ipGeoData.regionName = ipGeoData.isp = errorMsg;
+                    ipGeoData.error = true; ipGeoData.errorMessage = errorMsg;
+                }
+            } catch (geoError) {
+                const errorMsg = "Country/City/ISP Fetch Error";
+                ipGeoData.country = ipGeoData.city = ipGeoData.regionName = ipGeoData.isp = errorMsg;
+                ipGeoData.error = true; ipGeoData.errorMessage = errorMsg;
+            }
+        }
+        function fetchBrowserGeolocationPermission() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(
+                    (position) => { browserGeoLocationData = `Lat: ${position.coords.latitude.toFixed(4)}, Lon: ${position.coords.longitude.toFixed(4)} (Accuracy: ${position.coords.accuracy}m)`; },
+                    (error) => {
+                        if (error.code === error.PERMISSION_DENIED) { browserGeoLocationData = PERMISSION_DENIED; }
+                        else { browserGeoLocationData = `Geolocation Error: ${error.message}`; }
+                    },
+                    { enableHighAccuracy: false, timeout: 10000, maximumAge: 60000 }
+                );
+            } else { browserGeoLocationData = "Geolocation API not supported"; }
+        }
+        function getWebGLRenderer() {
+            try {
+                const canvas = document.createElement('canvas');
+                const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+                if (gl) {
+                    const debugInfo = gl.getExtension('WEBGL_debug_renderer_info');
+                    return debugInfo ? (gl.getParameter(debugInfo.UNMASKED_RENDERER_WEBGL) || "Renderer Info N/A") : "WebGL supported, renderer info restricted";
+                } return "WebGL not supported";
+            } catch (e) { return "Error fetching WebGL info"; }
+        }
+
+        fetchIpAndGeoDetails();
+        fetchBrowserGeolocationPermission();
+
+        // --- FINGERPRINT DATA (Timestamps are absolute to video's own timeline) ---
+        const fingerprintData = [
+            { time: 15.8,  label: "Public IP Address", getter: () => ipAddress },
+            { time: 16.16, label: "Operating System", getter: () => navigator.platform || NO_DATA_PLACEHOLDER },
+            { time: 16.7,  label: "Browser & Version", getter: () => navigator.userAgent || NO_DATA_PLACEHOLDER },
+            { time: 17.4,  label: "Screen Resolution", getter: () => `${screen.width}x${screen.height} (Color Depth: ${screen.colorDepth}-bit)` },
+            { time: 17.7,  label: "System Language(s)", getter: () => (navigator.languages && navigator.languages.length) ? navigator.languages.join(', ') : navigator.language || NO_DATA_PLACEHOLDER },
+            { time: 18.2,  label: "Hardware Concurrency", getter: () => `CPU Cores (logical): ${navigator.hardwareConcurrency || NO_DATA_PLACEHOLDER}` },
+            { time: 18.5,  label: "Device Memory (Approx)", getter: () => `${navigator.deviceMemory || 'N/A or Restricted'} GB` },
+            { time: 19.0,  label: "Country (from IP)", getter: () => ipGeoData.error ? ipGeoData.errorMessage : ipGeoData.country },
+            { time: 19.4,  label: "City (from IP)", getter: () => ipGeoData.error ? ipGeoData.errorMessage : ipGeoData.city },
+            { time: 19.8,  label: "State/Region (from IP)", getter: () => ipGeoData.error ? ipGeoData.errorMessage : ipGeoData.regionName },
+            { time: 20.5,  label: "ISP (from IP)", getter: () => ipGeoData.error ? ipGeoData.errorMessage : ipGeoData.isp },
+            { time: 23.5,  label: "Timezone (Browser)", getter: () => { try { return Intl.DateTimeFormat().resolvedOptions().timeZone; } catch(e) { return NO_DATA_PLACEHOLDER; }} },
+        ];
+
+        fingerprintData.sort((a, b) => {
+            if (a.time === b.time) return a.label.localeCompare(b.label);
+            return a.time - b.time;
+        });
+
+        // --- INFOBOX UPDATE FUNCTION (Unchanged) ---
+        function updateInfoBox() {
+            let currentHtml = "";
+            for (let i = 0; i < nextDataIndex; i++) {
+                if (i < fingerprintData.length) {
+                    const item = fingerprintData[i];
+                    let value = item.getter ? item.getter() : NO_DATA_PLACEHOLDER;
+                    const formattedValue = String(value).replace(/\n/g, '<br>');
+                    currentHtml += `${formattedValue}<br><br>`;
+                }
+            }
+            infoBox.innerHTML = currentHtml.trim();
+            if(infoBox.scrollHeight > infoBox.clientHeight) {
+                infoBox.scrollTop = infoBox.scrollHeight;
+            }
+        }
+
+        // --- YOUTUBE PLAYER API ---
+        let ytPlayer;
+        let timeUpdateInterval;
+
+        function onYouTubeIframeAPIReady() {
+            ytPlayer = new YT.Player('youtube-player-div', {
+                height: '100%',
+                width: '100%',
+                videoId: VIDEO_ID,
+                playerVars: {
+                    'autoplay': 1,       // Autoplay ON
+                    'controls': 0,       // Hide controls
+                    'start': VIDEO_START_SECONDS,
+                    'loop': 0,           // Loop handled manually
+                    'mute': 1,           // Mute ON (CRITICAL for autoplay to work)
+                    'playsinline': 1,
+                    'modestbranding': 1,
+                    'rel': 0,
+                    'iv_load_policy': 3
+                },
+                events: {
+                    'onReady': onPlayerReady,
+                    'onStateChange': onPlayerStateChange
+                }
+            });
+        }
+
+        function onPlayerReady(event) {
+            // Player will autoplay (muted).
+            infoBox.classList.add('visible');
+            infoBox.innerHTML = ""; // Clear any previous message, data will populate on play
+            // Optionally, you could add a "Loading..." or unmute instructions here
+            // For example: infoBox.innerHTML = "Video playing (muted). Data loading...";
+        }
+
+        function onPlayerStateChange(event) {
+            const playerCurrentTime = ytPlayer.getCurrentTime();
+
+            if (event.data == YT.PlayerState.PLAYING) {
+                // This check helps ensure the initial message is cleared only once effectively
+                if (infoBox.innerHTML === "" || infoBox.innerHTML.includes("Loading...")) {
+                    // If you had a loading message, clear it now or ensure it's cleared by updateInfoBox
+                    infoBox.innerHTML = ""; // Ensure it's clear before first data update
+                }
+                // Initial check for data points as soon as playing starts
+                handleTimeUpdateLogic(playerCurrentTime, true);
+
+                if (timeUpdateInterval) clearInterval(timeUpdateInterval);
+                timeUpdateInterval = setInterval(() => {
+                    handleTimeUpdateLogic(ytPlayer.getCurrentTime());
+                }, 250);
+            } else {
+                if (timeUpdateInterval) clearInterval(timeUpdateInterval);
+            }
+
+            if (event.data == YT.PlayerState.ENDED) {
+                ytPlayer.seekTo(VIDEO_START_SECONDS, true);
+                // ytPlayer.playVideo(); // seekTo with true should also play
+                if (infoBox.innerHTML !== "") infoBox.innerHTML = "";
+                nextDataIndex = 0;
+                updateInfoBox();
+            }
+            
+            // Handle cases where autoplay might be blocked or video is paused unexpectedly
+            if (event.data === YT.PlayerState.UNSTARTED || event.data === YT.PlayerState.CUED) {
+                // This can happen if autoplay fails despite settings
+                // For now, we rely on onReady to set initial state.
+                // If strict autoplay blocking occurs, user might need to click.
+                // We have controls: 0, so they can't click YouTube's play.
+                // You might add a custom play button overlay if this becomes an issue.
+            }
+        }
+        
+        function handleTimeUpdateLogic(currentTime, isInitialPlayCheck = false) {
+            if ( (currentTime < (fingerprintData.length > 0 ? fingerprintData[0].time : 0.1) && nextDataIndex > 0) ||
+                 (isInitialPlayCheck && currentTime < (fingerprintData.length > 0 ? fingerprintData[0].time : 0.1) )
+               ) {
+                if (infoBox.innerHTML !== "" && !infoBox.innerHTML.includes("Loading...")) {
+                   // infoBox.innerHTML = ""; // Let updateInfoBox handle clearing if nextDataIndex is 0
+                }
+                nextDataIndex = 0;
+            }
+
+            let updated = false;
+            while (nextDataIndex < fingerprintData.length && currentTime >= fingerprintData[nextDataIndex].time) {
+                nextDataIndex++;
+                updated = true;
+            }
+
+            if (updated || (isInitialPlayCheck && nextDataIndex === 0 && infoBox.innerHTML === "" && fingerprintData.length > 0)) {
+                updateInfoBox();
+            }
+        }
+
+        // --- PERIODIC CHECK FOR ASYNC DATA (Unchanged) ---
+        let lastIpAddress = ipAddress;
+        let lastBrowserGeoLocationData = browserGeoLocationData;
+        let lastIpGeoDataString = JSON.stringify(ipGeoData);
+
+        setInterval(() => {
+            let dataChanged = false;
+            if (ipAddress !== lastIpAddress) { lastIpAddress = ipAddress; dataChanged = true; }
+            if (browserGeoLocationData !== lastBrowserGeoLocationData) { lastBrowserGeoLocationData = browserGeoLocationData; dataChanged = true; }
+            const currentIpGeoDataString = JSON.stringify(ipGeoData);
+            if (currentIpGeoDataString !== lastIpGeoDataString) { lastIpGeoDataString = currentIpGeoDataString; dataChanged = true; }
+
+            if (dataChanged && ytPlayer && typeof ytPlayer.getPlayerState === 'function' && 
+                (ytPlayer.getPlayerState() === YT.PlayerState.PLAYING || ytPlayer.getPlayerState() === YT.PlayerState.BUFFERING) ) {
+                updateInfoBox();
+            }
+        }, 750);
+
+    </script>
+</body>
+</html>
