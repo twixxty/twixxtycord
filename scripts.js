@@ -181,6 +181,7 @@ async function fetchUserData() {
         const displayHeader = document.getElementById("displayHeader");
 
         if (data.global_name && data.username) {
+            if (pageTitle) pageTitle.textContent = "Hammad Alam Khan's Portfolio";
             if (displayHeader) displayHeader.innerHTML = `${data.global_name} <br><span style='font-size: 0.6em; color: var(--tapioca);'>(@${data.username})</span>`;
         } else {
             console.warn("User data from Discord API missing global_name or username.");
