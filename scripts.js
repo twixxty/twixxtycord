@@ -251,7 +251,7 @@ function updateTimeFunc() {
     else if (hour >= 12 && hour < 15) message = "busy with school";
     else if (hour >= 15 && hour < 16) message = "having lunch and resting";
     else if (hour >= 16 && hour < 19) message = "napping";
-    else if (hour >= 19 && hour < 21) message = "busy with home work";
+    else if (hour >= 19 && hour < 21) message = "busy with homework";
     else if (hour >= 21 && hour < 22) message = "having dinner";
     else if (hour >= 22 && hour < 24) message = "available";
     else message = "sleeping";
