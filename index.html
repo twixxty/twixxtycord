@@ -15,15 +15,13 @@
     <meta property="og:image" content="https://images-ext-1.discordapp.net/external/rx07DCSRxc_zNvE_LteE8uz-DFF_A6OgHbwPe5W88c8/%3Fsize%3D2048/https/cdn.discordapp.com/icons/1137352510919671818/0b3a2fdfe5064eb85068a03ef9634d6a.webp?format=webp&width=930&height=930" id="ogImage">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://twixxt.vercel.app">
-    <link rel="stylesheet" href="locomotive-scroll.css">
-
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
-    <script src="locomotive-scroll.min.js"></script>
-    <script>
-        (function() {
-            var scroll = new LocomotiveScroll();
-        })();
-    </script>
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
@@ -31,6 +29,45 @@
 </head>
 
 <body>
+<div class="top-bar-nav">
+<a href="#connections" class="cta-button-nav" id="topBarBookCallButton">                                                          
+    GET IN TOUCH <span class="arrow-nav">↗</span>
+</a>
+    <button class="menu-toggle-button-nav" id="menuToggleNav" aria-label="Open menu" aria-expanded="false" aria-controls="overlayMenuNav">
+        <span class="bar-nav bar1"></span>                                                          
+        <span class="bar-nav bar2"></span>
+    </button>
+</div>
+
+<div class="overlay-menu-nav" id="overlayMenuNav" role="dialog" aria-modal="true" aria-labelledby="menuTitleNav">
+    <nav class="nav-links-nav" aria-labelledby="menuTitleNav">
+                           <div id="gradadient"> <iframe id="graddidient" src="gradient/indexx.html" title="Background Gradient"></iframe> </div>
+
+        <ul>
+             <li><a href="#aboutText">ABOUT</a></li>                                                                                                                   
+             <li><a href="#projectsContainer">WORKS</a></li>                                                                                                                  
+             <li><a href="#friends">FRIENDS</a></li>
+            <li><a href="#testimonials">TESTIMONIALS</a></li>                                                                                                                  
+            <li><a href="#connections">CONTACT</a></li>                                                                                                                  
+        </ul>
+    </nav>
+
+  <div class="contact-info-nav">
+        <div class="email-label-nav">EMAIL ADDRESS</div>
+<a href="mailto:glarglecheeseball@gmail.com" class="email-address-nav animated-email-link">
+    <span class="email-width-forcer">glarglecheeseball@gmail.com</span>                                                         
+    <span class="email-text original">glarglecheeseball@gmail.com</span>                                                           
+    <span class="email-text duplicate">glarglecheeseball@gmail.com</span>                                                          
+</a>       <div class="social-links-nav">
+            <a href="https://discord.gg/QvEhTxzZT4" target="_blank" rel="noopener noreferrer">DISCORD</a>
+            <a href="https://youtube.com/@twixxt" target="_blank" rel="noopener noreferrer">YOUTUBE</a>
+             </div>
+    </div>
+</div>
+
+<div class="body-overlay-nav" id="bodyOverlayNav"></div>
+
+  
     <img src="images/expand.png" alt="Open Cool Stuff" id="coolStuffTrigger" class="cool-stuff-trigger-button">
 
     <div id="pageLoadOverlay">
@@ -199,7 +236,7 @@
                     </div>
                 </div>
             </div>
-            <div class="main-content-wrapper">
+<div class="main-content-wrapper" id="friends">
                 <div class="friend-column">
                     <h2>my friends</h2>
                     <div id="friendsContainer" class="friends-grid">
@@ -216,7 +253,7 @@
             </div>
             <hr class="rounded">
 
-            <h2>dont believe me?</h2>
+            <h2 id="testimonials">dont believe me?</h2>
             <fw>(TESTIMONIALS)</fw>
 
             <div class="testimonials-section">
@@ -366,8 +403,26 @@
                 </div>
                 <div class="column info-column">
                     <h2 id="randomMessage" style="margin-bottom: 0px;">Random Message</h2>
-                    <p id="indiaTime" style="margin-bottom: 0px;">India Time: Loading...</p>
-                    <p id="timefunc" style="margin-top: 0px;">Local Time: Loading...</p>
+<div id="indiaTimeReelContainer" class="time-reel-container">
+    <div class="time-segment hour-reel">
+        <div class="reel-inner">
+        </div>
+    </div>
+    <span class="time-separator">:</span>
+    <div class="time-segment minute-reel">
+        <div class="reel-inner">
+        </div>
+    </div>
+    <span class="time-separator">:</span>
+    <div class="time-segment second-reel">
+        <div class="reel-inner">
+        </div>
+    </div>
+    <div class="time-segment ampm-reel">
+        <div class="reel-inner">
+        </div>
+    </div>
+</div>                    <p id="timefunc" style="margin-top: 0px;">Local Time: Loading...</p>
                     <hr class="rounded">
                     <h2>my birthday</h2>
                     <div id="countdown"></div>

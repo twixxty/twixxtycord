@@ -1782,3 +1782,371 @@ document.addEventListener('DOMContentLoaded', () => {
     initMagneticLinks();
 
 });
+
+document.addEventListener('DOMContentLoaded', () => {
+
+    const menuToggleNav = document.getElementById('menuToggleNav');
+    const overlayMenuNav = document.getElementById('overlayMenuNav');
+    const bodyOverlayNav = document.getElementById('bodyOverlayNav');
+    const menuNavLinksLi = overlayMenuNav ? overlayMenuNav.querySelectorAll('.nav-links-nav li') : [];
+    const menuNavLinksA = overlayMenuNav ? overlayMenuNav.querySelectorAll('.nav-links-nav li a') : [];
+
+    if (menuToggleNav && overlayMenuNav && bodyOverlayNav) {
+
+        function toggleMenuNav(scrollToTarget = null) {
+            const isActive = overlayMenuNav.classList.contains('active');
+            const baseDelay = 0.25;
+            const staggerIncrement = 0.07;
+            const scrollOffset = -80; 
+                       if (isActive) {
+                overlayMenuNav.classList.remove('active');
+                bodyOverlayNav.classList.remove('active');
+                menuToggleNav.classList.remove('active');
+                menuToggleNav.setAttribute('aria-expanded', 'false');
+                menuToggleNav.setAttribute('aria-label', 'Open menu');
+
+                menuNavLinksLi.forEach(li => {
+                    li.classList.remove('animate-in');
+                    li.style.transitionDelay = '';
+                });
+
+                if (window.lenisInstance) {
+                    window.lenisInstance.start();
+                } else {
+                    document.body.style.overflow = '';
+                }
+            } else {
+                overlayMenuNav.classList.add('active');
+                bodyOverlayNav.classList.add('active');
+                menuToggleNav.classList.add('active');
+                menuToggleNav.setAttribute('aria-expanded', 'true');
+                menuToggleNav.setAttribute('aria-label', 'Close menu');
+
+                menuNavLinksLi.forEach((li, index) => {
+                    li.style.transitionDelay = `${baseDelay + (index * staggerIncrement)}s`;
+                    setTimeout(() => {
+                        li.classList.add('animate-in');
+                    }, 10);
+                });
+
+                if (window.lenisInstance) {
+                    window.lenisInstance.stop();
+                } else {
+                    document.body.style.overflow = 'hidden';
+                }
+            }
+
+            if (scrollToTarget && scrollToTarget !== '#') {                                                          
+                setTimeout(() => {
+                    if (window.lenisInstance) {
+                        window.lenisInstance.scrollTo(scrollToTarget, {
+                            offset: scrollOffset,                                                         
+                            duration: 1.5
+                        });
+                    } else {
+                        const targetElement = document.querySelector(scrollToTarget);
+                        if (targetElement) {
+                            const elementPosition = targetElement.getBoundingClientRect().top;
+                            const offsetPosition = elementPosition + window.pageYOffset + scrollOffset;                                                          
+
+                            window.scrollTo({
+                                top: offsetPosition,
+                                behavior: 'smooth'
+                            });
+                        }
+                    }
+                }, isActive ? 50 : 450);                                                          
+            } else if (scrollToTarget === '#') {                                                         
+                 setTimeout(() => {
+                    if (window.lenisInstance) {
+                        window.lenisInstance.scrollTo(0, { duration: 1.5 });
+                    } else {
+                        window.scrollTo({ top: 0, behavior: 'smooth' });
+                    }
+                }, isActive ? 50 : 450);
+            }
+        }
+
+        menuToggleNav.addEventListener('click', () => toggleMenuNav());
+
+        bodyOverlayNav.addEventListener('click', () => {
+            if (overlayMenuNav.classList.contains('active')) {
+                toggleMenuNav();
+            }
+        });
+
+        document.addEventListener('keydown', (event) => {
+            if (event.key === 'Escape' && overlayMenuNav.classList.contains('active')) {
+                toggleMenuNav();
+            }
+        });
+
+        menuNavLinksA.forEach(link => {
+            link.addEventListener('click', (e) => {
+                const href = link.getAttribute('href');
+                if (href && href.startsWith('#')) {
+                    e.preventDefault();
+                    toggleMenuNav(href);
+                }
+            });
+        });
+
+    } else { /* ... console warn ... */ }
+
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+
+    const topBarNav = document.querySelector('.top-bar-nav');
+       const profileHeaderElement = document.querySelector('.profile-header');
+    
+    if (topBarNav && profileHeaderElement) {
+        const observerOptions = {
+            root: null,                                                          
+            rootMargin: '0px',
+             threshold: 0                                                                                                                   
+        };
+
+        let isProfileHeaderAboveViewport = false;
+
+        const profileHeaderObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+               
+                if (!entry.isIntersecting && entry.boundingClientRect.bottom < 0) {
+                    if (!isProfileHeaderAboveViewport) {
+                        topBarNav.classList.add('visible');
+                        isProfileHeaderAboveViewport = true;
+                    }
+                } else if (entry.isIntersecting || entry.boundingClientRect.bottom >= 0) {
+                    if (isProfileHeaderAboveViewport) {
+                        topBarNav.classList.remove('visible');
+                        isProfileHeaderAboveViewport = false;
+                    }
+                }
+            });
+        }, observerOptions);
+
+        profileHeaderObserver.observe(profileHeaderElement);
+
+    } else {
+        if (!topBarNav) console.warn("Top bar (.top-bar-nav) not found for scroll visibility.");
+        if (!profileHeaderElement) console.warn("Profile header element (.profile-header or #displayHeader) not found for scroll visibility trigger.");
+      }
+   
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+
+    function initIndiaTimeReel() {
+        const timeReelContainer = document.getElementById('indiaTimeReelContainer');
+        if (!timeReelContainer) {
+            console.warn("India time reel container (#indiaTimeReelContainer) not found. Clock not initialized.");
+            return;
+        }
+
+        const hourReelInner = timeReelContainer.querySelector('.hour-reel .reel-inner');
+        const minuteReelInner = timeReelContainer.querySelector('.minute-reel .reel-inner');
+        const secondReelInner = timeReelContainer.querySelector('.second-reel .reel-inner');
+        const ampmReelInner = timeReelContainer.querySelector('.ampm-reel .reel-inner');
+        const allReels = [hourReelInner, minuteReelInner, secondReelInner, ampmReelInner];
+
+        if (allReels.some(reel => !reel)) {                                                          
+            console.warn("One or more India time reel inner elements not found. Clock reverting to simple text.");
+            timeReelContainer.innerHTML = '<span class="time-label">India Time:</span> <span id="indiaTimeSimpleText">Loading...</span>';
+            const indiaTimeSimpleText = document.getElementById("indiaTimeSimpleText");
+            if (indiaTimeSimpleText) {
+                setInterval(() => {
+                    const options = { timeZone: "Asia/Kolkata", hour: "2-digit", minute: "2-digit", second: "2-digit", hour12: true };
+                    indiaTimeSimpleText.textContent = new Date().toLocaleTimeString("en-IN", options);
+                }, 1000);
+            }
+            return;
+        }
+
+        const slotHeight = 1.4;                                                          
+        const revealAnimationDelay = 500;                                                                                                                   
+
+        function populateReel(reelInner, max, isHour = false, isAmPm = false) {
+            reelInner.innerHTML = '';
+            if (isAmPm) {
+                ['AM', 'PM'].forEach(val => { /* ... */ });
+            } else {
+                const start = isHour ? 1 : 0;
+                const end = isHour ? 12 : max;
+                for (let i = start; i <= end; i++) { /* ... */ }
+            }
+            if (isAmPm) {
+                ['AM', 'PM'].forEach(val => {
+                    const slot = document.createElement('div'); slot.classList.add('digit-slot'); slot.textContent = val; reelInner.appendChild(slot);
+                });
+            } else {
+                const start = isHour ? 1 : 0; const end = isHour ? 12 : max;
+                for (let i = start; i <= end; i++) {
+                    const slot = document.createElement('div'); slot.classList.add('digit-slot'); slot.textContent = i.toString().padStart(2, '0'); reelInner.appendChild(slot);
+                }
+            }
+        }
+
+        populateReel(hourReelInner, 12, true);
+        populateReel(minuteReelInner, 59);
+        populateReel(secondReelInner, 59);
+        populateReel(ampmReelInner, 0, false, true);
+
+        let lastTransforms = { h: null, m: null, s: null, ap: null };
+        let clockIntervalId = null;
+        let isClockCurrentlyVisible = false;
+        let revealTimeoutId = null; // To manage the reveal delay
+
+        function setReelsToDefault() {
+            allReels.forEach(reel => reel.classList.remove('revealing')); // Ensure no 'revealing' transition
+            // Temporarily disable transitions for instant set
+            const originalTransitions = allReels.map(reel => reel.style.transition);
+            allReels.forEach(reel => reel.style.transition = 'none');
+
+            hourReelInner.style.transform = `translateY(-${0 * slotHeight}em)`; // 12
+            minuteReelInner.style.transform = `translateY(-${0 * slotHeight}em)`; // 00
+            secondReelInner.style.transform = `translateY(-${0 * slotHeight}em)`; // 00
+            ampmReelInner.style.transform = `translateY(-${0 * slotHeight}em)`;   // AM
+
+            lastTransforms = { h: null, m: null, s: null, ap: null };
+
+            setTimeout(() => {
+                allReels.forEach((reel, index) => reel.style.transition = originalTransitions[index] || '');
+            }, 30);                                                          
+        }
+
+        function updateIndiaTimeReel(isReveal = false) {
+            if (!isClockCurrentlyVisible && !isReveal) return;                                                                                                                   
+
+            if (isReveal) {
+                allReels.forEach(reel => reel.classList.add('revealing'));
+            } else {
+                allReels.forEach(reel => reel.classList.remove('revealing'));
+            }
+
+            const now = new Date();
+            const optionsBase = { timeZone: "Asia/Kolkata", hour12: true };
+            const hour24 = parseInt(now.toLocaleTimeString("en-IN", { timeZone: "Asia/Kolkata", hour12: false, hour: 'numeric' }));
+            let displayHour12 = parseInt(now.toLocaleTimeString("en-IN", { ...optionsBase, hour: 'numeric' }));
+            let displayMinute = parseInt(now.toLocaleTimeString("en-IN", { ...optionsBase, minute: 'numeric' }));
+            let displaySecond = parseInt(now.toLocaleTimeString("en-IN", { ...optionsBase, second: 'numeric' }));
+            const currentAmpmIndex = (hour24 >= 12 && hour24 < 24) ? 1 : 0;
+            const hourReelIndex = (displayHour12 === 12) ? 11 : displayHour12 - 1;
+            const minuteReelIndex = displayMinute;
+            const secondReelIndex = displaySecond;
+
+            const newTransforms = {
+                h: `translateY(-${hourReelIndex * slotHeight}em)`,
+                m: `translateY(-${minuteReelIndex * slotHeight}em)`,
+                s: `translateY(-${secondReelIndex * slotHeight}em)`,
+                ap: `translateY(-${currentAmpmIndex * slotHeight}em)`
+            };
+
+            if (newTransforms.h !== lastTransforms.h) {
+                hourReelInner.style.transform = newTransforms.h;
+                lastTransforms.h = newTransforms.h;
+            }
+            if (newTransforms.m !== lastTransforms.m) {
+                minuteReelInner.style.transform = newTransforms.m;
+                lastTransforms.m = newTransforms.m;
+            }
+            if (newTransforms.s !== lastTransforms.s) {
+                secondReelInner.style.transform = newTransforms.s;
+                lastTransforms.s = newTransforms.s;
+            }
+            if (newTransforms.ap !== lastTransforms.ap) {
+                ampmReelInner.style.transform = newTransforms.ap;
+                lastTransforms.ap = newTransforms.ap;
+            }
+
+            if (isReveal) {
+                setTimeout(() => {
+                    allReels.forEach(reel => reel.classList.remove('revealing'));
+                }, parseFloat(getComputedStyle(hourReelInner).transitionDuration) * 1000 + 50); // Get actual duration
+            }
+        }
+
+        const observerOptions = { root: null, rootMargin: '0px', threshold: 0.1 };
+        const clockObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    if (!isClockCurrentlyVisible) {                                                          
+                        isClockCurrentlyVisible = true;
+
+                                                                                                                                          
+                        if (revealTimeoutId) clearTimeout(revealTimeoutId);
+
+                        revealTimeoutId = setTimeout(() => {
+                            if (isClockCurrentlyVisible) {                                                          
+                                updateIndiaTimeReel(true);                                                         
+                                if (!clockIntervalId) {
+                                    clockIntervalId = setInterval(() => updateIndiaTimeReel(false), 1000);
+                                }
+                            }
+                        }, revealAnimationDelay);
+                    }
+                } else {                                                         
+                    if (isClockCurrentlyVisible) {                                                          
+                        isClockCurrentlyVisible = false;
+                        if (clockIntervalId) {
+                            clearInterval(clockIntervalId);
+                            clockIntervalId = null;
+                        }
+                        if (revealTimeoutId) {                                                                                                                   
+                            clearTimeout(revealTimeoutId);
+                            revealTimeoutId = null;
+                        }
+                        setReelsToDefault();                                                          
+                    }
+                }
+            });
+        }, observerOptions);
+
+        setReelsToDefault();                                                         
+        clockObserver.observe(timeReelContainer);
+    }
+
+    initIndiaTimeReel();
+
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+    const topBarBookCallButton = document.getElementById('topBarBookCallButton');
+
+    if (topBarBookCallButton) {
+        topBarBookCallButton.addEventListener('click', function(event) {
+            event.preventDefault();                                                         
+
+            const targetId = this.getAttribute('href'); 
+            const scrollOffset = -80; 
+
+            if (targetId && targetId !== '#') {
+                if (window.lenisInstance) {
+                    window.lenisInstance.scrollTo(targetId, {
+                        offset: scrollOffset,
+                        duration: 1.5                                                          
+                    });
+                } else {
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        const elementPosition = targetElement.getBoundingClientRect().top;
+                        const offsetPosition = elementPosition + window.pageYOffset + scrollOffset;
+                        window.scrollTo({
+                            top: offsetPosition,
+                            behavior: 'smooth'
+                        });
+                    }
+                }
+            } else if (targetId === '#') {                                                          
+                if (window.lenisInstance) {
+                    window.lenisInstance.scrollTo(0, { duration: 1.5 });
+                } else {
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                }
+            }
+        });
+    } else {
+        console.warn("Top bar 'Book a Call' button (#topBarBookCallButton) not found.");
+    }
+
+});
