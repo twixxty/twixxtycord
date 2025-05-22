@@ -215,7 +215,7 @@ function setRandomAboutText() {
     if (!aboutElement) return;
     const aboutTexts = [
         "Hi! I'm Hammad, a 15 year old web designer/developer. I love making websites and Graphic Designing. I hope to earn some day and inspire others using my skills.",
-      //  "hii im hammad, am 15 and a web designer/developer. i like making websites and can graphic design pretty well. give me money pls (im broke)",
+        "hii im hammad, am 15 and a web designer/developer. i like making websites and can graphic design pretty well. give me money pls (im broke)",
     ];
     aboutElement.textContent = getRandomItem(aboutTexts);
 }
