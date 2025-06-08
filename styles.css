@@ -1104,6 +1104,29 @@ text-decoration: underline wavy;
 }
 <link rel=”stylesheet” href=”https://unpkg.com/lenis@1.1.13/dist/lenis.css"
 #statusEmoji {
+    /* --- Sizing --- */
+    width: 34px;          /* Replaces font-size */
+    height: 34px;         /* Replaces font-size */
+
+    /* --- Positioning & Styling (mostly unchanged) --- */
+    position: absolute;
+    bottom: -4px;
+    right: -4px;
+    background-color: #111;
+    border: solid 1px #111;
+    border-radius: 100px; /* This makes it a circle */
+    pointer-events: none;
+    
+    /* --- Background Image Handling (New) --- */
+    background-size: cover; /* Ensures the image fills the circle */
+    background-position: center;
+    background-repeat: no-repeat;
+    
+    /* --- Animation (unchanged) --- */
+    -webkit-animation: rotate 5s linear infinite;
+    animation: rotate 15s linear infinite;
+}
+#statusEmoji {
 -webkit-animation: rotate 5s linear infinite;
 animation: rotate 15s linear infinite;
 position: absolute;
@@ -1123,30 +1146,37 @@ font-size: 34px;
 background-color: #111;
 border-radius: 100px;
 pointer-events: none;
--webkit-animation: rotate 5s linear infinite;
-animation: rotate 15s linear infinite;
+
 }
+
+/* --- Media Query for smaller screens --- */
 @media (max-width: 600px) {
-#pfpp #pfp {
-width: 100px !important;
-height: 100px !important;
-}
-:root {
---pfp-overlap-banner-percentage: 0.60;
-}
-:root {
---banner-height: 200px;
---pfp-size: 75px;
---pfp-border-width: 7px;
---pfp-total-size: calc(var(--pfp-size) + (2 * var(--pfp-border-width)));
---pfp-overlap-banner-percentage: 0.98;
---pfp-left-offset: 30px;
-}
-#pfpp #statusEmoji {
-font-size: 20px !important;
-bottom: -2px !important;
-right: -2px !important;
-}
+    #pfpp #pfp {
+        width: 100px !important;
+        height: 100px !important;
+    }
+
+    :root {
+        --pfp-overlap-banner-percentage: 0.60;
+    }
+
+    :root {
+        --banner-height: 200px;
+        --pfp-size: 75px;
+        --pfp-border-width: 7px;
+        --pfp-total-size: calc(var(--pfp-size) + (2 * var(--pfp-border-width)));
+        --pfp-overlap-banner-percentage: 0.98;
+        --pfp-left-offset: 30px;
+    }
+
+    #pfpp #statusEmoji {
+        /* Update sizing for smaller screens */
+        width: 20px !important;
+        height: 20px !important;
+        bottom: -2px !important;
+        right: -2px !important;
+        /* The font-size property is no longer needed here */
+    }
 }
 #gradientContainer {
 display: block;
@@ -2221,4 +2251,114 @@ transition-delay: 0s;
     .time-reel-container {
         font-size: 0.9em; 
     }
+}
+
+
+.visual-about-section {
+    pointer-events: none;
+    margin: 80px 0;
+    position: relative; 
+}
+.visual-about-section::after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+.visual-about-image-column {
+    float: left; 
+    width: 32%; 
+    margin-right: 50px; 
+    position: relative; 
+}
+
+.visual-about-image {
+    height: 450px;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.visual-about-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+.visual-about-text {
+    overflow: hidden; 
+    padding-top: 5px;
+}
+
+.visual-about-text .about-intro {
+    font-family: 'Poppins', sans-serif;
+    font-size: clamp(1.6rem, 4vw, 2.1rem);
+    font-weight: 500;
+    line-height: 1.45;
+    color: #f0f0f0;
+    margin: 0 0 10px 0;
+}
+.visual-about-text .about-details {
+    display: flex; gap: 40px; align-items: flex-start;
+}
+.visual-about-text .about-label-col {
+    flex: 0 0 140px; padding-top: 5px;
+}
+.visual-about-text .about-label-col FW {
+   letter-spacing: 0.15em; text-transform: uppercase;
+}
+.visual-about-text .about-text-col p {
+    font-family: "Poppins", sans-serif; font-size: 1.1rem; font-weight: 300; line-height: 1.8; color: #cccccc; margin: 0;
+}
+.visual-about-text .about-text-col p:not(:last-child) {
+    margin-bottom: 1.8em;
+}
+
+.image-caption {
+    font-family: 'Poppins', sans-serif;
+    margin-top: 12px;
+    font-size: 0.9rem;
+    font-style: italic;
+    color: #888888;
+    text-align: left;
+    transition: all 0.3s ease; 
+}
+@media (max-width: 950px) {
+    .visual-about-image-column {
+        float: none; 
+        width: 100%;
+        max-width: 420px;
+        margin-right: 0;
+        margin-inline: auto;
+        margin-bottom: 20px;
+    }
+
+    .visual-about-text {
+        overflow: visible; 
+    }
+    
+    .visual-about-image {
+        height: auto;
+    }
+
+    .image-caption {
+        position: absolute;
+        bottom: 15px;
+        left: 15px;  
+
+        padding: 6px 12px;       
+        border-radius: 8px;        
+        background-color: rgba(25, 25, 25, 0.5); 
+        backdrop-filter: blur(10px);          
+        -webkit-backdrop-filter: blur(10px);    
+
+        color: #f0f0f0;
+        font-family: 'Poppins', sans-serif;
+        font-size: 0.9rem;
+        font-weight: 500;
+        text-shadow: 0 1px 2px rgba(0,0,0,0.2);
+    }
+}
+@media (max-width: 900px) {
+    .visual-about-text .about-details { flex-direction: column; gap: 20px; }
+    .visual-about-text .about-label-col { flex-basis: auto; padding-top: 0; }
 }

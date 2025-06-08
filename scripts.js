@@ -214,11 +214,14 @@ function setRandomAboutText() {
     const aboutElement = document.getElementById("aboutText");
     if (!aboutElement) return;
     const aboutTexts = [
-        "Hi! I'm Hammad, a 15 year old web designer/developer. I love making websites and Graphic Designing. I hope to earn some day and inspire others using my skills.",
-        "hii im hammad, am 15 and a web designer/developer. i like making websites and can graphic design pretty well. give me money pls (im broke)",
+        "i can make websites and animations :3",
+        "got a channel named twixxt, not super famous tho",
+        "my birthday is on the 14th of april but i cant celebrate in school cause its a holiday"
     ];
     aboutElement.textContent = getRandomItem(aboutTexts);
 }
+
+
 
 function updateIndiaTime() {
     const indiaTimeElement = document.getElementById("indiaTime");
@@ -2149,4 +2152,28 @@ document.addEventListener('DOMContentLoaded', () => {
         console.warn("Top bar 'Book a Call' button (#topBarBookCallButton) not found.");
     }
 
+});
+document.addEventListener('DOMContentLoaded', () => {
+    const imageAndCaptionData = [
+        { src: 'images/boom.jpeg', caption: 'boom.' },
+        { src: 'images/cool.jpeg', caption: 'cool' },
+        { src: 'images/pizza time.jpeg', caption: 'it\'s pizza time!' },
+        { src: 'images/download.gif', caption: 'downloading more skills...' },
+        { src: 'images/peeky.jpeg', caption: 'peek-a-boo' },
+        { src: 'images/sigma.jpeg', caption: 'literally me' },
+        { src: 'images/rich.jpeg', caption: 'the dream' },
+        { src: 'images/pizza.jpeg', caption: 'contemplating the pizza' },
+        { src: 'images/drip.jpeg', caption: 'sheesh' }
+    ];
+
+    const imageElement = document.getElementById('random-portrait-img');
+    const captionElement = document.getElementById('image-caption-text');
+
+    if (imageElement && captionElement && imageAndCaptionData.length > 0) {
+        const randomIndex = Math.floor(Math.random() * imageAndCaptionData.length);
+        const randomData = imageAndCaptionData[randomIndex];
+
+        imageElement.src = randomData.src;
+        captionElement.textContent = randomData.caption;
+    }
 });
