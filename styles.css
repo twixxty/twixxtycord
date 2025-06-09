@@ -1103,79 +1103,42 @@ color: #000000;
 text-decoration: underline wavy;
 }
 <link rel=”stylesheet” href=”https://unpkg.com/lenis@1.1.13/dist/lenis.css"
-#statusEmoji {
-    /* --- Sizing --- */
-    width: 34px;          /* Replaces font-size */
-    height: 34px;         /* Replaces font-size */
+:root {
+    --banner-height: 200px;
+    --pfp-size: 75px;
+    --pfp-border-width: 7px;
+    --pfp-total-size: calc(var(--pfp-size) + (2 * var(--pfp-border-width)));
+    --pfp-overlap-banner-percentage: 0.98;
+    --pfp-left-offset: 30px;
+}
 
-    /* --- Positioning & Styling (mostly unchanged) --- */
+#statusEmoji {
+    width: 34px;
+    height: 34px;
     position: absolute;
     bottom: -4px;
     right: -4px;
     background-color: #111;
-    border: solid 1px #111;
-    border-radius: 100px; /* This makes it a circle */
+    border: solid 6px #111;
+    border-radius: 50%;
     pointer-events: none;
-    
-    /* --- Background Image Handling (New) --- */
-    background-size: cover; /* Ensures the image fills the circle */
+    background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    
-    /* --- Animation (unchanged) --- */
-    -webkit-animation: rotate 5s linear infinite;
-    animation: rotate 15s linear infinite;
-}
-#statusEmoji {
--webkit-animation: rotate 5s linear infinite;
-animation: rotate 15s linear infinite;
-position: absolute;
-bottom: -4px;
-right: -4px;
-font-size: 34px;
-backdrop-filter: blur(10px);
-background-color: #00000074;
-border-radius: 100px;
-}
-#statusEmoji {
-border: solid 1px #111;
-position: absolute;
-bottom: -4px;
-right: -4px;
-font-size: 34px;
-background-color: #111;
-border-radius: 100px;
-pointer-events: none;
-
 }
 
-/* --- Media Query for smaller screens --- */
 @media (max-width: 600px) {
     #pfpp #pfp {
         width: 100px !important;
         height: 100px !important;
     }
 
-    :root {
-        --pfp-overlap-banner-percentage: 0.60;
-    }
-
-    :root {
-        --banner-height: 200px;
-        --pfp-size: 75px;
-        --pfp-border-width: 7px;
-        --pfp-total-size: calc(var(--pfp-size) + (2 * var(--pfp-border-width)));
-        --pfp-overlap-banner-percentage: 0.98;
-        --pfp-left-offset: 30px;
-    }
-
     #pfpp #statusEmoji {
-        /* Update sizing for smaller screens */
-        width: 20px !important;
-        height: 20px !important;
-        bottom: -2px !important;
-        right: -2px !important;
-        /* The font-size property is no longer needed here */
+        width: 24px !important;
+        height: 24px !important;
+        bottom: 0px !important;
+        right: 0px !important;
+        border-width: 5px !important;
     }
 }
 #gradientContainer {

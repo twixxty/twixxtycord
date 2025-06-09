@@ -60,7 +60,44 @@ function initMagneticLinks() {
         });
     });
 }
+async function getLanyardStatus() {
+    const apiUrl = 'https://api.lanyard.rest/v1/users/798177330010521630';
+    const statusElement = document.getElementById('statusEmoji');
 
+    const imagePaths = {
+        online: 'assets/status/online.png',
+        idle: 'assets/status/idle.png',
+        dnd: 'assets/status/dnd.png'
+    };
+
+    try {
+        const response = await fetch(apiUrl);
+        if (!response.ok) {
+            throw new Error('API response was not ok');
+        }
+        const data = await response.json();
+        const discordStatus = data.data.discord_status;
+
+        if (discordStatus === 'offline') {
+            statusElement.style.display = 'none';
+        } else {
+            statusElement.style.display = 'block';
+            const imagePath = imagePaths[discordStatus];
+            if (imagePath) {
+                statusElement.style.backgroundImage = `url('${imagePath}')`;
+            } else {
+                statusElement.style.display = 'none';
+            }
+        }
+    } catch (error) {
+        console.error('Failed to fetch Lanyard data:', error);
+        statusElement.style.display = 'none';
+    }
+}
+
+        document.addEventListener('DOMContentLoaded', getLanyardStatus);
+
+        document.addEventListener('DOMContentLoaded', getLanyardStatus);
 
 async function updateDiscordStatus() {
     const statusElement = document.getElementById("randomText");
@@ -124,14 +161,14 @@ async function updateDiscordStatus() {
         }
 
         let emojiStatusText = "";
-        if (gameActivity) emojiStatusText = "🎮";
-        else if (d.discord_status === "online") emojiStatusText = "🟢";
-        else if (d.discord_status === "idle") emojiStatusText = "🌙";
-        else if (d.discord_status === "dnd") emojiStatusText = "⛔";
+        if (gameActivity) emojiStatusText = "";
+        else if (d.discord_status === "online") emojiStatusText = "";
+        else if (d.discord_status === "idle") emojiStatusText = "";
+        else if (d.discord_status === "dnd") emojiStatusText = "";
 
         const onMobile = d.active_on_discord_mobile;
         if (statusEmoji) {
-            statusEmoji.textContent = onMobile && d.discord_status === "online" && !gameActivity ? `🟢` : emojiStatusText;
+            statusEmoji.textContent = onMobile && d.discord_status === "online" && !gameActivity ? `` : emojiStatusText;
         }
 
     } catch (err) {
@@ -1998,11 +2035,10 @@ document.addEventListener('DOMContentLoaded', () => {
         let lastTransforms = { h: null, m: null, s: null, ap: null };
         let clockIntervalId = null;
         let isClockCurrentlyVisible = false;
-        let revealTimeoutId = null; // To manage the reveal delay
+        let revealTimeoutId = null; 
 
         function setReelsToDefault() {
             allReels.forEach(reel => reel.classList.remove('revealing')); // Ensure no 'revealing' transition
-            // Temporarily disable transitions for instant set
             const originalTransitions = allReels.map(reel => reel.style.transition);
             allReels.forEach(reel => reel.style.transition = 'none');
 
