@@ -1700,10 +1700,11 @@ transition: all 0.3s ease, bottom 0.3s ease;
 display: flex;
 align-items: center;
 justify-content: center;
-opacity: 0.5;
+opacity: 0;
 }
 .cool-stuff-trigger-button.is-visible {
 bottom: -20px;
+    opacity: 0.5;
 }
 .cool-stuff-trigger-button:hover {
 transform: translateX(-50%) scale(1.1);
