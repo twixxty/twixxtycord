@@ -1215,10 +1215,6 @@ height: var(--pfp-size) !important;
 border-radius: 70%;
 transition: transform 0.5s ease-in-out, border-radius 0.5s ease-in-out;
 }
-#pfp:hover {
-transform: scale(1.05);
-border-radius: 30%;
-}
 #avatarDecoration {
     display: none; 
     position: absolute;
@@ -1245,6 +1241,7 @@ border-radius: 30%;
 }
 .profile-picture-wrapper:hover #pfp {
     transform: scale(1.05);
+    border-radius: 30%;
 }
 
 .profile-picture-wrapper:hover #avatarDecoration {
