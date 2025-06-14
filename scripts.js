@@ -1792,10 +1792,42 @@ document.addEventListener('DOMContentLoaded', () => {
     fetchFriends();
     fetchMoreFriends();
 
+
     const pfpElement = document.getElementById("pfp");
+     const sounds = ["/sfx/1.mp3", "/sfx/2.mp3", "/sfx/3.mp3", "/sfx/4.mp3", "/sfx/5.mp3", "/sfx/6.mp3", "/sfx/7.mp3", "/sfx/8.mp3", "/sfx/9.mp3", "/sfx/10.mp3", "/sfx/11.mp3", "/sfx/12.mp3", "/sfx/13.mp3","/sfx/sfx (1).mp3",
+"/sfx/sfx (2).mp3",
+"/sfx/sfx (3).mp3",
+"/sfx/sfx (4).mp3",
+"/sfx/sfx (5).mp3",
+"/sfx/sfx (6).mp3",
+"/sfx/sfx (7).mp3",
+"/sfx/sfx (8).mp3",
+"/sfx/sfx (9).mp3",
+"/sfx/sfx (10).mp3",
+"/sfx/sfx (11).mp3",
+"/sfx/sfx (12).mp3",
+"/sfx/sfx (13).mp3",
+"/sfx/sfx (14).mp3",
+"/sfx/sfx (15).mp3",
+"/sfx/sfx (16).mp3",
+"/sfx/sfx (17).mp3",
+"/sfx/sfx (18).mp3",
+"/sfx/sfx (19).mp3",
+"/sfx/sfx (20).mp3",
+"/sfx/sfx (21).mp3"];
+function preloadSounds(soundList) {
+        console.log("Preloading sounds...");
+        for (const sound of soundList) {
+            const audio = new Audio();
+            audio.src = sound;
+        }
+        console.log("Preloading finished.");
+    }
+    preloadSounds(sounds);
+
     if (pfpElement) {
         pfpElement.addEventListener("click", () => {
-            const sounds = ["/sfx/1.mp3", "/sfx/2.mp3", "/sfx/3.mp3", "/sfx/4.mp3", "/sfx/5.mp3", "/sfx/6.mp3", "/sfx/7.mp3", "/sfx/8.mp3", "/sfx/9.mp3", "/sfx/10.mp3", "/sfx/11.mp3", "/sfx/12.mp3", "/sfx/13.mp3"];
+           
             new Audio(getRandomItem(sounds)).play();
             pfpElement.style.pointerEvents = "none";
             setTimeout(() => {
