@@ -732,12 +732,14 @@ transform: translateY(0);
 }
 }
 #pfp {
-border: #111 5px solid;
+border: #111 8px solid;
 cursor: pointer;
 width: 150px !important;
 height: 150px !important;
 border-radius: 30%;
-transition: transform 0.5s ease-in-out;   }
+transition: transform 0.5s ease-in-out;
+transition: transform 0.1s ease-out,border-radius 0.1s ease-in;
+}
 .profile-picture-wrapper:active #pfp {
     border-radius: 70%;
     transform: scale(0.95);
