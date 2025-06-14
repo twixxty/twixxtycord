@@ -740,11 +740,7 @@ border-radius: 30%;
 transition: transform 0.5s ease-in-out;
 transition: transform 0.1s ease-out,border-radius 0.1s ease-in;
 }
-.profile-picture-wrapper:active #pfp {
-    border-radius: 70%;
-    transform: scale(0.95);
-    transition: transform 0.1s ease-out,border-radius 0.1s ease-in;
-}
+
 footer {
 font-size: 15px;
 }
@@ -2356,4 +2352,9 @@ transition-delay: 0s;
 @media (max-width: 900px) {
     .visual-about-text .about-details { flex-direction: column; gap: 20px; }
     .visual-about-text .about-label-col { flex-basis: auto; padding-top: 0; }
+}
+.profile-picture-wrapper:active #pfp {
+    border-radius: 70%;
+    transform: scale(0.95);
+    transition: transform 0.1s ease-out,border-radius 0.1s ease-in;
 }
