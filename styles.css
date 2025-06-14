@@ -1134,17 +1134,6 @@ text-decoration: underline wavy;
         width: 100px !important;
         height: 100px !important;
     }
-#avatarDecoration {
-    display: none; 
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    transform: scale(0.8); 
-    pointer-events: none; 
-    transition: all 0.5s ease-in-out;
-}
     #pfpp #statusEmoji {
     width: 28px;
     height: 28px;
@@ -1237,7 +1226,19 @@ border-radius: 30%;
     left: 0;
     width: 100%;
     height: 100%;
-    transform: scale(1.1); 
+    transform: scale(1.10); 
+    pointer-events: none; 
+    transition: all 0.5s ease-in-out;
+}
+@media (max-width: 600px) {
+#avatarDecoration {
+    display: none; 
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    transform: scale(1.026); 
     pointer-events: none; 
     transition: all 0.5s ease-in-out;
 }
