@@ -1700,6 +1700,7 @@ transition: all 0.3s ease, bottom 0.3s ease;
 display: flex;
 align-items: center;
 justify-content: center;
+opacity: 0;
 }
 .cool-stuff-trigger-button.is-visible {
 bottom: -20px;
@@ -1725,7 +1726,6 @@ transition: transform 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
 z-index: 1100;
 overflow-y: auto;
 color: var(--text-color, #e0e0e0);
-opacity: 0;
 }
 .cool-stuff-bottom-tray.open {
 transform: translateY(0%);
