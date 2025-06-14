@@ -2362,7 +2362,7 @@ transition-delay: 0s;
     .visual-about-text .about-label-col { flex-basis: auto; padding-top: 0; }
 }
 .profile-picture-wrapper:active #pfp {
-    border-radius: 70%;
+    border-radius: 40%;
     transform: scale(0.95);
     transition: transform 0.1s ease-out,border-radius 0.1s ease-in;
 }
