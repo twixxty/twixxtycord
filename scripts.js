@@ -1586,6 +1586,7 @@ function initCoolStuffTray() {
             trayBackgroundOverlay.classList.remove('active');
             document.body.classList.remove('tray-open');
             coolStuffTrigger.style.bottom = '20px';
+            coolStuffTrigger.style.opacity = '0.5';
         } else {
             bottomTray.classList.add('open');
             trayBackgroundOverlay.classList.add('active');
