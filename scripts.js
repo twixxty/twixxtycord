@@ -1580,13 +1580,14 @@ function initCoolStuffTray() {
     const trayBackgroundOverlay = document.getElementById('trayBackgroundOverlay');
     if (!coolStuffTrigger || !bottomTray || !trayBackgroundOverlay) return;
     coolStuffTrigger.addEventListener('click', () => {
+    coolStuffTrigger.style.opacity = '1';
+
         const isOpen = bottomTray.classList.contains('open');
         if (isOpen) {
             bottomTray.classList.remove('open');
             trayBackgroundOverlay.classList.remove('active');
             document.body.classList.remove('tray-open');
             coolStuffTrigger.style.bottom = '20px';
-            coolStuffTrigger.style.opacity = '0.5';
         } else {
             bottomTray.classList.add('open');
             trayBackgroundOverlay.classList.add('active');
