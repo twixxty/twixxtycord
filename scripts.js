@@ -1832,7 +1832,7 @@ function preloadSounds(soundList) {
             pfpElement.style.pointerEvents = "none";
             setTimeout(() => {
                 pfpElement.style.pointerEvents = "auto";
-            }, 100);
+            }, 0);
         });
     }
 
