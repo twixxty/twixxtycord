@@ -231,19 +231,33 @@ async function fetchUserData() {
 async function fetchProfilePicture() {
     try {
         const response = await fetch('https://discord-lookup-api-new-liard.vercel.app/v1/user/798177330010521630');
-        if (!response.ok) throw new Error(`Discord Lookup API (pfp) failed with status: ${response.status}`);
+        if (!response.ok) throw new Error(`Discord Lookup API failed with status: ${response.status}`);
+        
         const data = await response.json();
         const pfp = document.getElementById("pfp");
+        const decoration = document.getElementById("avatarDecoration");
+
         if (pfp && data.avatar && data.avatar.link) {
             pfp.src = data.avatar.link;
         } else if (pfp) {
             console.warn("Avatar link missing from Discord API response for PFP.");
             pfp.src = "https://via.placeholder.com/128";
         }
+
+        if (decoration && data.avatar_decoration && data.avatar_decoration.asset) {
+            const decorationUrl = `https://cdn.discordapp.com/avatar-decoration-presets/${data.avatar_decoration.asset}.png`;
+            decoration.src = decorationUrl;
+            decoration.style.display = 'block';
+        } else if (decoration) {
+            decoration.style.display = 'none';
+        }
+
     } catch (error) {
         console.error("Failed to fetch profile picture:", error);
         const pfp = document.getElementById("pfp");
         if (pfp) pfp.src = "https://via.placeholder.com/128";
+        const decoration = document.getElementById("avatarDecoration");
+        if (decoration) decoration.style.display = 'none';
     }
 }
 
