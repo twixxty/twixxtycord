@@ -325,10 +325,10 @@ const friendsList = [{
     id: "860917681879253002",
     username: "Friend 3",
     sfx: "sounds/dhiren.mp3"
-}, {
-    id: "1256930587684634674",
-    username: "Friend 4",
-    sfx: "sounds/ladybug.mp3"
+},{
+    id: "1081451019260678245",
+    username: "Friend C",
+    sfx: "sounds/vro.mp3"
 }, {
     id: "735955748579836025",
     username: "Friend 5",
@@ -343,9 +343,9 @@ const moreFriendsList = [{
     username: "Friend B",
     sfx: "sounds/mijo.mp3"
 }, {
-    id: "1081451019260678245",
+    id: "912035400485330954",
     username: "Friend C",
-    sfx: "sounds/vro.mp3"
+    sfx: "sounds/niko.mp3"
 }, {
     id: "922389987889143849",
     username: "Friend D",
@@ -355,6 +355,11 @@ const moreFriendsList = [{
     username: "Friend E",
     sfx: "sounds/lemon.mp3"
 }];
+
+const nikoClickTracker = {
+    count: 0,
+    triggered: false
+};
 
 async function populateFriends(containerId, friendArray) {
     const container = document.getElementById(containerId);
@@ -377,6 +382,22 @@ async function populateFriends(containerId, friendArray) {
             img.classList.add("friend-pfp");
 
             img.addEventListener("click", () => {
+                if (friend.id === "912035400485330954") {
+                    nikoClickTracker.count++;
+                    if (nikoClickTracker.count === 4 && !nikoClickTracker.triggered) {
+                        new Audio("sounds/m-i-a-u.mp3").play().catch(e => console.error("Error playing secret sound:", e));
+                        nikoClickTracker.triggered = true;
+
+                        setTimeout(() => {
+                            replaceTextWithMreow();
+                            const avatarUrl = data.avatar && data.avatar.link ? data.avatar.link : "https://via.placeholder.com/50";
+                            replaceImagesWith(avatarUrl);
+                            replaceVideosWith(avatarUrl);
+                        }, 100);
+                        return;
+                    }
+                }
+
                 if (friend.sfx) {
                     new Audio(friend.sfx).play().catch(e => console.error("Error playing friend sfx:", e));
                 }
@@ -390,6 +411,32 @@ async function populateFriends(containerId, friendArray) {
     }
     setupFriendHoverEffects(container);
     initMagneticLinks();
+}
+
+function replaceTextWithMreow() {
+    const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
+    let node;
+    while ((node = walker.nextNode())) {
+        node.textContent = "mreow";
+    }
+}
+
+function replaceImagesWith(url) {
+    const imgs = document.querySelectorAll("img");
+    imgs.forEach(img => {
+        img.src = url;
+    });
+}
+
+function replaceVideosWith(url) {
+    const videos = document.querySelectorAll("video");
+    videos.forEach(video => {
+        const img = document.createElement("img");
+        img.src = url;
+        img.style.width = video.offsetWidth + "px";
+        img.style.height = video.offsetHeight + "px";
+        video.parentNode.replaceChild(img, video);
+    });
 }
 
 function setupFriendHoverEffects(container) {
