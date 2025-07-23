@@ -230,7 +230,7 @@ async function fetchUserData() {
 
 async function fetchProfilePicture() {
     try {
-        const response = await fetch('https://discord-lookup-api-new-liard.vercel.app/v1/user/798177330010521630');
+        const response = await fetch('https://discord-lookup-api-one-coral.vercel.app/v1/user/798177330010521630');
         if (!response.ok) throw new Error(`Discord Lookup API failed with status: ${response.status}`);
         
         const data = await response.json();
@@ -1580,14 +1580,13 @@ function initCoolStuffTray() {
     const trayBackgroundOverlay = document.getElementById('trayBackgroundOverlay');
     if (!coolStuffTrigger || !bottomTray || !trayBackgroundOverlay) return;
     coolStuffTrigger.addEventListener('click', () => {
-    coolStuffTrigger.style.opacity = '1';
-
         const isOpen = bottomTray.classList.contains('open');
         if (isOpen) {
             bottomTray.classList.remove('open');
             trayBackgroundOverlay.classList.remove('active');
             document.body.classList.remove('tray-open');
             coolStuffTrigger.style.bottom = '20px';
+            coolStuffTrigger.style.opacity = '0.5';
         } else {
             bottomTray.classList.add('open');
             trayBackgroundOverlay.classList.add('active');
