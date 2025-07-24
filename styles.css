@@ -2367,3 +2367,95 @@ transition-delay: 0s;
     transform: scale(0.95);
     transition: transform 0.1s ease-out,border-radius 0.1s ease-in;
 }
+#footerContactForm {
+  padding-top: 10px;
+  margin-top: 20px;
+  border-top: 1px solid var(--tapioca);
+  font-family: 'Poppins', sans-serif;
+  max-width: 100%;
+}
+
+#contactForm {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+#contactForm input,
+#contactForm textarea {
+  background-color: #1A1A1A;
+  border: 1px solid #333;
+  color: var(--light);
+  padding: 10px;
+  font-size: 0.9em;
+  font-family: inherit;
+  transition: all 0.2s ease;
+  resize: none;
+}
+#contactForm input:nth-child(2) {
+  border-top-left-radius: 14px;
+  border-top-right-radius: 14px;
+}
+
+
+
+
+#contactForm input,
+#contactForm textarea {
+    border-radius: 2px;
+  padding-block: 10px;
+}
+#contactForm textarea {
+  border-bottom-left-radius: 14px;
+  border-bottom-right-radius: 14px;
+}
+#contactForm input:nth-child(2):focus {
+
+  padding-block: 13px;
+}
+#contactForm input:nth-child(2):focus ~ input:nth-child(3) {
+  padding-block: 8px;
+}
+#contactForm input:nth-child(2):focus ~ textarea {
+  padding-block: 9px; 
+}
+
+#contactForm input:nth-child(3):focus {
+  padding-block: 13px;
+}
+#contactForm input:nth-child(2) {
+  transition: padding 0.2s ease;
+}
+#contactForm input:nth-child(3):focus ~ textarea {
+  padding-block: 8.5px; 
+}
+#contactForm input:nth-child(2):not(:focus):has(+ input:focus) {
+  padding-block: 8.5px;
+}
+
+#contactForm textarea:focus {
+  padding-block: 13px;
+}
+#contactForm input:nth-child(3):not(:focus):has(+ textarea:focus) {
+  padding-block: 8px; 
+}
+#contactForm input:nth-child(2):not(:focus):has(+ input + textarea:focus) {
+  padding-block: 9px; 
+}
+
+
+#contactForm button {
+  align-self: flex-end;
+  background-color: var(--accent);
+  color: var(--dark);
+  font-weight: bold;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 14px;
+  cursor: pointer;
+  transition: transform 0.3s ease-in-out;
+}
+
+#contactForm button:hover {
+  transform: scale(0.95);
+}

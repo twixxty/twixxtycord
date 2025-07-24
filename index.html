@@ -442,7 +442,20 @@
                         </svg>
                         email
                     </a>
-                    <hr class="rounded">
+<section id="footerContactForm">
+                        <h2 id="contaxt">contact</h2>
+
+<form id="contactForm" method="POST" name="contact" action="https://twixxt.netlify.app/contact">
+  <input type="hidden" name="form-name" value="contact">
+
+  <input type="text" name="name" placeholder="Name" required>
+  <input type="email" name="email" placeholder="Email" required>
+  <textarea name="message" rows="3" placeholder="Message" required></textarea>
+
+  <button type="submit">Send ↗</button>
+</form>
+
+</section>
                 </div>
                 <div class="column info-column">
                     <h2 id="randomMessage" style="margin-bottom: 0px;">Random Message</h2>
