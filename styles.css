@@ -2370,7 +2370,6 @@ transition-delay: 0s;
 #footerContactForm {
   padding-top: 10px;
   margin-top: 20px;
-  border-top: 1px solid var(--tapioca);
   font-family: 'Poppins', sans-serif;
   max-width: 100%;
 }
