@@ -2306,3 +2306,58 @@ document.addEventListener('DOMContentLoaded', () => {
         captionElement.textContent = randomData.caption;
     }
 });
+
+function saveUserID(id) {
+  localStorage.setItem("discordUserID", id);
+}
+function getSavedUserID() {
+  return localStorage.getItem("discordUserID");
+}
+function editUserID() {
+  document.querySelectorAll('.spinning-avatar').forEach(el => el.style.opacity = '0.05');
+ document.getElementById("cardData").style.display = "none";
+  document.getElementById("discordEditArea").style.display = "block";
+  card.setAttribute("data-has-content", "false");
+   document.getElementById("discordUserIDInput").value = "";
+  localStorage.removeItem("discordUserID");
+}
+async function fetchDiscordCardData(userID) {
+  document.querySelectorAll('.spinning-avatar').forEach(el => el.style.opacity = '0.7');
+  const res = await fetch(`https://discord-lookup-api-new-liard.vercel.app/v1/user/${userID}`);
+  const data = await res.json();
+
+  document.querySelector("#cardPfp").src = data.avatar.link;
+  if (data.avatar_decoration?.asset) {
+    document.querySelector("#cardDecoration").src = `https://cdn.discordapp.com/avatar-decoration-presets/${data.avatar_decoration.asset}.png`;
+  } else {
+    document.querySelector("#cardDecoration").style.display = 'none';
+  }
+  document.querySelector(".card-username").textContent = `@${data.username}`;
+  document.querySelector(".card-global-name").textContent = data.global_name;
+
+  document.querySelector(".spinning-avatar.top-left").style.backgroundImage = `url('${data.avatar.link}')`;
+  document.querySelector(".spinning-avatar.bottom-right").style.backgroundImage = `url('${data.avatar.link}')`;
+
+  document.querySelector(".spinning-avatar.bottom-right").style.backgroundImage = `url('${data.avatar.link}')`;
+
+  document.getElementById("cardData").style.display = "flex";
+    document.getElementById("discordEditArea").style.display = "none";
+}
+
+document.getElementById("fetchDiscordData").addEventListener("click", () => {
+  const userID = document.getElementById("discordUserIDInput").value.trim();
+  if (userID) {
+    saveUserID(userID);
+    fetchDiscordCardData(userID);
+  }
+});
+
+window.addEventListener("DOMContentLoaded", () => {
+  const savedID = getSavedUserID();
+  if (savedID) {
+    fetchDiscordCardData(savedID);
+  } else {
+    document.getElementById("cardData").style.display = "none";
+    document.getElementById("discordEditArea").style.display = "block";
+  }
+});
