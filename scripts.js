@@ -1515,7 +1515,7 @@ function initProjectScrollNumber() {
     dynamicDigitsReelContainer.classList.add('dynamic-digits-reel-container');
     const dynamicDigitsReelInnerEl = document.createElement('div');
     dynamicDigitsReelInnerEl.classList.add('dynamic-digits-reel-inner');
-    dynamicDigitsReelInnerEl.style.transition = 'transform 0.15s ease-out';
+    dynamicDigitsReelInnerEl.style.transition = 'transform 0.5s ease-out';
     projects.forEach((project, index) => {
         const projectIdFull = project.dataset.projectId || String(index + 1).padStart(2, '0');
         const dynamicDigit = projectIdFull.length > 1 ? projectIdFull.substring(1) : projectIdFull;
@@ -1928,8 +1928,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
         function toggleMenuNav(scrollToTarget = null) {
             const isActive = overlayMenuNav.classList.contains('active');
-            const baseDelay = 0.25;
-            const staggerIncrement = 0.07;
+            const baseDelay = 0.3;
+            const staggerIncrement = 0.03;
             const scrollOffset = -80; 
                        if (isActive) {
                 overlayMenuNav.classList.remove('active');
@@ -1946,14 +1946,16 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (window.lenisInstance) {
                     window.lenisInstance.start();
                 } else {
-                    document.body.style.overflow = '';
+menuToggleNav.setAttribute('aria-label', 'Open menu');
+document.body.style.overflow = '';
                 }
             } else {
                 overlayMenuNav.classList.add('active');
                 bodyOverlayNav.classList.add('active');
                 menuToggleNav.classList.add('active');
                 menuToggleNav.setAttribute('aria-expanded', 'true');
-                menuToggleNav.setAttribute('aria-label', 'Close menu');
+menuToggleNav.setAttribute('aria-label', 'Close menu');
+document.body.style.overflow = 'hidden';
 
                 menuNavLinksLi.forEach((li, index) => {
                     li.style.transitionDelay = `${baseDelay + (index * staggerIncrement)}s`;
@@ -1974,7 +1976,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     if (window.lenisInstance) {
                         window.lenisInstance.scrollTo(scrollToTarget, {
                             offset: scrollOffset,                                                         
-                            duration: 1.5
+                            duration: 3
                         });
                     } else {
                         const targetElement = document.querySelector(scrollToTarget);
