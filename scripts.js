@@ -1327,7 +1327,6 @@ function setupGunMode() {
 
     gunImageToggle.addEventListener("click", toggleGunMode);
     document.addEventListener("keydown", (e) => {
-        if (e.key.toLowerCase() === "p") toggleGunMode();
     });
     document.addEventListener("mousemove", (e) => {
         targetX = e.clientX;
