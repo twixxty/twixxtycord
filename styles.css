@@ -2448,13 +2448,19 @@ transition-delay: 0s;
   background-color: var(--accent);
   color: var(--dark);
   font-weight: bold;
-  border: none;
+  border: solid var(--dark) 2px;
   padding: 10px 16px;
   border-radius: 14px;
   cursor: pointer;
-  transition: transform 0.3s ease-in-out;
+  transition: transform 0.3s ease-in-out, color 0.3s ease-in-out, background-color 0.3s ease-in-out, border 0.3s ease-in-out;
 }
 
 #contactForm button:hover {
-  transform: scale(0.95);
+  border: solid var(--accent) 2px;
+  background-color: #111;
+  color: var(--accent);
+}
+
+#contactForm button:active {
+transform: scale(0.95);
 }
