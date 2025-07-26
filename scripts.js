@@ -1946,16 +1946,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (window.lenisInstance) {
                     window.lenisInstance.start();
                 } else {
-menuToggleNav.setAttribute('aria-label', 'Open menu');
-document.body.style.overflow = '';
+                    document.body.style.overflow = '';
                 }
             } else {
                 overlayMenuNav.classList.add('active');
                 bodyOverlayNav.classList.add('active');
                 menuToggleNav.classList.add('active');
                 menuToggleNav.setAttribute('aria-expanded', 'true');
-menuToggleNav.setAttribute('aria-label', 'Close menu');
-document.body.style.overflow = 'hidden';
+                menuToggleNav.setAttribute('aria-label', 'Close menu');
 
                 menuNavLinksLi.forEach((li, index) => {
                     li.style.transitionDelay = `${baseDelay + (index * staggerIncrement)}s`;
