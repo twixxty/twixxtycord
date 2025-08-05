@@ -735,6 +735,7 @@ transform: translateY(0);
 #pfp {
 border: #111 8px solid;
 cursor: pointer;
+pointer-events:none;
 width: 150px !important;
 height: 150px !important;
 border-radius: 30%;
@@ -890,14 +891,12 @@ filter: blur(10px);
 transform: translateY(20px);
 }
 ::selection {
-background: var(--accent);
-color: var(--dark);
-text-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
-backdrop-filter: blur(5px);
+background: transparent;
+
 }
 ::-moz-selection {
-background: var(--accent);
-color: var(--dark);
+background: transparent;
+
 }
 a, button, * {
 -webkit-tap-highlight-color:transparent;
@@ -1878,7 +1877,7 @@ box-sizing: border-box;
 .testimonial-content {
 display: flex;
 flex-direction: column;
-justify-content: center;
+justify-content: left;
 }
 .testimonial-quote {
 font-size: 1.9rem;

@@ -1840,7 +1840,7 @@ document.addEventListener('DOMContentLoaded', () => {
     fetchMoreFriends();
 
 
-    const pfpElement = document.getElementById("pfp");
+    const pfpElement = document.getElementById("pfpp");
      const sounds = ["/sfx/1.mp3", "/sfx/2.mp3", "/sfx/3.mp3", "/sfx/4.mp3", "/sfx/5.mp3", "/sfx/6.mp3", "/sfx/7.mp3", "/sfx/8.mp3", "/sfx/9.mp3", "/sfx/10.mp3", "/sfx/11.mp3", "/sfx/12.mp3", "/sfx/13.mp3","/sfx/sfx (1).mp3",
 "/sfx/sfx (2).mp3",
 "/sfx/sfx (3).mp3",
