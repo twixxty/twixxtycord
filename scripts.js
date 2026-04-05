@@ -1683,80 +1683,70 @@ function initBackToTop() {
 }
 
 function initTestimonialSlider() {
-    const testimonialsSection = document.querySelector('.testimonials-section');
-    if (!testimonialsSection) return;
-    const testimonialItems = Array.from(testimonialsSection.querySelectorAll('.testimonial-item'));
-    const prevButton = document.getElementById('testimonialPrev');
-    const nextButton = document.getElementById('testimonialNext');
-    if (testimonialItems.length === 0) return;
-    let currentTestimonialIndex = 0,
-        isDesktopMode = false, 
-        isAnimating = false;
-    const animationDuration = 500;
+    const section = document.querySelector('.testimonials-section');
+    if (!section) return;
+
+    const items = Array.from(section.querySelectorAll('.testimonial-item'));
+    const nextBtn = document.getElementById('testimonialNext');
+    const prevBtn = document.getElementById('testimonialPrev');
+    let currentIndex = 0;
+    let isAnimating = false;
 
     function setMode() {
-        const newIsDesktopMode = window.matchMedia("(min-width: 769px)").matches;
+        const isDesktop = window.matchMedia("(min-width: 850px)").matches;
+        section.classList.toggle('desktop-mode', isDesktop);
+        section.classList.toggle('mobile-mode', !isDesktop);
 
-        if (newIsDesktopMode === isDesktopMode && testimonialsSection.dataset.modeInitialized === 'true') {
-            return;
-        }
+        items.forEach(item => {
+            const quote = item.querySelector('.testimonial-quote');
+            const text = quote.getAttribute('data-text') || quote.innerText.trim().replace(/^"|"$/g, '');
+            if (isDesktop) {
+                quote.setAttribute('data-text', text);
+                quote.innerHTML = text.split(' ').map((word, i) => 
+                    `<span class="word-wrapper"><span class="word" style="--word-index: ${i}">${word}</span></span>`
+                ).join(' ');
+            } else {
+                quote.innerHTML = `"${text}"`;
+            }
+        });
 
-        isDesktopMode = newIsDesktopMode; 
-        testimonialsSection.dataset.modeInitialized = 'true'; 
-
-        testimonialsSection.classList.toggle('desktop-mode', isDesktopMode);
-        testimonialsSection.classList.toggle('mobile-mode', !isDesktopMode);
-
-        testimonialItems.forEach(item => item.classList.remove('active', 'is-leaving', 'is-entering'));
-
-        if (isDesktopMode && testimonialItems.length > 0) {
-            testimonialItems[currentTestimonialIndex].classList.add('active');
-        } else if (!isDesktopMode) {
-            testimonialItems.forEach(item => item.classList.add('active'));
+        if (isDesktop) {
+            items.forEach((item, i) => {
+                item.classList.toggle('active', i === currentIndex);
+                item.classList.remove('is-leaving');
+            });
         }
     }
 
-    function showTestimonialDesktop(newIndex) {
-        if (isAnimating || newIndex === currentTestimonialIndex) return;
+    function navigate(newIndex) {
+        if (isAnimating || !section.classList.contains('desktop-mode')) return;
         isAnimating = true;
-        const oldItem = testimonialItems[currentTestimonialIndex];
-        const newItem = testimonialItems[newIndex];
-        if (oldItem) {
-            oldItem.classList.add('is-leaving');
-            oldItem.classList.remove('active');
-        }
-        if (newItem) {
-            newItem.classList.remove('is-leaving');
-            newItem.classList.add('is-entering');
-            void newItem.offsetWidth;
-            newItem.classList.add('active');
-            newItem.classList.remove('is-entering');
-        }
-        currentTestimonialIndex = newIndex;
+
+        const oldItem = items[currentIndex];
+        const newItem = items[newIndex];
+
+        oldItem.classList.add('is-leaving');
+        oldItem.classList.remove('active');
+
+        newItem.classList.remove('is-leaving');
+        void newItem.offsetWidth;
+        newItem.classList.add('active');
+
+        currentIndex = newIndex;
+
         setTimeout(() => {
-            if (oldItem) oldItem.classList.remove('is-leaving');
+            oldItem.classList.remove('is-leaving');
             isAnimating = false;
-        }, animationDuration + 50); 
+        }, 800); 
     }
+
+    window.addEventListener('resize', setMode);
+    nextBtn?.addEventListener('click', () => navigate((currentIndex + 1) % items.length));
+    prevBtn?.addEventListener('click', () => navigate((currentIndex - 1 + items.length) % items.length));
 
     setMode();
-    window.addEventListener('resize', setMode);
-
-    if (prevButton && nextButton) {
-        prevButton.addEventListener('click', () => {
-            if (isDesktopMode) { 
-                showTestimonialDesktop((currentTestimonialIndex - 1 + testimonialItems.length) % testimonialItems.length);
-            }
-        });
-        nextButton.addEventListener('click', () => {
-            if (isDesktopMode) { 
-                showTestimonialDesktop((currentTestimonialIndex + 1) % testimonialItems.length);
-            }
-        });
-    } else if (isDesktopMode && testimonialItems.length > 0) {
-       }
 }
-
+document.addEventListener('DOMContentLoaded', initTestimonialSlider);
 
 document.addEventListener('DOMContentLoaded', () => {
     const linksWithIcons = document.querySelectorAll('.connections-column a[data-icon]');
