@@ -218,7 +218,7 @@ async function fetchUserData() {
         const displayHeader = document.getElementById("displayHeader");
 
         if (data.global_name && data.username) {
-            if (pageTitle) pageTitle.textContent = "Hammad Alam Khan's Portfolio";
+            if (pageTitle) pageTitle.textContent = "twixxty's portfolio";
             if (displayHeader) displayHeader.innerHTML = `${data.global_name} <br><span style='font-size: 0.6em; color: var(--tapioca);'>(@${data.username})</span>`;
         } else {
             console.warn("User data from Discord API missing global_name or username.");
@@ -1797,7 +1797,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const overlayTextElement = document.getElementById("overlayText");
     const pageLoadOverlay = document.getElementById('pageLoadOverlay');
     const mainElement = document.querySelector('main');
-    const loadingTexts = ["loading", "hi", "welcome", "initialising", "wat", "fetching", "cooking", "preparing", "hold on", "be patient", "thinking", "im hammad", "sussy baka", "chairs r lowkey sat on", "playing", "waiting", "dapping", "thinking", "bazinga!", "khelega free fire", "hammad site", "3 seconds loading", "powered by 1900 lemons", "hello dude"];
+    const loadingTexts = ["loading", "hi", "welcome", "initialising", "wat", "fetching", "cooking", "preparing", "hold on", "be patient", "thinking", "im twixxty", "sussy baka", "chairs r lowkey sat on", "playing", "waiting", "dapping", "thinking", "bazinga!", "khelega free fire", "twixxty site", "3 seconds loading", "powered by 1900 lemons", "hello dude"];
     if (overlayTextElement) overlayTextElement.textContent = getRandomItem(loadingTexts);
 
     if (overlayTextElement && pageLoadOverlay && mainElement) {
