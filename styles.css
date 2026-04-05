@@ -46,11 +46,6 @@ pointer-events: none;
 
 
 
-.menu-toggle-button-nav .bar-nav { /* ... */ }
-.menu-toggle-button-nav .bar1 { /* ... */ }
-.menu-toggle-button-nav .bar2 { /* ... */ }
-.menu-toggle-button-nav.active .bar1 { /* ... */ }
-.menu-toggle-button-nav.active .bar2 { /* ... */ }
 .top-bar-nav {
     position: fixed;
     top: 20px;
@@ -376,7 +371,6 @@ text-decoration: underline wavy;
 @media (max-width: 500px) {                                                         
     .overlay-menu-nav .nav-links-nav {
         padding-top: 80px;                                                          
-                                                                                    ar + some breathing room */
     }
     .cta-button-nav{
         display: none;
@@ -478,26 +472,25 @@ pointer-events: none;
 }
 @font-face {
 font-family: 'editorialbold';
-src: url('/fonts/PPEditorialNew-Ultrabold-BF644b21500840c.otf') format('woff2'),
+src: url('/fonts/PPEditorialNew-Ultrabold-BF644b21500840c.otf') format('woff2');
 font-weight: normal;
 font-style: normal;
 }
 @font-face {
 font-family: 'editorialbolditalic';
-src: url('/fonts/PPEditorialNew-UltraboldItalic-BF644b214faef01.otf') format('woff2'),
+src: url('/fonts/PPEditorialNew-UltraboldItalic-BF644b214faef01.otf') format('woff2');
 font-weight: normal;
 font-style: normal;
 }
 @font-face {
 font-family: 'Gome';
-src: url('/fonts/GomePixel-ARJd7.otf') format('woff2'),
-url('/fonts/GomePixel-DYJX1.otf') format('woff');
+src: url('/fonts/GomePixel-ARJd7.otf') format('woff2');
 font-weight: normal;
 font-style: normal;
 }
 @font-face {
 font-family: 'zefani';
-src: url('/fonts/Zefani.otf') format('woff2'),
+src: url('/fonts/Zefani.otf') format('woff2');
 font-weight: normal;
 font-style: normal;
 }
@@ -537,12 +530,10 @@ transform: rotate(360deg);
 50% {
 scale: 0.5;
 opacity: 0;
-filter: blur(100px);
 }
-100 {
+100% {
 scale: 1;
 opacity: 1;
-filter: blur(0px);
 }
 }
 .floating-image {
@@ -699,10 +690,7 @@ border-radius: 10px;
 ::-webkit-scrollbar-track {
 background: transparent;
 }
-{
-scrollbar-width: thin;
-scrollbar-color: rgba(0, 0, 0, 0) transparent;
-}
+
 footer {
 text-rendering: pixelated;
 }
@@ -823,7 +811,7 @@ font-family: "editorial";
 text-rendering: pixelated;
 font-size: 32px;
 }
-h3, h4, h5, h6, body, {
+h3, h4, h5, h6, body {
 text-rendering: pixelated;
 font-size: 16px;
 }
@@ -927,8 +915,7 @@ width: 50px;
 height: 50px;
 transition: transform 0.2s ease-in-out, border-radius 0.2s ease-in-out, filter 0.5s ease-in-out, padding 0.2s ease-in-out,width 0.2s ease-in-out;
 }
-.friend-pfp:active {
-}
+
 .friend.active .friend-pfp {
 transition: transform 0.2s ease-in-out, border-radius 0.2s ease-in-out, filter 0.5s ease-in-out, padding 0.2s ease-in-out,width 0.2s ease-in-out;
 backdrop-filter: blur(10px);
@@ -1107,7 +1094,6 @@ background-color: var(--accent);
 color: #000000;
 text-decoration: underline wavy;
 }
-<link rel=”stylesheet” href=”https://unpkg.com/lenis@1.1.13/dist/lenis.css"
 :root {
     --banner-height: 200px;
     --pfp-size: 75px;
@@ -1257,12 +1243,7 @@ transition: transform 0.5s ease-in-out, border-radius 0.5s ease-in-out;
     filter: opacity(0) blur(5px) brightness(0);
   
 }
-.profile-info {
-margin-top: calc(
-(var(--banner-height) - (var(--pfp-total-size) * var(--pfp-overlap-banner-percentage))) +
-var(--pfp-total-size) +
-);
-}
+
 @media (max-width: 600px) {
 :root {
 --pfp-overlap-banner-percentage: 0.80;
