@@ -326,9 +326,9 @@ const friendsList = [{
     username: "Friend 3",
     sfx: "sounds/dhiren.mp3"
 },{
-    id: "1081451019260678245",
-    username: "Friend C",
-    sfx: "sounds/vro.mp3"
+    id: "1433468286179479552",
+    username: "Friend 4",
+    sfx: "sounds/dashin.mp3"
 }, {
     id: "735955748579836025",
     username: "Friend 5",
