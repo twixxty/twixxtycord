@@ -2360,7 +2360,8 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 document.addEventListener('DOMContentLoaded', () => {
 
-    const imageAndCaptionData = [{
+    const imageAndCaptionData = [
+        {
             src: 'images/boom.jpeg',
             caption: 'boom.'
         },
@@ -2398,17 +2399,32 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     ];
 
-    const imageElement = document.getElementById('random-portrait-img');
-    const captionElement = document.getElementById('image-caption-text');
-    const imageContainer = document.querySelector('.visual-about-image');
+    const imageElement =
+        document.getElementById('random-portrait-img');
 
-    if (imageElement && captionElement && imageContainer && imageAndCaptionData.length > 0) {
+    const captionElement =
+        document.getElementById('image-caption-text');
 
-        const randomIndex = Math.floor(Math.random() * imageAndCaptionData.length);
-        const randomData = imageAndCaptionData[randomIndex];
+    const imageContainer =
+        document.querySelector('.visual-about-image');
+
+    if (
+        imageElement &&
+        captionElement &&
+        imageContainer &&
+        imageAndCaptionData.length > 0
+    ) {
+
+        const randomIndex =
+            Math.floor(Math.random() * imageAndCaptionData.length);
+
+        const randomData =
+            imageAndCaptionData[randomIndex];
 
         imageElement.src = randomData.src;
-        captionElement.textContent = randomData.caption;
+
+        captionElement.textContent =
+            randomData.caption;
 
         imageContainer.style.setProperty(
             '--bg-image',
@@ -2422,26 +2438,31 @@ document.addEventListener('DOMContentLoaded', () => {
 
     textTargets.forEach(element => {
 
-        const words = element.textContent.trim().split(' ');
+        const words =
+            element.textContent.trim().split(' ');
+
         element.innerHTML = '';
 
         words.forEach((word, index) => {
 
-            /* wrapper */
             const wrap = document.createElement('span');
             wrap.classList.add('word-wrap');
 
-            /* animated word */
             const span = document.createElement('span');
             span.classList.add('word-reveal');
 
             span.textContent = word;
-            span.style.animationDelay = `${index * 0.05}s`;
+
+            span.style.animationDelay =
+                `${index * 0.05}s`;
 
             wrap.appendChild(span);
 
             element.appendChild(wrap);
-            element.appendChild(document.createTextNode(' '));
+
+            element.appendChild(
+                document.createTextNode(' ')
+            );
 
         });
 
@@ -2449,33 +2470,72 @@ document.addEventListener('DOMContentLoaded', () => {
 
     setTimeout(() => {
 
-        const observer = new IntersectionObserver(
+        const imageObserver = new IntersectionObserver(
             (entries) => {
 
                 entries.forEach(entry => {
 
                     if (entry.isIntersecting) {
 
-                        imageContainer.classList.add('reveal-active');
+                        imageContainer.classList.add(
+                            'reveal-active'
+                        );
 
-                        const words = document.querySelectorAll('.word-reveal');
-
-                        words.forEach(word => {
-                            word.classList.add('reveal-word');
-                        });
-
-                        observer.unobserve(entry.target);
+                        imageObserver.unobserve(
+                            entry.target
+                        );
 
                     }
 
                 });
 
-            }, {
-                threshold: 0.35
+            },
+            {
+                threshold: 0.5
             }
         );
 
-        observer.observe(document.querySelector('.visual-about-section'));
+        imageObserver.observe(imageContainer);
+
+        const textContainer =
+            document.querySelector('.visual-about-text');
+
+        const textObserver = new IntersectionObserver(
+            (entries) => {
+
+                entries.forEach(entry => {
+
+                    if (entry.isIntersecting) {
+
+                        const words =
+                            textContainer.querySelectorAll(
+                                '.word-reveal'
+                            );
+
+                        words.forEach(word => {
+
+                            word.classList.add(
+                                'reveal-word'
+                            );
+
+                        });
+
+                        textObserver.unobserve(
+                            entry.target
+                        );
+
+                    }
+
+                });
+
+            },
+            {
+                threshold: 0.6,
+                rootMargin: '-10% 0px -10% 0px'
+            }
+        );
+
+        textObserver.observe(textContainer);
 
     }, 3500);
 
