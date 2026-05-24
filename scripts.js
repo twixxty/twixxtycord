@@ -2553,7 +2553,7 @@ setTimeout(() => {
 
     });
 
-}, 2500);
+}, 2900);
 
 const wipeHeadings = document.querySelectorAll('.wipe-heading');
 
