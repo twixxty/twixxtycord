@@ -95,9 +95,9 @@ async function getLanyardStatus() {
     }
 }
 
-        document.addEventListener('DOMContentLoaded', getLanyardStatus);
+document.addEventListener('DOMContentLoaded', getLanyardStatus);
 
-        document.addEventListener('DOMContentLoaded', getLanyardStatus);
+document.addEventListener('DOMContentLoaded', getLanyardStatus);
 
 async function updateDiscordStatus() {
     const statusElement = document.getElementById("randomText");
@@ -232,7 +232,7 @@ async function fetchProfilePicture() {
     try {
         const response = await fetch('https://discord-lookup-api-one-coral.vercel.app/v1/user/798177330010521630');
         if (!response.ok) throw new Error(`Discord Lookup API failed with status: ${response.status}`);
-        
+
         const data = await response.json();
         const pfp = document.getElementById("pfp");
         const decoration = document.getElementById("avatarDecoration");
@@ -325,7 +325,7 @@ const friendsList = [{
     id: "860917681879253002",
     username: "Friend 3",
     sfx: "sounds/dhiren.mp3"
-},{
+}, {
     id: "1433468286179479552",
     username: "Friend 4",
     sfx: "sounds/dashin.mp3"
@@ -1326,8 +1326,7 @@ function setupGunMode() {
     }
 
     gunImageToggle.addEventListener("click", toggleGunMode);
-    document.addEventListener("keydown", (e) => {
-    });
+    document.addEventListener("keydown", (e) => {});
     document.addEventListener("mousemove", (e) => {
         targetX = e.clientX;
         targetY = e.clientY;
@@ -1702,14 +1701,41 @@ function initTestimonialSlider() {
             const text = quote.getAttribute('data-text') || quote.innerText.trim().replace(/^"|"$/g, '');
             if (isDesktop) {
                 quote.setAttribute('data-text', text);
-                quote.innerHTML = text.split(' ').map((word, i) => 
+                quote.innerHTML = text.split(' ').map((word, i) =>
                     `<span class="word-wrapper"><span class="word" style="--word-index: ${i}">${word}</span></span>`
                 ).join(' ');
             } else {
-                quote.innerHTML = `"${text}"`;
+                quote.innerHTML = text.split(' ').map((word, i) =>
+                    `<span class="word-wrapper"><span class="word" style="--word-index:${i}">${word}</span></span>`
+                ).join(' ');
             }
         });
+        const mobileObserver = new IntersectionObserver(
+            (entries) => {
 
+                entries.forEach(entry => {
+
+                    if (
+                        entry.isIntersecting &&
+                        entry.intersectionRatio > 0.6 &&
+                        section.classList.contains('mobile-mode')
+                    ) {
+
+                        entry.target.classList.add('mobile-visible');
+
+                        mobileObserver.unobserve(entry.target);
+                    }
+
+                });
+
+            }, {
+                threshold: [0.6]
+            }
+        );
+
+        items.forEach(item => {
+            mobileObserver.observe(item);
+        });
         if (isDesktop) {
             items.forEach((item, i) => {
                 item.classList.toggle('active', i === currentIndex);
@@ -1737,7 +1763,7 @@ function initTestimonialSlider() {
         setTimeout(() => {
             oldItem.classList.remove('is-leaving');
             isAnimating = false;
-        }, 800); 
+        }, 800);
     }
 
     window.addEventListener('resize', setMode);
@@ -1831,28 +1857,30 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     const pfpElement = document.getElementById("pfpp");
-     const sounds = ["/sfx/1.mp3", "/sfx/2.mp3", "/sfx/3.mp3", "/sfx/4.mp3", "/sfx/5.mp3", "/sfx/6.mp3", "/sfx/7.mp3", "/sfx/8.mp3", "/sfx/9.mp3", "/sfx/10.mp3", "/sfx/11.mp3", "/sfx/12.mp3", "/sfx/13.mp3","/sfx/sfx (1).mp3",
-"/sfx/sfx (2).mp3",
-"/sfx/sfx (3).mp3",
-"/sfx/sfx (4).mp3",
-"/sfx/sfx (5).mp3",
-"/sfx/sfx (6).mp3",
-"/sfx/sfx (7).mp3",
-"/sfx/sfx (8).mp3",
-"/sfx/sfx (9).mp3",
-"/sfx/sfx (10).mp3",
-"/sfx/sfx (11).mp3",
-"/sfx/sfx (12).mp3",
-"/sfx/sfx (13).mp3",
-"/sfx/sfx (14).mp3",
-"/sfx/sfx (15).mp3",
-"/sfx/sfx (16).mp3",
-"/sfx/sfx (17).mp3",
-"/sfx/sfx (18).mp3",
-"/sfx/sfx (19).mp3",
-"/sfx/sfx (20).mp3",
-"/sfx/sfx (21).mp3"];
-function preloadSounds(soundList) {
+    const sounds = ["/sfx/1.mp3", "/sfx/2.mp3", "/sfx/3.mp3", "/sfx/4.mp3", "/sfx/5.mp3", "/sfx/6.mp3", "/sfx/7.mp3", "/sfx/8.mp3", "/sfx/9.mp3", "/sfx/10.mp3", "/sfx/11.mp3", "/sfx/12.mp3", "/sfx/13.mp3", "/sfx/sfx (1).mp3",
+        "/sfx/sfx (2).mp3",
+        "/sfx/sfx (3).mp3",
+        "/sfx/sfx (4).mp3",
+        "/sfx/sfx (5).mp3",
+        "/sfx/sfx (6).mp3",
+        "/sfx/sfx (7).mp3",
+        "/sfx/sfx (8).mp3",
+        "/sfx/sfx (9).mp3",
+        "/sfx/sfx (10).mp3",
+        "/sfx/sfx (11).mp3",
+        "/sfx/sfx (12).mp3",
+        "/sfx/sfx (13).mp3",
+        "/sfx/sfx (14).mp3",
+        "/sfx/sfx (15).mp3",
+        "/sfx/sfx (16).mp3",
+        "/sfx/sfx (17).mp3",
+        "/sfx/sfx (18).mp3",
+        "/sfx/sfx (19).mp3",
+        "/sfx/sfx (20).mp3",
+        "/sfx/sfx (21).mp3"
+    ];
+
+    function preloadSounds(soundList) {
         console.log("Preloading sounds...");
         for (const sound of soundList) {
             const audio = new Audio();
@@ -1864,7 +1892,7 @@ function preloadSounds(soundList) {
 
     if (pfpElement) {
         pfpElement.addEventListener("click", () => {
-           
+
             new Audio(getRandomItem(sounds)).play();
             pfpElement.style.pointerEvents = "none";
             setTimeout(() => {
@@ -1920,8 +1948,8 @@ document.addEventListener('DOMContentLoaded', () => {
             const isActive = overlayMenuNav.classList.contains('active');
             const baseDelay = 0.3;
             const staggerIncrement = 0.03;
-            const scrollOffset = -80; 
-                       if (isActive) {
+            const scrollOffset = -80;
+            if (isActive) {
                 overlayMenuNav.classList.remove('active');
                 bodyOverlayNav.classList.remove('active');
                 menuToggleNav.classList.remove('active');
@@ -1959,18 +1987,18 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             }
 
-            if (scrollToTarget && scrollToTarget !== '#') {                                                          
+            if (scrollToTarget && scrollToTarget !== '#') {
                 setTimeout(() => {
                     if (window.lenisInstance) {
                         window.lenisInstance.scrollTo(scrollToTarget, {
-                            offset: scrollOffset,                                                         
+                            offset: scrollOffset,
                             duration: 3
                         });
                     } else {
                         const targetElement = document.querySelector(scrollToTarget);
                         if (targetElement) {
                             const elementPosition = targetElement.getBoundingClientRect().top;
-                            const offsetPosition = elementPosition + window.pageYOffset + scrollOffset;                                                          
+                            const offsetPosition = elementPosition + window.pageYOffset + scrollOffset;
 
                             window.scrollTo({
                                 top: offsetPosition,
@@ -1978,13 +2006,18 @@ document.addEventListener('DOMContentLoaded', () => {
                             });
                         }
                     }
-                }, isActive ? 50 : 450);                                                          
-            } else if (scrollToTarget === '#') {                                                         
-                 setTimeout(() => {
+                }, isActive ? 50 : 450);
+            } else if (scrollToTarget === '#') {
+                setTimeout(() => {
                     if (window.lenisInstance) {
-                        window.lenisInstance.scrollTo(0, { duration: 1.5 });
+                        window.lenisInstance.scrollTo(0, {
+                            duration: 1.5
+                        });
                     } else {
-                        window.scrollTo({ top: 0, behavior: 'smooth' });
+                        window.scrollTo({
+                            top: 0,
+                            behavior: 'smooth'
+                        });
                     }
                 }, isActive ? 50 : 450);
             }
@@ -2014,27 +2047,28 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
 
-    } else { /* ... console warn ... */ }
+    } else {
+    }
 
 });
 
 document.addEventListener('DOMContentLoaded', () => {
 
     const topBarNav = document.querySelector('.top-bar-nav');
-       const profileHeaderElement = document.querySelector('.profile-header');
-    
+    const profileHeaderElement = document.querySelector('.profile-header');
+
     if (topBarNav && profileHeaderElement) {
         const observerOptions = {
-            root: null,                                                          
+            root: null,
             rootMargin: '0px',
-             threshold: 0                                                                                                                   
+            threshold: 0
         };
 
         let isProfileHeaderAboveViewport = false;
 
         const profileHeaderObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
-               
+
                 if (!entry.isIntersecting && entry.boundingClientRect.bottom < 0) {
                     if (!isProfileHeaderAboveViewport) {
                         topBarNav.classList.add('visible');
@@ -2054,8 +2088,8 @@ document.addEventListener('DOMContentLoaded', () => {
     } else {
         if (!topBarNav) console.warn("Top bar (.top-bar-nav) not found for scroll visibility.");
         if (!profileHeaderElement) console.warn("Profile header element (.profile-header or #displayHeader) not found for scroll visibility trigger.");
-      }
-   
+    }
+
 });
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -2073,39 +2107,56 @@ document.addEventListener('DOMContentLoaded', () => {
         const ampmReelInner = timeReelContainer.querySelector('.ampm-reel .reel-inner');
         const allReels = [hourReelInner, minuteReelInner, secondReelInner, ampmReelInner];
 
-        if (allReels.some(reel => !reel)) {                                                          
+        if (allReels.some(reel => !reel)) {
             console.warn("One or more India time reel inner elements not found. Clock reverting to simple text.");
             timeReelContainer.innerHTML = '<span class="time-label">India Time:</span> <span id="indiaTimeSimpleText">Loading...</span>';
             const indiaTimeSimpleText = document.getElementById("indiaTimeSimpleText");
             if (indiaTimeSimpleText) {
                 setInterval(() => {
-                    const options = { timeZone: "Asia/Kolkata", hour: "2-digit", minute: "2-digit", second: "2-digit", hour12: true };
+                    const options = {
+                        timeZone: "Asia/Kolkata",
+                        hour: "2-digit",
+                        minute: "2-digit",
+                        second: "2-digit",
+                        hour12: true
+                    };
                     indiaTimeSimpleText.textContent = new Date().toLocaleTimeString("en-IN", options);
                 }, 1000);
             }
             return;
         }
 
-        const slotHeight = 1.4;                                                          
-        const revealAnimationDelay = 500;                                                                                                                   
+        const slotHeight = 1.4;
+        const revealAnimationDelay = 500;
 
         function populateReel(reelInner, max, isHour = false, isAmPm = false) {
             reelInner.innerHTML = '';
             if (isAmPm) {
-                ['AM', 'PM'].forEach(val => { /* ... */ });
+                ['AM', 'PM'].forEach(val => {
+                    /* ... */
+                });
             } else {
                 const start = isHour ? 1 : 0;
                 const end = isHour ? 12 : max;
-                for (let i = start; i <= end; i++) { /* ... */ }
+                for (let i = start; i <= end; i++) {
+                    /* ... */
+                }
             }
             if (isAmPm) {
                 ['AM', 'PM'].forEach(val => {
-                    const slot = document.createElement('div'); slot.classList.add('digit-slot'); slot.textContent = val; reelInner.appendChild(slot);
+                    const slot = document.createElement('div');
+                    slot.classList.add('digit-slot');
+                    slot.textContent = val;
+                    reelInner.appendChild(slot);
                 });
             } else {
-                const start = isHour ? 1 : 0; const end = isHour ? 12 : max;
+                const start = isHour ? 1 : 0;
+                const end = isHour ? 12 : max;
                 for (let i = start; i <= end; i++) {
-                    const slot = document.createElement('div'); slot.classList.add('digit-slot'); slot.textContent = i.toString().padStart(2, '0'); reelInner.appendChild(slot);
+                    const slot = document.createElement('div');
+                    slot.classList.add('digit-slot');
+                    slot.textContent = i.toString().padStart(2, '0');
+                    reelInner.appendChild(slot);
                 }
             }
         }
@@ -2115,10 +2166,15 @@ document.addEventListener('DOMContentLoaded', () => {
         populateReel(secondReelInner, 59);
         populateReel(ampmReelInner, 0, false, true);
 
-        let lastTransforms = { h: null, m: null, s: null, ap: null };
+        let lastTransforms = {
+            h: null,
+            m: null,
+            s: null,
+            ap: null
+        };
         let clockIntervalId = null;
         let isClockCurrentlyVisible = false;
-        let revealTimeoutId = null; 
+        let revealTimeoutId = null;
 
         function setReelsToDefault() {
             allReels.forEach(reel => reel.classList.remove('revealing')); // Ensure no 'revealing' transition
@@ -2128,17 +2184,22 @@ document.addEventListener('DOMContentLoaded', () => {
             hourReelInner.style.transform = `translateY(-${0 * slotHeight}em)`; // 12
             minuteReelInner.style.transform = `translateY(-${0 * slotHeight}em)`; // 00
             secondReelInner.style.transform = `translateY(-${0 * slotHeight}em)`; // 00
-            ampmReelInner.style.transform = `translateY(-${0 * slotHeight}em)`;   // AM
+            ampmReelInner.style.transform = `translateY(-${0 * slotHeight}em)`; // AM
 
-            lastTransforms = { h: null, m: null, s: null, ap: null };
+            lastTransforms = {
+                h: null,
+                m: null,
+                s: null,
+                ap: null
+            };
 
             setTimeout(() => {
                 allReels.forEach((reel, index) => reel.style.transition = originalTransitions[index] || '');
-            }, 30);                                                          
+            }, 30);
         }
 
         function updateIndiaTimeReel(isReveal = false) {
-            if (!isClockCurrentlyVisible && !isReveal) return;                                                                                                                   
+            if (!isClockCurrentlyVisible && !isReveal) return;
 
             if (isReveal) {
                 allReels.forEach(reel => reel.classList.add('revealing'));
@@ -2147,11 +2208,27 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             const now = new Date();
-            const optionsBase = { timeZone: "Asia/Kolkata", hour12: true };
-            const hour24 = parseInt(now.toLocaleTimeString("en-IN", { timeZone: "Asia/Kolkata", hour12: false, hour: 'numeric' }));
-            let displayHour12 = parseInt(now.toLocaleTimeString("en-IN", { ...optionsBase, hour: 'numeric' }));
-            let displayMinute = parseInt(now.toLocaleTimeString("en-IN", { ...optionsBase, minute: 'numeric' }));
-            let displaySecond = parseInt(now.toLocaleTimeString("en-IN", { ...optionsBase, second: 'numeric' }));
+            const optionsBase = {
+                timeZone: "Asia/Kolkata",
+                hour12: true
+            };
+            const hour24 = parseInt(now.toLocaleTimeString("en-IN", {
+                timeZone: "Asia/Kolkata",
+                hour12: false,
+                hour: 'numeric'
+            }));
+            let displayHour12 = parseInt(now.toLocaleTimeString("en-IN", {
+                ...optionsBase,
+                hour: 'numeric'
+            }));
+            let displayMinute = parseInt(now.toLocaleTimeString("en-IN", {
+                ...optionsBase,
+                minute: 'numeric'
+            }));
+            let displaySecond = parseInt(now.toLocaleTimeString("en-IN", {
+                ...optionsBase,
+                second: 'numeric'
+            }));
             const currentAmpmIndex = (hour24 >= 12 && hour24 < 24) ? 1 : 0;
             const hourReelIndex = (displayHour12 === 12) ? 11 : displayHour12 - 1;
             const minuteReelIndex = displayMinute;
@@ -2188,43 +2265,47 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
 
-        const observerOptions = { root: null, rootMargin: '0px', threshold: 0.1 };
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.1
+        };
         const clockObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
-                    if (!isClockCurrentlyVisible) {                                                          
+                    if (!isClockCurrentlyVisible) {
                         isClockCurrentlyVisible = true;
 
-                                                                                                                                          
+
                         if (revealTimeoutId) clearTimeout(revealTimeoutId);
 
                         revealTimeoutId = setTimeout(() => {
-                            if (isClockCurrentlyVisible) {                                                          
-                                updateIndiaTimeReel(true);                                                         
+                            if (isClockCurrentlyVisible) {
+                                updateIndiaTimeReel(true);
                                 if (!clockIntervalId) {
                                     clockIntervalId = setInterval(() => updateIndiaTimeReel(false), 1000);
                                 }
                             }
                         }, revealAnimationDelay);
                     }
-                } else {                                                         
-                    if (isClockCurrentlyVisible) {                                                          
+                } else {
+                    if (isClockCurrentlyVisible) {
                         isClockCurrentlyVisible = false;
                         if (clockIntervalId) {
                             clearInterval(clockIntervalId);
                             clockIntervalId = null;
                         }
-                        if (revealTimeoutId) {                                                                                                                   
+                        if (revealTimeoutId) {
                             clearTimeout(revealTimeoutId);
                             revealTimeoutId = null;
                         }
-                        setReelsToDefault();                                                          
+                        setReelsToDefault();
                     }
                 }
             });
         }, observerOptions);
 
-        setReelsToDefault();                                                         
+        setReelsToDefault();
         clockObserver.observe(timeReelContainer);
     }
 
@@ -2237,16 +2318,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (topBarBookCallButton) {
         topBarBookCallButton.addEventListener('click', function(event) {
-            event.preventDefault();                                                         
+            event.preventDefault();
 
-            const targetId = this.getAttribute('href'); 
-            const scrollOffset = -80; 
+            const targetId = this.getAttribute('href');
+            const scrollOffset = -80;
 
             if (targetId && targetId !== '#') {
                 if (window.lenisInstance) {
                     window.lenisInstance.scrollTo(targetId, {
                         offset: scrollOffset,
-                        duration: 1.5                                                          
+                        duration: 1.5
                     });
                 } else {
                     const targetElement = document.querySelector(targetId);
@@ -2259,11 +2340,16 @@ document.addEventListener('DOMContentLoaded', () => {
                         });
                     }
                 }
-            } else if (targetId === '#') {                                                          
+            } else if (targetId === '#') {
                 if (window.lenisInstance) {
-                    window.lenisInstance.scrollTo(0, { duration: 1.5 });
+                    window.lenisInstance.scrollTo(0, {
+                        duration: 1.5
+                    });
                 } else {
-                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                    window.scrollTo({
+                        top: 0,
+                        behavior: 'smooth'
+                    });
                 }
             }
         });
@@ -2273,81 +2359,233 @@ document.addEventListener('DOMContentLoaded', () => {
 
 });
 document.addEventListener('DOMContentLoaded', () => {
-    const imageAndCaptionData = [
-        { src: 'images/boom.jpeg', caption: 'boom.' },
-        { src: 'images/cool.jpeg', caption: 'cool' },
-        { src: 'images/pizza time.jpeg', caption: 'it\'s pizza time!' },
-        { src: 'images/download.gif', caption: 'downloading more skills...' },
-        { src: 'images/peeky.jpeg', caption: 'peek-a-boo' },
-        { src: 'images/sigma.jpeg', caption: 'literally me' },
-        { src: 'images/rich.jpeg', caption: 'the dream' },
-        { src: 'images/pizza.jpeg', caption: 'contemplating the pizza' },
-        { src: 'images/drip.jpeg', caption: 'sheesh' }
+
+    const imageAndCaptionData = [{
+            src: 'images/boom.jpeg',
+            caption: 'boom.'
+        },
+        {
+            src: 'images/cool.jpeg',
+            caption: 'cool'
+        },
+        {
+            src: 'images/pizza time.jpeg',
+            caption: 'it\'s pizza time!'
+        },
+        {
+            src: 'images/download.gif',
+            caption: 'downloading more skills...'
+        },
+        {
+            src: 'images/peeky.jpeg',
+            caption: 'peek-a-boo'
+        },
+        {
+            src: 'images/sigma.jpeg',
+            caption: 'literally me'
+        },
+        {
+            src: 'images/rich.jpeg',
+            caption: 'the dream'
+        },
+        {
+            src: 'images/pizza.jpeg',
+            caption: 'contemplating the pizza'
+        },
+        {
+            src: 'images/drip.jpeg',
+            caption: 'sheesh'
+        }
     ];
 
     const imageElement = document.getElementById('random-portrait-img');
     const captionElement = document.getElementById('image-caption-text');
+    const imageContainer = document.querySelector('.visual-about-image');
 
-    if (imageElement && captionElement && imageAndCaptionData.length > 0) {
+    if (imageElement && captionElement && imageContainer && imageAndCaptionData.length > 0) {
+
         const randomIndex = Math.floor(Math.random() * imageAndCaptionData.length);
         const randomData = imageAndCaptionData[randomIndex];
 
         imageElement.src = randomData.src;
         captionElement.textContent = randomData.caption;
+
+        imageContainer.style.setProperty(
+            '--bg-image',
+            `url("${randomData.src}")`
+        );
     }
+
+    const textTargets = document.querySelectorAll(
+        '.about-intro, .about-label-col FW, .about-text-col p'
+    );
+
+    textTargets.forEach(element => {
+
+        const words = element.textContent.trim().split(' ');
+        element.innerHTML = '';
+
+        words.forEach((word, index) => {
+
+            /* wrapper */
+            const wrap = document.createElement('span');
+            wrap.classList.add('word-wrap');
+
+            /* animated word */
+            const span = document.createElement('span');
+            span.classList.add('word-reveal');
+
+            span.textContent = word;
+            span.style.animationDelay = `${index * 0.05}s`;
+
+            wrap.appendChild(span);
+
+            element.appendChild(wrap);
+            element.appendChild(document.createTextNode(' '));
+
+        });
+
+    });
+
+    setTimeout(() => {
+
+        const observer = new IntersectionObserver(
+            (entries) => {
+
+                entries.forEach(entry => {
+
+                    if (entry.isIntersecting) {
+
+                        imageContainer.classList.add('reveal-active');
+
+                        const words = document.querySelectorAll('.word-reveal');
+
+                        words.forEach(word => {
+                            word.classList.add('reveal-word');
+                        });
+
+                        observer.unobserve(entry.target);
+
+                    }
+
+                });
+
+            }, {
+                threshold: 0.35
+            }
+        );
+
+        observer.observe(document.querySelector('.visual-about-section'));
+
+    }, 3500);
+
 });
 
 function saveUserID(id) {
-  localStorage.setItem("discordUserID", id);
+    localStorage.setItem("discordUserID", id);
 }
+
 function getSavedUserID() {
-  return localStorage.getItem("discordUserID");
+    return localStorage.getItem("discordUserID");
 }
+
 function editUserID() {
-  document.querySelectorAll('.spinning-avatar').forEach(el => el.style.opacity = '0.05');
- document.getElementById("cardData").style.display = "none";
-  document.getElementById("discordEditArea").style.display = "block";
-  card.setAttribute("data-has-content", "false");
-   document.getElementById("discordUserIDInput").value = "";
-  localStorage.removeItem("discordUserID");
+    document.querySelectorAll('.spinning-avatar').forEach(el => el.style.opacity = '0.05');
+    document.getElementById("cardData").style.display = "none";
+    document.getElementById("discordEditArea").style.display = "block";
+    card.setAttribute("data-has-content", "false");
+    document.getElementById("discordUserIDInput").value = "";
+    localStorage.removeItem("discordUserID");
 }
 async function fetchDiscordCardData(userID) {
-  document.querySelectorAll('.spinning-avatar').forEach(el => el.style.opacity = '0.7');
-  const res = await fetch(`https://discord-lookup-api-new-liard.vercel.app/v1/user/${userID}`);
-  const data = await res.json();
+    document.querySelectorAll('.spinning-avatar').forEach(el => el.style.opacity = '0.7');
+    const res = await fetch(`https://discord-lookup-api-new-liard.vercel.app/v1/user/${userID}`);
+    const data = await res.json();
 
-  document.querySelector("#cardPfp").src = data.avatar.link;
-  if (data.avatar_decoration?.asset) {
-    document.querySelector("#cardDecoration").src = `https://cdn.discordapp.com/avatar-decoration-presets/${data.avatar_decoration.asset}.png`;
-  } else {
-    document.querySelector("#cardDecoration").style.display = 'none';
-  }
-  document.querySelector(".card-username").textContent = `@${data.username}`;
-  document.querySelector(".card-global-name").textContent = data.global_name;
+    document.querySelector("#cardPfp").src = data.avatar.link;
+    if (data.avatar_decoration?.asset) {
+        document.querySelector("#cardDecoration").src = `https://cdn.discordapp.com/avatar-decoration-presets/${data.avatar_decoration.asset}.png`;
+    } else {
+        document.querySelector("#cardDecoration").style.display = 'none';
+    }
+    document.querySelector(".card-username").textContent = `@${data.username}`;
+    document.querySelector(".card-global-name").textContent = data.global_name;
 
-  document.querySelector(".spinning-avatar.top-left").style.backgroundImage = `url('${data.avatar.link}')`;
-  document.querySelector(".spinning-avatar.bottom-right").style.backgroundImage = `url('${data.avatar.link}')`;
+    document.querySelector(".spinning-avatar.top-left").style.backgroundImage = `url('${data.avatar.link}')`;
+    document.querySelector(".spinning-avatar.bottom-right").style.backgroundImage = `url('${data.avatar.link}')`;
 
-  document.querySelector(".spinning-avatar.bottom-right").style.backgroundImage = `url('${data.avatar.link}')`;
+    document.querySelector(".spinning-avatar.bottom-right").style.backgroundImage = `url('${data.avatar.link}')`;
 
-  document.getElementById("cardData").style.display = "flex";
+    document.getElementById("cardData").style.display = "flex";
     document.getElementById("discordEditArea").style.display = "none";
 }
 
 document.getElementById("fetchDiscordData").addEventListener("click", () => {
-  const userID = document.getElementById("discordUserIDInput").value.trim();
-  if (userID) {
-    saveUserID(userID);
-    fetchDiscordCardData(userID);
-  }
+    const userID = document.getElementById("discordUserIDInput").value.trim();
+    if (userID) {
+        saveUserID(userID);
+        fetchDiscordCardData(userID);
+    }
 });
 
 window.addEventListener("DOMContentLoaded", () => {
-  const savedID = getSavedUserID();
-  if (savedID) {
-    fetchDiscordCardData(savedID);
-  } else {
-    document.getElementById("cardData").style.display = "none";
-    document.getElementById("discordEditArea").style.display = "block";
-  }
+    const savedID = getSavedUserID();
+    if (savedID) {
+        fetchDiscordCardData(savedID);
+    } else {
+        document.getElementById("cardData").style.display = "none";
+        document.getElementById("discordEditArea").style.display = "block";
+    }
 });
+const flyElements = document.querySelectorAll('.fly-reveal');
+
+setTimeout(() => {
+
+    flyElements.forEach((element, index) => {
+
+        setTimeout(() => {
+
+            requestAnimationFrame(() => {
+                element.classList.add('fly-active');
+            });
+
+        }, index * 120);
+
+    });
+
+}, 2500);
+
+const wipeHeadings = document.querySelectorAll('.wipe-heading');
+
+setTimeout(() => {
+
+    wipeHeadings.forEach(heading => {
+
+        let revealed = false;
+
+        function checkFocus() {
+
+            if (revealed) return;
+
+            const rect = heading.getBoundingClientRect();
+
+            const viewportCenter = window.innerHeight * 0.5;
+            const elementCenter = rect.top + rect.height * 0.5;
+
+            if (elementCenter < viewportCenter + 60) {
+
+                revealed = true;
+
+                heading.classList.add('reveal-active');
+
+                window.removeEventListener('scroll', checkFocus);
+            }
+        }
+
+        window.addEventListener('scroll', checkFocus);
+
+        checkFocus();
+
+    });
+
+}, 2500);
