@@ -2241,22 +2241,18 @@ fw {
     background-color: rgba(0, 0, 0, 0.03);
     opacity: 0;
     transform: translateY(60px);
-    filter: blur(8px);
     visibility: visible;
     position: relative;
     transition:
         opacity 1s cubic-bezier(0.22, 1, 0.36, 1),
-        transform 1s cubic-bezier(0.22, 1, 0.36, 1),
-        filter 1s cubic-bezier(0.22, 1, 0.36, 1);
+        transform 1s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .mobile-mode .testimonial-item.mobile-visible {
     opacity: 1;
     transform: translateY(0px);
-    filter: blur(0px);
 }
 
-/* image area */
 .mobile-mode .testimonial-image-area {
     order: 1;
     width: 100%;
@@ -2277,7 +2273,7 @@ fw {
 .mobile-mode .testimonial-image {
     width: 100%;
     height: 100%;
-
+    filter: blur(8px);
     object-fit: cover;
     display: block;
     clip-path: inset(100% 0 0 0);
@@ -2285,12 +2281,15 @@ fw {
     will-change: clip-path, transform;
     transition:
         clip-path 1.2s cubic-bezier(0.19, 1, 0.22, 1),
+        filter 1s cubic-bezier(0.22, 1, 0.36, 1)
         transform 1.8s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .mobile-mode .testimonial-item.mobile-visible .testimonial-image {
     clip-path: inset(0 0 0 0);
     transform: scale(1);
+    filter: blur(0px);
+
 }
 
 .mobile-mode .testimonial-content {
