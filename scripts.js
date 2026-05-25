@@ -1692,57 +1692,57 @@ function initTestimonialSlider() {
     let isAnimating = false;
 
     function setMode() {
-        const isDesktop = window.matchMedia("(min-width: 850px)").matches;
-        section.classList.toggle('desktop-mode', isDesktop);
-        section.classList.toggle('mobile-mode', !isDesktop);
 
-        items.forEach(item => {
-            const quote = item.querySelector('.testimonial-quote');
-            const text = quote.getAttribute('data-text') || quote.innerText.trim().replace(/^"|"$/g, '');
-            if (isDesktop) {
-                quote.setAttribute('data-text', text);
-                quote.innerHTML = text.split(' ').map((word, i) =>
-                    `<span class="word-wrapper"><span class="word" style="--word-index: ${i}">${word}</span></span>`
-                ).join(' ');
-            } else {
-                quote.innerHTML = text.split(' ').map((word, i) =>
-                    `<span class="word-wrapper"><span class="word" style="--word-index:${i}">${word}</span></span>`
-                ).join(' ');
-            }
-        });
-        const mobileObserver = new IntersectionObserver(
-            (entries) => {
+    const isDesktop = window.matchMedia("(min-width: 850px)").matches;
 
-                entries.forEach(entry => {
+    section.classList.toggle('desktop-mode', isDesktop);
+    section.classList.toggle('mobile-mode', !isDesktop);
 
-                    if (
-                        entry.isIntersecting &&
-                        entry.intersectionRatio > 0.6 &&
-                        section.classList.contains('mobile-mode')
-                    ) {
+    items.forEach(item => {
 
-                        entry.target.classList.add('mobile-visible');
+        const quote = item.querySelector('.testimonial-quote');
 
-                        mobileObserver.unobserve(entry.target);
-                    }
+        if (!quote.dataset.processed) {
 
-                });
+            const text =
+                quote.getAttribute('data-text') ||
+                quote.innerText.trim().replace(/^"|"$/g, '');
 
-            }, {
-                threshold: [0.6]
-            }
-        );
+            quote.innerHTML = text.split(' ').map((word, i) =>
+                `<span class="word-wrapper"><span class="word" style="--word-index:${i}">${word}</span></span>`
+            ).join(' ');
 
-        items.forEach(item => {
-            mobileObserver.observe(item);
-        });
-        if (isDesktop) {
-            items.forEach((item, i) => {
-                item.classList.toggle('active', i === currentIndex);
-                item.classList.remove('is-leaving');
-            });
+            quote.dataset.processed = "true";
+
         }
+
+    });
+
+    if (!isDesktop) {
+
+        items.forEach(item => {
+
+            if (!animatedItems.has(item)) {
+                mobileObserver.observe(item);
+            }
+
+        });
+
     }
+
+    if (isDesktop) {
+
+        items.forEach((item, i) => {
+
+            item.classList.toggle('active', i === currentIndex);
+
+            item.classList.remove('is-leaving');
+
+        });
+
+    }
+
+}
 
     function navigate(newIndex) {
         if (isAnimating || !section.classList.contains('desktop-mode')) return;
