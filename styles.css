@@ -2281,7 +2281,7 @@ fw {
     will-change: clip-path, transform;
     transition:
         clip-path 1.2s cubic-bezier(0.19, 1, 0.22, 1),
-        filter 1s cubic-bezier(0.22, 1, 0.36, 1)
+        filter 1s cubic-bezier(0.22, 1, 0.36, 1),
         transform 1.8s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
