@@ -1682,16 +1682,55 @@ function initBackToTop() {
 }
 
 function initTestimonialSlider() {
+
     const section = document.querySelector('.testimonials-section');
     if (!section) return;
 
     const items = Array.from(section.querySelectorAll('.testimonial-item'));
+
     const nextBtn = document.getElementById('testimonialNext');
     const prevBtn = document.getElementById('testimonialPrev');
+
     let currentIndex = 0;
     let isAnimating = false;
 
-    function setMode() {
+    const animatedItems = new WeakSet();
+
+    const mobileObserver = new IntersectionObserver(
+
+        (entries) => {
+
+            entries.forEach(entry => {
+
+                if (
+                    entry.isIntersecting &&
+                    entry.intersectionRatio > 0.6 &&
+                    section.classList.contains('mobile-mode')
+                ) {
+
+                    if (!animatedItems.has(entry.target)) {
+
+                        entry.target.classList.add('mobile-visible');
+
+                        animatedItems.add(entry.target);
+
+                        mobileObserver.unobserve(entry.target);
+
+                    }
+
+                }
+
+            });
+
+        },
+
+        {
+            threshold: [0.6]
+        }
+
+    );
+
+function setMode() {
 
     const isDesktop = window.matchMedia("(min-width: 850px)").matches;
 
@@ -1745,7 +1784,12 @@ function initTestimonialSlider() {
 }
 
     function navigate(newIndex) {
-        if (isAnimating || !section.classList.contains('desktop-mode')) return;
+
+        if (
+            isAnimating ||
+            !section.classList.contains('desktop-mode')
+        ) return;
+
         isAnimating = true;
 
         const oldItem = items[currentIndex];
@@ -1755,24 +1799,43 @@ function initTestimonialSlider() {
         oldItem.classList.remove('active');
 
         newItem.classList.remove('is-leaving');
+
         void newItem.offsetWidth;
+
         newItem.classList.add('active');
 
         currentIndex = newIndex;
 
         setTimeout(() => {
+
             oldItem.classList.remove('is-leaving');
+
             isAnimating = false;
+
         }, 800);
+
     }
 
     window.addEventListener('resize', setMode);
-    nextBtn?.addEventListener('click', () => navigate((currentIndex + 1) % items.length));
-    prevBtn?.addEventListener('click', () => navigate((currentIndex - 1 + items.length) % items.length));
+
+    nextBtn?.addEventListener(
+        'click',
+        () => navigate((currentIndex + 1) % items.length)
+    );
+
+    prevBtn?.addEventListener(
+        'click',
+        () => navigate((currentIndex - 1 + items.length) % items.length)
+    );
 
     setMode();
+
 }
-document.addEventListener('DOMContentLoaded', initTestimonialSlider);
+
+document.addEventListener(
+    'DOMContentLoaded',
+    initTestimonialSlider
+);
 
 document.addEventListener('DOMContentLoaded', () => {
     const linksWithIcons = document.querySelectorAll('.connections-column a[data-icon]');
